@@ -10,7 +10,7 @@ export default withMDX({
   },
   images: {
     loader: 'custom',
-    loaderFile: './lib/imgix-loader.ts',
+    loaderFile: './src/lib/imgix-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',

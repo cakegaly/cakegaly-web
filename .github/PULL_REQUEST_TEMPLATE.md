@@ -1,6 +1,6 @@
 ## Issue Number
 
-- closes:
+- closes: #
 
 ## What's changed?
 
