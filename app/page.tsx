@@ -8,7 +8,7 @@ export default async function TopPage() {
   const { contents } = await getPosts();
 
   return (
-    <section className="container max-w-screen-lg">
+    <section className="container max-w-screen-lg py-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {contents.map((post, index) => {
           return (

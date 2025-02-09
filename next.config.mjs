@@ -9,6 +9,8 @@ export default withMDX({
     tsconfigPath: 'tsconfig.build.json',
   },
   images: {
+    loader: 'custom',
+    loaderFile: './lib/imgix-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',
