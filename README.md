@@ -7,7 +7,7 @@
 - **[Next.js](https://nextjs.org/)**
 - **[Tailwind CSS](https://tailwindcss.com/)**
 - **[shadcn/ui](https://ui.shadcn.com/)**
-<!-- - **[MDX](https://mdxjs.com/)** -->
+- **[MDX](https://mdxjs.com/)**
 <!-- - **[Storybook](https://storybook.js.org/)** -->
 - **ESLint + Prettier**
 
@@ -50,15 +50,3 @@ Follow these steps to get the application up and running on your local machine:
    ```
 
 7. Visit `http://localhost:6006` in your browser to see storybook in action. -->
-
-## Usage
-
-### Preparation before starting development
-
-This repository includes `cakegaly-web.code-workspace` file that defines the recommended settings and extensions for a smooth development experience.
-
-To use it, follow these steps:
-
-1. Open the project folder in VSCode.
-2. Open `cakegaly-web.code-workspace` file & Select "Open Workspace" button to load the workspace configuration.
-3. Install **VSCode extensions recommended by `cakegaly-web.code-workspace`**
