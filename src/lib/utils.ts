@@ -17,7 +17,7 @@ export function formatDate(input: string | number): string {
     .replaceAll('/', '.');
 }
 
-export function absoluteUrl(path: string) {
+export function absoluteUrl(path: string): string {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
 
