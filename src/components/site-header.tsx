@@ -12,6 +12,7 @@ export function SiteHeader() {
             width="40"
             height="40"
             title="logo"
+            className="rounded-full"
           />
           <span className="sr-only">Home</span>
         </Link>

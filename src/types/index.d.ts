@@ -18,6 +18,7 @@ export type SiteConfig = {
     github: string;
   };
   copyRight: string;
+  email: string;
 };
 
 declare global {
