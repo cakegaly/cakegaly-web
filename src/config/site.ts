@@ -10,4 +10,5 @@ export const siteConfig: SiteConfig = {
     github: 'https://github.com/cakegaly',
   },
   copyRight: 'cakegaly',
+  email: 'cakegaly@gmail.com',
 };
