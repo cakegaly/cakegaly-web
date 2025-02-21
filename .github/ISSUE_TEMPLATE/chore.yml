@@ -1,14 +1,14 @@
-name: Feature Issue
-description: Add a Feature issue
-title: '[Feat]: '
-labels: ['enhancement']
+name: Chore Issue
+description: Add a Chore issue
+title: '[Chore]: '
+labels: ['chore']
 assignees:
   - octocat
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out feature issue!
+        Thanks for taking the time to fill out chore issue!
   - type: textarea
     id: issue-detail
     attributes:
