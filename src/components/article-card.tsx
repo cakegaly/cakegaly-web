@@ -1,8 +1,8 @@
-import { CustomImage } from '@/components/custom-image';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Article } from '@/lib/microcms';
 import { formatDate } from '@/lib/utils';
+import Image from 'next/image';
 
 interface ArticleCardProps {
   article: Article;
@@ -13,7 +13,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
   return (
     <Card className="hover:opacity-50">
       {article.thumbnail && (
-        <CustomImage
+        <Image
           src={article.thumbnail.url}
           className="aspect-video w-full overflow-hidden rounded-t-md object-cover"
           width={article.thumbnail.width}

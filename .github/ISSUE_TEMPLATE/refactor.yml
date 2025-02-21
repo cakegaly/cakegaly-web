@@ -1,7 +1,7 @@
 name: Refactor Issue
 description: Add a Refactor issue
 title: '[Refactor]: '
-labels: ['enhancement']
+labels: ['refactor']
 assignees:
   - octocat
 body:
@@ -9,20 +9,12 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out refactoring issue!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
-    id: what-happened
+    id: issue-detail
     attributes:
       label: What happened?
       description: Also tell us, what did you expect to happen?
       placeholder: Tell us what you see!
-      value: 'Refactor ui components!'
+      value: '- '
     validations:
       required: true
