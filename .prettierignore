@@ -3,14 +3,6 @@ build
 coverage
 yarn.lock
 
-# config
-.eslintrc.json
-.prettierrc
-# next.config.mjs
-# tailwind.config.ts
-tsconfig.json
-postcss.config.js
-
 # dotfile
 .env*
 
