@@ -1,6 +1,5 @@
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
-import { Toaster } from '@/components/ui/sonner';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
@@ -67,7 +66,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <SiteFooter />
         </div>
-        <Toaster className="bg-primary" />
+        {/* <Toaster className="bg-primary" /> */}
         {/* </ThemeProvider> */}
       </body>
     </html>
