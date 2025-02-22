@@ -7,11 +7,10 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 import tsEslint from 'typescript-eslint';
 
 export default [
-  eslint.configs.recommended,
-  eslintConfigNext(),
-  tsEslint.configs.recommended,
   {
     files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+  },
+  {
     ignores: [
       '**/build/',
       '**/bin/',
@@ -21,6 +20,11 @@ export default [
       '**/.next/',
       '**/node_modules/',
     ],
+  },
+  eslint.configs.recommended,
+  eslintConfigNext(),
+  tsEslint.configs.recommended,
+  {
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
