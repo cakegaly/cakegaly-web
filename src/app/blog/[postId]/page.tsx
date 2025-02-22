@@ -9,15 +9,13 @@ import { notFound } from 'next/navigation';
 export const revalidate = 86400;
 
 interface BlogPostPageProps {
-  params: {
-    postId: string;
-  };
+  params: Promise<{ postId: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const postId = params.postId;
+  const { postId } = await params;
   const post = await getPost(postId);
   if (!post) {
     return {};
@@ -63,7 +61,7 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const postId = params.postId;
+  const { postId } = await params;
   const post = await getPost(postId, {});
   if (!post) {
     notFound();
