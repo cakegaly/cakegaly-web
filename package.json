@@ -24,8 +24,6 @@
     "@types/mdx": "^2.0.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "embla-carousel-autoplay": "^8.5.2",
-    "embla-carousel-react": "^8.5.2",
     "html-react-parser": "^4.2.10",
     "lucide-react": "^0.414.0",
     "microcms-js-sdk": "^3.1.2",
