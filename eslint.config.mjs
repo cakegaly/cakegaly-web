@@ -1,8 +1,9 @@
-// @ts-ignore
+// @ts-check
 
-import eslint from '@eslint/js';
-import eslintConfigNext from 'eslint-config-next';
+import eslintPluginNext from '@next/eslint-plugin-next';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginReact from 'eslint-plugin-react';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import tsEslint from 'typescript-eslint';
 
@@ -21,8 +22,19 @@ export default [
       '**/node_modules/',
     ],
   },
-  eslint.configs.recommended,
-  eslintConfigNext(),
+  eslintPluginReact.configs.flat.recommended,
+  eslintPluginReact.configs.flat['jsx-runtime'],
+  {
+    plugins: {
+      'react-hooks': eslintPluginReactHooks,
+      '@next': eslintPluginNext,
+    },
+    ...eslintPluginReactHooks.configs.recommended.rules,
+    ...eslintPluginNext.configs.recommended.rules,
+    ...eslintPluginNext.configs['core-web-vitals'].rules,
+    '@next/next/no-img-element': 'error',
+    'react/prop-types': 'off',
+  },
   tsEslint.configs.recommended,
   {
     languageOptions: {
