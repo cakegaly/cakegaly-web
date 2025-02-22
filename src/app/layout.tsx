@@ -58,7 +58,7 @@ export default function RootLayout({
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontNotoSansJp.variable,
+          fontNotoSansJp.variable
         )}
       >
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
