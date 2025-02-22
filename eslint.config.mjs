@@ -11,8 +11,16 @@ export default [
   eslintConfigNext(),
   tsEslint.configs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx'],
-    ignores: ['node_modules/', '.next/', 'public/'],
+    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+    ignores: [
+      '**/build/',
+      '**/bin/',
+      '**/dist/',
+      '**/obj/',
+      '**/out/',
+      '**/.next/',
+      '**/node_modules/',
+    ],
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
