@@ -1,10 +1,5 @@
-import { InstagramEmbed } from '@/components/instagram-embed';
 import clsx from 'clsx';
-import parse, {
-  Element,
-  HTMLReactParserOptions,
-  domToReact,
-} from 'html-react-parser';
+import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
 import { FunctionComponent } from 'react';
 
 type RichEditorProps = {
@@ -16,18 +11,6 @@ type Replace = NonNullable<HTMLReactParserOptions['replace']>;
 
 const replace: Replace = (domNode) => {
   if (!(domNode instanceof Element)) return;
-
-  if (
-    domNode.name === 'blockquote' &&
-    domNode.attribs.class === 'instagram-media'
-  ) {
-    return (
-      <InstagramEmbed
-        attribs={domNode.attribs}
-        childNodes={domToReact(domNode.children)}
-      />
-    );
-  }
 
   if (domNode.name === 'script') {
     return <></>;
