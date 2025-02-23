@@ -1,12 +1,13 @@
-import { RichEditor } from '@/components/rich-editor';
-import { siteConfig } from '@/config/site';
-import { getPost, getPosts } from '@/lib/microcms';
-import { absoluteUrl, formatDate } from '@/lib/utils';
-import { Metadata } from 'next';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 86400;
+import { siteConfig } from '@/config/site';
+
+import { Metadata } from 'next';
+import Image from 'next/image';
+
+import { RichEditor } from '@/components/rich-editor';
+import { getBlogPost, getBlogPosts } from '@/lib/microcms';
+import { absoluteUrl, formatDate, truncateText } from '@/lib/utils';
 
 interface BlogPostPageProps {
   params: Promise<{ postId: string }>;
@@ -16,13 +17,15 @@ export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { postId } = await params;
-  const post = await getPost(postId);
+  const post = await getBlogPost(postId);
   if (!post) {
     return {};
   }
 
-  const description =
-    post.description.replace(/<[^>]+>/g, '').substring(0, 110) + '…';
+  const description = truncateText(
+    post.description.replace(/<[^>]+>/g, ''),
+    110
+  );
 
   return {
     title: post.title,
@@ -51,7 +54,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const { contents } = await getPosts();
+  const { contents } = await getBlogPosts();
   const paths = contents.map((post) => {
     return {
       postId: post.id,
@@ -62,7 +65,7 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { postId } = await params;
-  const post = await getPost(postId, {});
+  const post = await getBlogPost(postId, {});
   if (!post) {
     notFound();
   }
