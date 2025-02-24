@@ -1,21 +1,26 @@
-import Link from 'next/link';
-
-import { ArticleCard } from '@/components/article-card';
-import { getBlogPosts } from '@/lib/microcms';
+import { BlogCard } from '@/components/blog-card';
+import { siteConfig } from '@/config/site';
+import { getBlogPosts } from '@/lib/mdx';
+import { blurImageUrl } from '@/lib/utils';
 
 export default async function TopPage() {
-  const { contents } = await getBlogPosts();
+  const contents = await getBlogPosts();
+  const articles = await Promise.all(
+    // TODO: pagination or categorize
+    contents.map(async (post) => ({
+      ...post,
+      blurDataURL: await blurImageUrl(
+        post.metadata.thumbnail ?? siteConfig.ogImage
+      ),
+    }))
+  );
 
   return (
     <section className="container max-w-screen-lg py-6">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {contents.map((post, index) => {
-          return (
-            <Link key={post.id} href={`/blog/${post.id}`}>
-              <ArticleCard article={post} priority={index <= 1} />
-            </Link>
-          );
-        })}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {articles.map((article, index) => (
+          <BlogCard key={index} data={article} priority={index <= 2} />
+        ))}
       </div>
     </section>
   );
