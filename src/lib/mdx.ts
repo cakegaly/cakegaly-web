@@ -4,17 +4,18 @@ import path from 'path';
 
 import { components } from '@/components/mdx-components';
 
-type Frontmatter = {
+export type Frontmatter<T = {}> = {
   title: string;
   date: string;
-  [key: string]: unknown;
-};
+} & T;
 
-type MDXData = {
-  metadata: Frontmatter;
+export type MDXData<T = {}> = {
+  metadata: Frontmatter<T>;
   slug: string;
   content: React.ReactNode;
 };
+
+export type BlogPost = MDXData;
 
 const getMDXFiles = (dir: string): string[] =>
   fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
@@ -40,5 +41,5 @@ const getMDXData = async (dir: string): Promise<MDXData[]> => {
   return Promise.all(mdxFiles.map((file) => readMDXFile(path.join(dir, file))));
 };
 
-export const getMDXPosts = async (): Promise<MDXData[]> =>
+export const getBlogPosts = async (): Promise<BlogPost[]> =>
   getMDXData(path.join(process.cwd(), 'src/content/blog'));

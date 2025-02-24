@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { siteConfig } from '@/config/site';
-import { getMDXPosts } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const revalidate = false;
@@ -11,7 +11,7 @@ interface BlogPostPageProps {
 }
 
 async function getPostFromSlug(postId: string) {
-  const contents = await getMDXPosts();
+  const contents = await getBlogPosts();
   const post = contents.find((post) => post.slug === postId);
   if (!post) {
     return null;
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export async function generateStaticParams() {
-  const contents = await getMDXPosts();
+  const contents = await getBlogPosts();
   const paths = contents.map((post) => {
     return {
       postId: post.slug,
