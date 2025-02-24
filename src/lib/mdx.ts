@@ -18,7 +18,10 @@ export type MDXData<T = {}> = {
 export type BlogPost = MDXData;
 
 const getMDXFiles = (dir: string): string[] =>
-  fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+  fs
+    .readdirSync(dir)
+    .filter((file) => fs.statSync(path.join(dir, file)).isDirectory())
+    .map((subDir) => path.join(dir, subDir, 'index.mdx'));
 
 const readMDXFile = async (filePath: string): Promise<MDXData> => {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
@@ -31,14 +34,14 @@ const readMDXFile = async (filePath: string): Promise<MDXData> => {
 
   return {
     metadata: frontmatter,
-    slug: path.basename(filePath, path.extname(filePath)),
+    slug: path.basename(path.dirname(filePath)),
     content,
   };
 };
 
 const getMDXData = async (dir: string): Promise<MDXData[]> => {
   const mdxFiles = getMDXFiles(dir);
-  return Promise.all(mdxFiles.map((file) => readMDXFile(path.join(dir, file))));
+  return Promise.all(mdxFiles.map((file) => readMDXFile(file)));
 };
 
 export const getBlogPosts = async (): Promise<BlogPost[]> =>
