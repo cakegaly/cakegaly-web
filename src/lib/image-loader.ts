@@ -1,6 +1,6 @@
 import { ImageLoader, ImageLoaderProps } from 'next/image';
 
-export const microCMSLoader: ImageLoader = ({
+const microCMSLoader: ImageLoader = ({
   src,
   width,
   quality,
@@ -19,7 +19,9 @@ export const microCMSLoader: ImageLoader = ({
   return url.href;
 };
 
-export const localLoader: ImageLoader = ({ src }: ImageLoaderProps) => src;
+const localLoader: ImageLoader = ({ src, width }: ImageLoaderProps) => {
+  return `${src}?w=${width}`;
+};
 
 const customLoader: ImageLoader = ({
   src,

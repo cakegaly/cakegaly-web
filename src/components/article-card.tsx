@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Article } from '@/lib/microcms';
+import { BlogPost } from '@/lib/microcms';
 import { formatDate } from '@/lib/utils';
 import Image from 'next/image';
 
 interface ArticleCardProps {
-  article: Article;
+  article: BlogPost;
   priority?: boolean;
 }
 

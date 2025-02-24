@@ -1,11 +1,10 @@
-import { ArticleCard } from '@/components/article-card';
-import { getPosts } from '@/lib/microcms';
 import Link from 'next/link';
 
-export const revalidate = 3600;
+import { ArticleCard } from '@/components/article-card';
+import { getBlogPosts } from '@/lib/microcms';
 
 export default async function TopPage() {
-  const { contents } = await getPosts();
+  const { contents } = await getBlogPosts();
 
   return (
     <section className="container max-w-screen-lg py-6">

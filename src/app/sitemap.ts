@@ -1,8 +1,5 @@
 import { MetadataRoute } from 'next';
 
-// cache for 24 hours
-export const revalidate = 86400;
-
 /**
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap#generating-multiple-sitemaps
  */

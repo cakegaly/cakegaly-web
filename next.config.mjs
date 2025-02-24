@@ -1,10 +1,7 @@
-import nextMDX from '@next/mdx';
+import createMDX from '@next/mdx';
 
-const withMDX = nextMDX({
-  extension: /\.mdx?$/,
-});
-
-export default withMDX({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },
@@ -19,4 +16,14 @@ export default withMDX({
     ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+};
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
 });
+
+export default withMDX(nextConfig);
