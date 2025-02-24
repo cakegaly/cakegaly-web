@@ -1,6 +1,6 @@
 import { ImageLoader, ImageLoaderProps } from 'next/image';
 
-export const microCMSLoader: ImageLoader = ({
+const microCMSLoader: ImageLoader = ({
   src,
   width,
   quality,
