@@ -1,52 +1,53 @@
 import { notFound } from 'next/navigation';
 
+import { Mdx } from '@/components/mdx-components';
 import { siteConfig } from '@/config/site';
-
-import { Metadata } from 'next';
-import Image from 'next/image';
-
-import { RichEditor } from '@/components/rich-editor';
-import { getBlogPost, getBlogPosts } from '@/lib/microcms';
-import { absoluteUrl, formatDate, truncateText } from '@/lib/utils';
+import { getMDXPosts } from '@/lib/mdx';
+import { absoluteUrl, formatDate } from '@/lib/utils';
 
 interface BlogPostPageProps {
   params: Promise<{ postId: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: BlogPostPageProps): Promise<Metadata> {
+async function getPostFromSlug(postId: string) {
+  const contents = await getMDXPosts();
+  const post = contents.find((post) => post.slug === postId);
+  if (!post) {
+    null;
+  }
+  return post;
+}
+
+export async function generateMetadata({ params }: BlogPostPageProps) {
   const { postId } = await params;
-  const post = await getBlogPost(postId);
+  const post = await getPostFromSlug(postId);
   if (!post) {
     return {};
   }
 
-  const description = truncateText(
-    post.description.replace(/<[^>]+>/g, ''),
-    110
-  );
+  const description =
+    '概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です';
 
   return {
-    title: post.title,
+    title: post.metadata.title,
     description: description,
     openGraph: {
-      title: post.title,
+      title: post.metadata.title,
       description: description,
       type: 'article',
-      url: absoluteUrl(`/blog/${post.id}`),
+      url: absoluteUrl(`/blog/${post.slug}`),
       images: [
         {
           url: siteConfig.ogImage,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: post.metadata.title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
+      title: post.metadata.title,
       description: description,
       images: [siteConfig.ogImage],
     },
@@ -54,10 +55,10 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const { contents } = await getBlogPosts();
+  const contents = await getMDXPosts();
   const paths = contents.map((post) => {
     return {
-      postId: post.id,
+      postId: post.slug,
     };
   });
   return paths;
@@ -65,37 +66,27 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { postId } = await params;
-  const post = await getBlogPost(postId, {});
+  const post = await getPostFromSlug(postId);
+
   if (!post) {
     notFound();
   }
 
   return (
     <article className="container max-w-screen-lg">
-      {post.createdAt && (
+      {post.metadata.date && (
         <time
-          dateTime={post.createdAt}
+          dateTime={post.metadata.date}
           className="block text-sm text-muted-foreground"
         >
-          Published on {formatDate(post.createdAt)}
+          Published on {formatDate(post.metadata.date)}
         </time>
       )}
-      <h1 className="mt-2 inline-block text-3xl leading-tight">{post.title}</h1>
-      {post.thumbnail && (
-        <Image
-          src={post.thumbnail.url}
-          className="mx-auto aspect-video overflow-hidden object-cover md:w-full md:rounded-md"
-          width={post.thumbnail.width}
-          height={post.thumbnail.height}
-          alt={post.title}
-          priority={true}
-        />
-      )}
-      <div className="my-6 max-w-none gap-6">
-        {post.description && (
-          <RichEditor className="mb-8" html={post.description as string} />
-        )}
-      </div>
+      <h1 className="mt-2 inline-block text-3xl leading-tight">
+        {post.metadata.title}
+      </h1>
+
+      <Mdx code={post.content} />
     </article>
   );
 }
