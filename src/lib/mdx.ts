@@ -51,4 +51,4 @@ const parseFrontmatter = (
 };
 
 export const getMDXPosts = async (): Promise<MDXData[]> =>
-  getMDXData(path.join(process.cwd(), 'src/content/mdx-post'));
+  getMDXData(path.join(process.cwd(), 'src/content/blog'));

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-// import { Callout } from '@/components/callout';
+import { Callout } from '@/components/callout';
 import { cn } from '@/lib/utils';
 import { MDXComponents } from 'mdx/types';
 import { compileMDX } from 'next-mdx-remote/rsc';
@@ -151,7 +151,7 @@ const components: MDXComponents = {
     );
   },
   Image,
-  // Callout,
+  Callout,
   // Card: MdxCard,
 } as MDXComponents;
 
