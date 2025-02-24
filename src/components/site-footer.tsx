@@ -1,8 +1,9 @@
+import Link from 'next/link';
+
 import { Icons } from '@/components/icons';
 import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
@@ -17,6 +18,8 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           {siteConfig.links.twitter && (
             <Link
               href={siteConfig.links.twitter}
+              target="_blank"
+              rel="noreferrer"
               className={buttonVariants({ variant: 'outline', size: 'icon' })}
               aria-label="Twitter"
               title="Twitter (@cakegaly)"
@@ -28,6 +31,8 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <Link
               href={`mailto:${siteConfig.email}`}
               className={buttonVariants({ variant: 'outline', size: 'icon' })}
+              target="_blank"
+              rel="noreferrer"
               aria-label="Email"
               title="Email (cakegaly -at- gmail -dot- com)"
             >
@@ -38,6 +43,8 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <Link
               href={siteConfig.links.github}
               className={buttonVariants({ variant: 'outline', size: 'icon' })}
+              target="_blank"
+              rel="noreferrer"
               aria-label="GitHub"
               title="GitHub (/cakegaly)"
             >

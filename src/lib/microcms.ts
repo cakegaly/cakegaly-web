@@ -4,14 +4,6 @@ import type {
   MicroCMSQueries,
 } from 'microcms-js-sdk';
 import { createClient } from 'microcms-js-sdk';
-import { notFound } from 'next/navigation';
-
-export type Article = {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail?: MicroCMSImage;
-} & MicroCMSDate;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is required');
@@ -26,37 +18,39 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
 });
 
-export async function getPosts(queries?: MicroCMSQueries) {
-  try {
-    const articles = await client.getList<Article>({
-      customRequestInit: {
-        next: {
-          revalidate: 3600,
-        },
+export type BlogPost = {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail?: MicroCMSImage;
+} & MicroCMSDate;
+
+export async function getBlogPosts(queries?: MicroCMSQueries) {
+  const response = await client.getList<BlogPost>({
+    customRequestInit: {
+      next: {
+        revalidate: false,
       },
-      endpoint: 'blog-posts',
-      queries,
-    });
-    return articles;
-  } catch (error) {
-    return notFound();
-  }
+    },
+    endpoint: 'blog-posts',
+    queries,
+  });
+  return response;
 }
 
-export async function getPost(contentId: string, queries?: MicroCMSQueries) {
-  try {
-    const post = await client.getListDetail<Article>({
-      customRequestInit: {
-        next: {
-          revalidate: 3600,
-        },
+export async function getBlogPost(
+  contentId: string,
+  queries?: MicroCMSQueries
+) {
+  const response = await client.getListDetail<BlogPost>({
+    customRequestInit: {
+      next: {
+        revalidate: false,
       },
-      endpoint: 'blog-posts',
-      contentId,
-      queries,
-    });
-    return post;
-  } catch (error) {
-    return notFound();
-  }
+    },
+    endpoint: 'blog-posts',
+    contentId,
+    queries,
+  });
+  return response;
 }
