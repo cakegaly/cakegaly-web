@@ -8,6 +8,17 @@ interface MdxBlogPageProps {
   params: Promise<{ postId: string }>;
 }
 
+async function getPostFromParams(postId: string) {
+  const contents = await getMDXPosts();
+  const post = contents.find((post) => post.slug === postId);
+  if (!post) {
+    null;
+  }
+  return post;
+}
+
+// TODO: generateMetadata
+
 export async function generateStaticParams() {
   const contents = await getMDXPosts();
   const paths = contents.map((post) => {
@@ -20,8 +31,7 @@ export async function generateStaticParams() {
 
 export default async function MdxBlogPage({ params }: MdxBlogPageProps) {
   const { postId } = await params;
-  const contents = await getMDXPosts();
-  const post = contents.find((post) => post.slug === postId);
+  const post = await getPostFromParams(postId);
 
   if (!post) {
     notFound();

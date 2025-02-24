@@ -21,7 +21,7 @@ const getMDXFiles = (dir: string): string[] =>
   fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
 
 const readMDXFile = async (filePath: string): Promise<MDXData> => {
-  const rawContent = await fs.promises.readFile(filePath, 'utf-8'); // 非同期に変更
+  const rawContent = await fs.promises.readFile(filePath, 'utf-8');
   const { metadata, content } = parseFrontmatter(rawContent);
   const slug = path.basename(filePath, path.extname(filePath));
 
@@ -33,6 +33,7 @@ const getMDXData = async (dir: string): Promise<MDXData[]> => {
   return Promise.all(mdxFiles.map((file) => readMDXFile(path.join(dir, file))));
 };
 
+// TODO: gray-matter -> `compileMDX({ parseFrontmatter: true })` of next-mdx-remote
 const parseFrontmatter = (
   rawContent: string
 ): { metadata: Frontmatter; content: string } => {
