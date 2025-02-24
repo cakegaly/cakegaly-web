@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 
-import { Mdx } from '@/components/mdx-components';
 import { siteConfig } from '@/config/site';
 import { getMDXPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
+
+export const revalidate = false;
 
 interface BlogPostPageProps {
   params: Promise<{ postId: string }>;
@@ -13,7 +14,7 @@ async function getPostFromSlug(postId: string) {
   const contents = await getMDXPosts();
   const post = contents.find((post) => post.slug === postId);
   if (!post) {
-    null;
+    return null;
   }
   return post;
 }
@@ -85,8 +86,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <h1 className="mt-2 inline-block text-3xl leading-tight">
         {post.metadata.title}
       </h1>
-
-      <Mdx code={post.content} />
+      <div className="mdx">{post.content}</div>
     </article>
   );
 }

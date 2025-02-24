@@ -3,9 +3,8 @@ import Image from 'next/image';
 import { Callout } from '@/components/callout';
 import { cn } from '@/lib/utils';
 import { MDXComponents } from 'mdx/types';
-import { compileMDX } from 'next-mdx-remote/rsc';
 
-const components: MDXComponents = {
+export const components: MDXComponents = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
@@ -154,16 +153,3 @@ const components: MDXComponents = {
   Callout,
   // Card: MdxCard,
 } as MDXComponents;
-
-interface MdxProps {
-  code: string;
-}
-
-export async function Mdx({ code }: MdxProps) {
-  const { content } = await compileMDX({
-    source: code,
-    components: components as MDXComponents,
-  });
-
-  return <div className="mdx">{content}</div>;
-}
