@@ -1,11 +1,11 @@
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
+import { ThemeProvider } from '@/components/theme-provider';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 import { Noto_Sans_JP } from 'next/font/google';
 
 const fontNotoSansJp = Noto_Sans_JP({
