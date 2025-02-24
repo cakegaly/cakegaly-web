@@ -24,10 +24,8 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
       )}
       <CardContent className="px-4 pb-4">
         <div className="my-2 flex items-center">
-          <Badge className="mr-2 bg-[#445566] text-center text-xs text-tertiary">
-            {'カテゴリ名'}
-          </Badge>
-          <p className="text-xs font-bold tracking-widest text-gray-500 md:text-sm">
+          <Badge className="mr-2 text-center text-xs">{'カテゴリ名'}</Badge>
+          <p className="text-xs font-bold tracking-widest md:text-sm">
             {formatDate(article.createdAt)}
           </p>
         </div>
