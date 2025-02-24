@@ -7,6 +7,7 @@ import { components } from '@/components/mdx-components';
 export type Frontmatter<T = {}> = {
   title: string;
   date: string;
+  description: string;
 } & T;
 
 export type MDXData<T = {}> = {
@@ -15,7 +16,21 @@ export type MDXData<T = {}> = {
   content: React.ReactNode;
 };
 
-export type BlogPost = MDXData;
+export type BlogPost = MDXData<{
+  thumbnail?: string;
+  tags?: string[];
+  categories?: string[];
+}>;
+
+export type Tag = {
+  name: string;
+  slug: string;
+};
+
+export type Category = {
+  name: string;
+  slug: string;
+};
 
 const getMDXFiles = (dir: string): string[] =>
   fs
