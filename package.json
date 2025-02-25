@@ -2,6 +2,10 @@
   "name": "cakegaly-web",
   "version": "0.0.1",
   "private": true,
+  "author": {
+    "name": "cakegaly",
+    "url": "https://cakegaly.com"
+  },
   "scripts": {
     "dev": "next dev --port 8888",
     "build": "next build",
