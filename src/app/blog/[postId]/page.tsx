@@ -74,19 +74,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <article className="container max-w-screen-lg">
-      {post.metadata.date && (
-        <time
-          dateTime={post.metadata.date}
-          className="block text-sm text-muted-foreground"
-        >
-          Published on {formatDate(post.metadata.date)}
-        </time>
-      )}
-      <h1 className="mt-2 inline-block text-3xl leading-tight">
-        {post.metadata.title}
-      </h1>
-      <div className="mdx">{post.content}</div>
+    <article className="container max-w-screen-lg px-4">
+      <div className="mb-8 md:mb-12">
+        {post.metadata.date && (
+          <time
+            dateTime={post.metadata.date}
+            className="block text-sm font-medium text-muted-foreground"
+          >
+            {formatDate(post.metadata.date)}
+          </time>
+        )}
+        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+          {post.metadata.title}
+        </h1>
+        {post.metadata.description && (
+          <p className="mt-4 text-lg text-muted-foreground">
+            {post.metadata.description}
+          </p>
+        )}
+      </div>
+      <div className="prose-galy prose max-w-none dark:prose-invert">
+        {post.content}
+      </div>
     </article>
   );
 }
