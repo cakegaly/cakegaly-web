@@ -20,8 +20,44 @@ description: Next.js + MDX + Tailwind CSS + shadcn/ui でブログをつくり�
 
 ブラウザで [`http://localhost:8888`](http://localhost:8888) を開いて、動作を確認してください。
 
-```ts
-console.log('hello!');
+```tsx
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { postId } = await params;
+  const post = await getPostFromSlug(postId);
+
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <article className="container max-w-screen-lg px-4">
+      <div className="mb-8 md:mb-12">
+        {post.metadata.date && (
+          <time
+            dateTime={post.metadata.date}
+            className="text-muted-foreground block text-sm font-medium"
+          >
+            {formatDate(post.metadata.date)}
+          </time>
+        )}
+        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+          {post.metadata.title}
+        </h1>
+        {post.metadata.description && (
+          <p className="text-muted-foreground mt-4 text-lg">
+            {post.metadata.description}
+          </p>
+        )}
+      </div>
+      <div className="prose-galy prose dark:prose-invert max-w-none">
+        {post.content}
+      </div>
+    </article>
+  );
+}
 ```
 
 <Callout>ここに Callout コンポーネントの中身が入る</Callout>
+
+- aa
+- aa
