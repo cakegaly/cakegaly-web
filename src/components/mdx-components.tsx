@@ -133,31 +133,42 @@ export const components: MDXComponents = {
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
       className={cn(
-        'mb-4 mt-6 overflow-x-auto rounded-lg border border-border/50 bg-muted/30 p-4',
+        'mb-4 mt-6 overflow-x-auto rounded-lg border border-border/50 bg-[#111A1F] dark:bg-[#151A1E]',
+        'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
         className
       )}
       {...props}
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
-    if (className?.includes('language-')) {
-      return (
-        <code
-          className={cn('font-mono text-sm text-foreground/90', className)}
-          {...props}
-        />
-      );
-    }
+    const isInline = !className?.includes('language-');
     return (
       <code
         className={cn(
-          'relative rounded bg-muted/50 px-[0.3rem] py-[0.2rem] font-mono text-sm',
+          'relative font-mono text-sm',
+          isInline
+            ? 'rounded bg-muted/50 px-[0.3rem] py-[0.2rem]'
+            : 'grid gap-0.5 p-4',
           className
         )}
         {...props}
       />
     );
   },
+  // Special component for code lines
+  'pre > code': ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLElement>) => (
+    <code
+      className={cn(
+        'grid gap-0.5 p-4 text-sm [&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-2',
+        '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
+        className
+      )}
+      {...props}
+    />
+  ),
   Image,
   Callout,
 } as MDXComponents;
