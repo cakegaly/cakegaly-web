@@ -10,49 +10,55 @@ const galyTheme = {
   type: 'dark',
   colors: {
     'editor.background': '#111A1F',
-    'editor.foreground': '#9A9A9A',
+    'editor.foreground': '#C4C4C4', // Lighter foreground for better contrast
   },
   tokenColors: [
     {
       scope: ['comment'],
       settings: {
-        foreground: '#5A5A5A',
+        foreground: '#6A6A6A', // Slightly lighter for better visibility
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['string'],
       settings: {
-        foreground: '#798362',
+        foreground: '#98A982', // Brighter green
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['keyword'],
       settings: {
-        foreground: '#6998B3',
+        foreground: '#89B8D3', // Brighter blue
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['variable', 'constant'],
       settings: {
-        foreground: '#8D7856',
+        foreground: '#AD9876', // Brighter brown
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.function', 'support.function'],
       settings: {
-        foreground: '#738C9C',
+        foreground: '#93ACBC', // Brighter slate
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.type', 'support.type'],
       settings: {
-        foreground: '#9B9257',
+        foreground: '#BBB277', // Brighter yellow
+        fontStyle: 'italic',
       },
     },
     {
       scope: ['punctuation', 'meta.brace'],
       settings: {
-        foreground: '#868B8D',
+        foreground: '#A6ABAD', // Brighter gray
       },
     },
   ],

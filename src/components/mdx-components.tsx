@@ -133,7 +133,9 @@ export const components: MDXComponents = {
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
       className={cn(
-        'mb-4 mt-6 overflow-x-auto rounded-lg border border-border/50 bg-[#111A1F] dark:bg-[#151A1E]',
+        'mb-4 mt-6 overflow-x-auto rounded-lg border border-border/50',
+        // Remove bg-muted/50 and use solid background colors
+        'bg-[#111A1F] dark:bg-[#151A1E]',
         'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
         className
       )}
@@ -145,12 +147,17 @@ export const components: MDXComponents = {
     return (
       <code
         className={cn(
-          'relative font-mono text-sm',
+          // Add Hack Nerd Font and italics
+          'relative font-mono text-sm font-medium italic',
           isInline
-            ? 'rounded bg-muted/50 px-[0.3rem] py-[0.2rem]'
+            ? 'rounded bg-muted/30 px-[0.3rem] py-[0.2rem]'
             : 'grid gap-0.5 p-4',
           className
         )}
+        style={{
+          fontFamily:
+            '"Hack Nerd Font Mono", Menlo, Monaco, Consolas, monospace',
+        }}
         {...props}
       />
     );
@@ -166,6 +173,9 @@ export const components: MDXComponents = {
         '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
         className
       )}
+      style={{
+        fontFamily: '"Hack Nerd Font Mono", Menlo, Monaco, Consolas, monospace',
+      }}
       {...props}
     />
   ),

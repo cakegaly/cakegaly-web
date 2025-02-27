@@ -121,6 +121,7 @@ const config = {
           'sans-serif',
         ],
         mono: [
+          '"Hack Nerd Font Mono"',
           'var(--font-mono)',
           'Menlo',
           'Monaco',
