@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { Author } from '@/components/author';
+import { Icons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 import { getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -73,25 +73,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <article className="container max-w-screen-lg py-4">
-      <div className="mb-8 md:mb-12">
+      <header className="mb-10 space-y-4 border-b pb-8">
         {post.metadata.date && (
-          <time
-            dateTime={post.metadata.date}
-            className="block text-sm font-medium text-muted-foreground"
-          >
-            {formatDate(post.metadata.date)}
-          </time>
+          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+            <Icons.calendar className="h-4 w-4" />
+            <time dateTime={post.metadata.date}>
+              {formatDate(post.metadata.date)}
+            </time>
+          </div>
         )}
-        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight">
+
+        <h1 className="text-3xl font-bold leading-tight tracking-tight">
           {post.metadata.title}
         </h1>
-        <Author />
+
+        {/* TODO: Tags */}
+
         {post.metadata.description && (
-          <p className="mt-4 text-lg text-muted-foreground">
-            {post.metadata.description}
-          </p>
+          <p className="text-muted-foreground">{post.metadata.description}</p>
         )}
-      </div>
+      </header>
+
+      {/* blog content */}
       <div className="prose-elly prose max-w-none dark:prose-invert">
         {post.content}
       </div>

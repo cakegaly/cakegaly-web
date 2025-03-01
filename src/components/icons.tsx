@@ -1,4 +1,5 @@
 import {
+  Calendar,
   ChevronLeft,
   ChevronRight,
   Laptop,
@@ -13,6 +14,7 @@ import {
 export type Icon = LucideIcon;
 
 export const Icons = {
+  calendar: Calendar,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   mail: Mail,
