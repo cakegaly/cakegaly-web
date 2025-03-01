@@ -114,15 +114,14 @@ const config = {
       },
       fontFamily: {
         sans: [
-          'var(--font-sans)',
+          'var(--font-noto-sans-jp)',
           '"Hiragino Sans"',
           '"Hiragino Kaku Gothic ProN"',
           '"Noto Sans JP"',
           'sans-serif',
         ],
         mono: [
-          '"Hack Nerd Font Mono"',
-          'var(--font-mono)',
+          'var(--font-hack)',
           'Menlo',
           'Monaco',
           '"Cascadia Code"',
