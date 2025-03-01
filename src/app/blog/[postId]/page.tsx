@@ -27,15 +27,12 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return {};
   }
 
-  const description =
-    '概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です概要です';
-
   return {
     title: post.metadata.title,
-    description: description,
+    description: post.metadata.description,
     openGraph: {
       title: post.metadata.title,
-      description: description,
+      description: post.metadata.description,
       type: 'article',
       url: absoluteUrl(`/blog/${post.slug}`),
       images: [
@@ -50,7 +47,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     twitter: {
       card: 'summary_large_image',
       title: post.metadata.title,
-      description: description,
+      description: post.metadata.description,
       images: [siteConfig.ogImage],
     },
   };

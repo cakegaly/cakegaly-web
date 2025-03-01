@@ -147,9 +147,7 @@ export const components: MDXComponents = {
       <code
         className={cn(
           'relative font-mono text-sm font-medium italic',
-          isInline
-            ? 'rounded bg-muted/30 px-[0.3rem] py-[0.2rem]'
-            : 'grid gap-0.5 p-4',
+          isInline ? 'rounded px-[0.3rem] py-[0.2rem]' : 'grid gap-0.5 p-4',
           className
         )}
         {...props}
