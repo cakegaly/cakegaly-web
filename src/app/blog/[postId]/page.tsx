@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { Author } from '@/components/author';
 import { siteConfig } from '@/config/site';
 import { getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -74,7 +75,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <article className="container max-w-screen-lg px-4">
+    <article className="container max-w-screen-lg py-4">
       <div className="mb-8 md:mb-12">
         {post.metadata.date && (
           <time
@@ -84,16 +85,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {formatDate(post.metadata.date)}
           </time>
         )}
-        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight">
           {post.metadata.title}
         </h1>
+        <Author />
         {post.metadata.description && (
           <p className="mt-4 text-lg text-muted-foreground">
             {post.metadata.description}
           </p>
         )}
       </div>
-      <div className="prose-galy prose max-w-none dark:prose-invert">
+      <div className="prose-elly prose max-w-none dark:prose-invert">
         {post.content}
       </div>
     </article>

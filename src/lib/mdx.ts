@@ -5,8 +5,8 @@ import rehypePrettyCode from 'rehype-pretty-code';
 
 import { components } from '@/components/mdx-components';
 
-const galyTheme = {
-  name: 'galy',
+const ellyTheme = {
+  name: 'elly',
   type: 'dark',
   colors: {
     'editor.background': '#111A1F',
@@ -65,7 +65,7 @@ const galyTheme = {
 };
 
 const rehypePrettyCodeOptions = {
-  theme: galyTheme,
+  theme: ellyTheme,
   keepBackground: true,
   defaultLang: 'plaintext',
 };

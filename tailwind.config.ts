@@ -92,7 +92,7 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       typography: {
-        galy: {
+        elly: {
           css: {
             '--tw-prose-body': 'hsl(var(--foreground))',
             '--tw-prose-headings': 'hsl(var(--foreground))',

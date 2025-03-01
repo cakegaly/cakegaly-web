@@ -4,7 +4,7 @@ import BlurImage from '@/components/blur-image';
 import { author } from '@/config/blog';
 import { blurImageUrl } from '@/lib/utils';
 
-export default async function Author({ imageOnly }: { imageOnly?: boolean }) {
+export async function Author({ imageOnly }: { imageOnly?: boolean }) {
   return imageOnly ? (
     <BlurImage
       src={author.image}

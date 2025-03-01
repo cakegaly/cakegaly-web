@@ -4,7 +4,7 @@ import Link from 'next/link';
 import BlurImage from '@/components/blur-image';
 import { blurPlaceHolder, cn, formatDate } from '@/lib/utils';
 
-import Author from '@/components/author';
+import { Author } from '@/components/author';
 import { siteConfig } from '@/config/site';
 
 interface BlogCardProps {
