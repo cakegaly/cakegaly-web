@@ -4,9 +4,9 @@ date: 2024-01-01
 description: MDX は、Markdown と React コンポーネントを組み合わせてコンテンツを書くための強力な方法です。この記事では、MDX の様々な要素を紹介します。
 ---
 
-## コードブロックの例
+## Code Block
 
-こちらは **TypeScript** のコードブロックです：
+**TypeScript** のコードブロックです:
 
 ```typescript
 const greet = (name: string): string => {
@@ -16,7 +16,7 @@ const greet = (name: string): string => {
 console.log(greet('世界'));
 ```
 
-次に **CSS** のコードブロックを紹介します：
+**CSS** のコードブロックです:
 
 ```css
 body {
@@ -29,21 +29,13 @@ h1 {
 }
 ```
 
-### リンクと見出し
+## Link
 
-MDX では簡単にリンクを作成できます：
+マークダウン記法で、簡単にリンクを作成できます！
 
 [Next.js ドキュメントを読む](https://nextjs.org/docs)
 
-こちらはネストされた見出しの例です：
-
-### ネストされた見出し
-
-コードとリンクを組み合わせると、MDX でリッチでインタラクティブなコンテンツを作成できます。例えば、別の記事へのリンクも作れます：
-
-[TypeScript についてもっと読む](https://www.typescriptlang.org/docs/)
-
-## React コンポーネント
+## React Component
 
 ### Callout Component
 
@@ -78,6 +70,17 @@ MDX では簡単にリンクを作成できます：
 #### warning
 
 <Callout type="warning">Warning! な内容</Callout>
+
+### Card
+
+<Card href="#">
+
+#### Heading
+
+console.log(hoge)
+You can use **markdown** inside cards.
+
+</Card>
 
 ## 結論
 

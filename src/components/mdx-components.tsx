@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { Callout } from '@/components/callout';
+import { MdxCard } from '@/components/mdx-card';
 import { cn } from '@/lib/utils';
 import { MDXComponents } from 'mdx/types';
 
@@ -169,4 +170,5 @@ export const components: MDXComponents = {
   ),
   Image,
   Callout,
+  Card: MdxCard,
 } as MDXComponents;
