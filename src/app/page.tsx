@@ -3,13 +3,6 @@ import { getBlogPosts } from '@/lib/mdx';
 
 export default async function TopPage() {
   const allPosts = await getBlogPosts();
-  // const articles = await Promise.all(
-  //   // TODO: pagination or categorize
-  //   contents.map(async (post) => ({
-  //     ...post,
-  //     // set eyecatch icon ???
-  //   }))
-  // );
 
   return (
     <section className="container max-w-screen-lg py-6">

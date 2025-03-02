@@ -3,6 +3,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 import rehypePrettyCode from 'rehype-pretty-code';
 
+import { TechIcons } from '@/components/icons';
 import { components } from '@/components/mdx-components';
 
 const ellyTheme = {
@@ -86,6 +87,7 @@ export type BlogPost = MDXData<{
   thumbnail?: string;
   tags?: string[];
   categories?: string[];
+  eyecatch?: keyof typeof TechIcons;
 }>;
 
 export type Tag = {
