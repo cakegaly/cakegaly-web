@@ -147,9 +147,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <footer className="mt-8 border-t pt-8">
           <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between">
             <Button variant="ghost" asChild className="h-9 px-2">
-              <Link href="/blog" className="group inline-flex items-center">
+              <Link href="/" className="group inline-flex items-center">
                 <ArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
-                Back to blog
+                Back to home
               </Link>
             </Button>
 
