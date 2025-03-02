@@ -3,6 +3,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 import rehypePrettyCode from 'rehype-pretty-code';
 
+import { TechIcons } from '@/components/icons';
 import { components } from '@/components/mdx-components';
 
 const ellyTheme = {
@@ -10,55 +11,55 @@ const ellyTheme = {
   type: 'dark',
   colors: {
     'editor.background': '#111A1F',
-    'editor.foreground': '#C4C4C4', // Lighter foreground for better contrast
+    'editor.foreground': '#C4C4C4',
   },
   tokenColors: [
     {
       scope: ['comment'],
       settings: {
-        foreground: '#6A6A6A', // Slightly lighter for better visibility
+        foreground: '#6A6A6A',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['string'],
       settings: {
-        foreground: '#98A982', // Brighter green
+        foreground: '#98A982',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['keyword'],
       settings: {
-        foreground: '#89B8D3', // Brighter blue
+        foreground: '#89B8D3',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['variable', 'constant'],
       settings: {
-        foreground: '#AD9876', // Brighter brown
+        foreground: '#AD9876',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.function', 'support.function'],
       settings: {
-        foreground: '#93ACBC', // Brighter slate
+        foreground: '#93ACBC',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.type', 'support.type'],
       settings: {
-        foreground: '#BBB277', // Brighter yellow
+        foreground: '#BBB277',
         fontStyle: 'italic',
       },
     },
     {
       scope: ['punctuation', 'meta.brace'],
       settings: {
-        foreground: '#A6ABAD', // Brighter gray
+        foreground: '#A6ABAD',
       },
     },
   ],
@@ -86,6 +87,7 @@ export type BlogPost = MDXData<{
   thumbnail?: string;
   tags?: string[];
   categories?: string[];
+  eyecatch?: keyof typeof TechIcons;
 }>;
 
 export type Tag = {
