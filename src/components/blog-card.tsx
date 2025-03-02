@@ -1,3 +1,4 @@
+import { Calendar, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 import { TechIcons } from '@/components/icons';
@@ -10,26 +11,64 @@ interface BlogCardProps {
 
 export function BlogCard({ data }: BlogCardProps) {
   const { metadata, slug } = data;
-
   const Icon = TechIcons[metadata.eyecatch ?? 'fileHeart'];
 
   return (
-    <article className="group relative flex gap-4">
-      <div className="inline-flex size-24 items-center justify-center rounded-sm bg-muted/50">
-        <Icon className="size-12" />
-        <span className="sr-only">{'expression icon'}</span>
-      </div>
-      <div className="flex-1">
-        <div className="font-bold">{metadata.title}</div>
-        <div className="mt-2 inline-flex items-center gap-2 text-xs">
-          <time dateTime={metadata.date}>{formatDate(metadata.date)}</time>
-        </div>
-      </div>
+    <article className="group relative overflow-hidden rounded-lg border bg-card transition-colors hover:bg-accent/5">
       <Link
         href={`/blog/${slug}`}
-        className="absolute inset-0 rounded-lg ring-1 ring-inset ring-transparent transition-all group-hover:ring-accent/50"
+        className="block p-6 outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
-        <span className="sr-only">{'記事を読む'}</span>
+        {/* Tech Icon */}
+        <div className="mb-4 inline-flex rounded-lg bg-muted/50 p-3">
+          <Icon className="size-6 text-accent" />
+        </div>
+
+        {/* Content */}
+        <div className="space-y-2">
+          <h2 className="line-clamp-2 text-xl font-semibold tracking-tight transition-colors group-hover:text-accent">
+            {metadata.title}
+          </h2>
+
+          {metadata.description && (
+            <p className="line-clamp-2 text-sm text-muted-foreground">
+              {metadata.description}
+            </p>
+          )}
+
+          {/* Metadata */}
+          <div className="pt-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Calendar className="size-4" />
+                <time dateTime={metadata.date}>
+                  {formatDate(metadata.date)}
+                </time>
+              </div>
+
+              {metadata.tags && metadata.tags.length > 0 && (
+                <div className="flex items-center gap-1">
+                  <Tag className="size-4" />
+                  <div className="flex gap-1">
+                    {metadata.tags.slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {metadata.tags.length > 2 && (
+                      <span className="text-xs">
+                        +{metadata.tags.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </Link>
     </article>
   );

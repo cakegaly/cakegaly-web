@@ -2,6 +2,9 @@ import createMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  devIndicators: {
+    appIsrStatus: false,
+  },
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },
