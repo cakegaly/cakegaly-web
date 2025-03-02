@@ -1,3 +1,5 @@
+import '@/styles/mdx.css';
+
 import { notFound } from 'next/navigation';
 
 import { Icons } from '@/components/icons';
