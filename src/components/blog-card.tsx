@@ -15,7 +15,10 @@ export function BlogCard({ data }: BlogCardProps) {
 
   return (
     <article className="group relative overflow-hidden rounded-lg border bg-card transition-colors hover:bg-accent/5">
-      <div className="p-6">
+      <Link
+        href={`/blog/${slug}`}
+        className="block p-6 outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      >
         {/* Tech Icon */}
         <div className="mb-4 inline-flex rounded-lg bg-muted/50 p-3">
           <Icon className="size-6 text-accent" />
@@ -66,14 +69,7 @@ export function BlogCard({ data }: BlogCardProps) {
             </div>
           </div>
         </div>
-      </div>
-
-      <Link href={`/blog/${slug}`} className="absolute inset-0">
-        <span className="sr-only">記事を読む: {metadata.title}</span>
       </Link>
-
-      {/* Hover Effect */}
-      <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-border transition-all group-hover:ring-accent/50" />
     </article>
   );
 }
