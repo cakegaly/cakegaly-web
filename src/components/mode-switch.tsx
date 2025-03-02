@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Icons } from '@/components/icons';
 import { Switch } from '@/components/ui/switch';
 
-export function ModeToggle() {
+export function ModeSwitch() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
