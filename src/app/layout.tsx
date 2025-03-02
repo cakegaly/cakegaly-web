@@ -1,17 +1,17 @@
+import '@/styles/globals.css';
+
+import { fontHack, fontNotoSansJp } from '@/assets/fonts';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
+import { ThemeProvider } from '@/components/theme-provider';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { Noto_Sans_JP } from 'next/font/google';
 
-const fontNotoSansJp = Noto_Sans_JP({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: false,
-  variable: '--font-noto-sans-jp',
-});
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
 
 export const metadata: Metadata = {
   title: {
@@ -46,28 +46,31 @@ export const metadata: Metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" suppressHydrationWarning>
       <head />
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontNotoSansJp.variable
+          fontNotoSansJp.variable,
+          fontHack.variable
         )}
       >
-        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
-        {/* <Toaster className="bg-primary" /> */}
-        {/* </ThemeProvider> */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex min-h-screen flex-col">
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </div>
+          {/* <Toaster className="bg-primary" /> */}
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );

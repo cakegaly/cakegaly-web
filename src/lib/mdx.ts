@@ -1,54 +1,134 @@
 import fs from 'fs';
-import matter from 'gray-matter';
+import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
+import rehypePrettyCode from 'rehype-pretty-code';
 
-type Frontmatter = {
+import { components } from '@/components/mdx-components';
+
+const ellyTheme = {
+  name: 'elly',
+  type: 'dark',
+  colors: {
+    'editor.background': '#111A1F',
+    'editor.foreground': '#C4C4C4', // Lighter foreground for better contrast
+  },
+  tokenColors: [
+    {
+      scope: ['comment'],
+      settings: {
+        foreground: '#6A6A6A', // Slightly lighter for better visibility
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['string'],
+      settings: {
+        foreground: '#98A982', // Brighter green
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['keyword'],
+      settings: {
+        foreground: '#89B8D3', // Brighter blue
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['variable', 'constant'],
+      settings: {
+        foreground: '#AD9876', // Brighter brown
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['entity.name.function', 'support.function'],
+      settings: {
+        foreground: '#93ACBC', // Brighter slate
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['entity.name.type', 'support.type'],
+      settings: {
+        foreground: '#BBB277', // Brighter yellow
+        fontStyle: 'italic',
+      },
+    },
+    {
+      scope: ['punctuation', 'meta.brace'],
+      settings: {
+        foreground: '#A6ABAD', // Brighter gray
+      },
+    },
+  ],
+};
+
+const rehypePrettyCodeOptions = {
+  theme: ellyTheme,
+  keepBackground: true,
+  defaultLang: 'plaintext',
+};
+
+export type Frontmatter<T = {}> = {
   title: string;
   date: string;
-  [key: string]: unknown; // optional
-};
+  description: string;
+} & T;
 
-type MDXData = {
-  metadata: Frontmatter;
+export type MDXData<T = {}> = {
+  metadata: Frontmatter<T>;
   slug: string;
-  content: string;
+  content: React.ReactNode;
 };
 
-// dir name
-// path.join(process.cwd(), 'src/content/mdx-post');
+export type BlogPost = MDXData<{
+  thumbnail?: string;
+  tags?: string[];
+  categories?: string[];
+}>;
+
+export type Tag = {
+  name: string;
+  slug: string;
+};
+
+export type Category = {
+  name: string;
+  slug: string;
+};
 
 const getMDXFiles = (dir: string): string[] =>
-  fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+  fs
+    .readdirSync(dir)
+    .filter((file) => fs.statSync(path.join(dir, file)).isDirectory())
+    .map((subDir) => path.join(dir, subDir, 'index.mdx'));
 
 const readMDXFile = async (filePath: string): Promise<MDXData> => {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
-  const { metadata, content } = parseFrontmatter(rawContent);
-  const slug = path.basename(filePath, path.extname(filePath));
 
-  return { metadata, slug, content };
-};
-
-const getMDXData = async (dir: string): Promise<MDXData[]> => {
-  const mdxFiles = getMDXFiles(dir);
-  return Promise.all(mdxFiles.map((file) => readMDXFile(path.join(dir, file))));
-};
-
-// TODO: gray-matter -> `compileMDX({ parseFrontmatter: true })` of next-mdx-remote
-const parseFrontmatter = (
-  rawContent: string
-): { metadata: Frontmatter; content: string } => {
-  const { data, content } = matter(rawContent);
+  const { frontmatter, content } = await compileMDX<Frontmatter>({
+    source: rawContent,
+    components,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+      },
+    },
+  });
 
   return {
-    metadata: {
-      title: typeof data.title === 'string' ? data.title : 'Untitled',
-      date:
-        typeof data.date === 'string' ? data.date : new Date().toISOString(),
-      ...data,
-    },
+    metadata: frontmatter,
+    slug: path.basename(path.dirname(filePath)),
     content,
   };
 };
 
-export const getMDXPosts = async (): Promise<MDXData[]> =>
-  getMDXData(path.join(process.cwd(), 'src/content/mdx-post'));
+const getMDXData = async (dir: string): Promise<MDXData[]> => {
+  const mdxFiles = getMDXFiles(dir);
+  return Promise.all(mdxFiles.map((file) => readMDXFile(file)));
+};
+
+export const getBlogPosts = async (): Promise<BlogPost[]> =>
+  getMDXData(path.join(process.cwd(), 'src/content/blog'));
