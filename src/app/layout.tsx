@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 
-import { fontHack, fontNotoSansJp } from '@/assets/fonts';
+import { fontHack, fontMPlusRounded } from '@/assets/fonts';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontNotoSansJp.variable,
+          fontMPlusRounded.variable,
           fontHack.variable
         )}
       >

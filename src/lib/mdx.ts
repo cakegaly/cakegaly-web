@@ -2,6 +2,7 @@ import fs from 'fs';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGfm from 'remark-gfm';
 
 import { TechIcons } from '@/components/icons';
 import { components } from '@/components/mdx-components';
@@ -18,42 +19,42 @@ const ellyTheme = {
       scope: ['comment'],
       settings: {
         foreground: '#6A6A6A',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
       scope: ['string'],
       settings: {
         foreground: '#98A982',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
       scope: ['keyword'],
       settings: {
         foreground: '#89B8D3',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
       scope: ['variable', 'constant'],
       settings: {
         foreground: '#AD9876',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.function', 'support.function'],
       settings: {
         foreground: '#93ACBC',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
       scope: ['entity.name.type', 'support.type'],
       settings: {
         foreground: '#BBB277',
-        fontStyle: 'italic',
+        // fontStyle: 'italic',
       },
     },
     {
@@ -115,6 +116,7 @@ const readMDXFile = async (filePath: string): Promise<MDXData> => {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
+        remarkPlugins: [remarkGfm],
         rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
       },
     },
