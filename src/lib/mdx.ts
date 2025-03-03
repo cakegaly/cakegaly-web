@@ -2,6 +2,7 @@ import fs from 'fs';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGfm from 'remark-gfm';
 
 import { TechIcons } from '@/components/icons';
 import { components } from '@/components/mdx-components';
@@ -115,6 +116,7 @@ const readMDXFile = async (filePath: string): Promise<MDXData> => {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
+        remarkPlugins: [remarkGfm],
         rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
       },
     },
