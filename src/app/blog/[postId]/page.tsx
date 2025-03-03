@@ -139,9 +139,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Article content */}
-        <div className="prose prose-elly max-w-none pb-12 dark:prose-invert">
-          {post.content}
-        </div>
+        <div className="max-w-none pb-12">{post.content}</div>
 
         {/* Footer */}
         <footer className="mt-8 border-t pt-8">
