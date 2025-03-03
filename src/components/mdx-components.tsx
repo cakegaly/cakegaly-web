@@ -144,7 +144,7 @@ export const components: MDXComponents = {
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
       className={cn(
-        'mb-4 mt-6 overflow-x-auto rounded-lg border border-border/50',
+        'my-6 overflow-x-auto rounded-lg border border-border/50 p-4',
         'bg-[#111A1F] dark:bg-[#151A1E]',
         'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
         className
@@ -157,8 +157,19 @@ export const components: MDXComponents = {
     return (
       <code
         className={cn(
-          'relative font-mono text-sm font-medium',
-          isInline ? 'rounded px-[0.3rem] py-[0.2rem]' : 'grid gap-0.5 p-4',
+          'relative font-mono text-sm',
+          // Inline code styling
+          isInline && [
+            'rounded px-[0.3rem] py-[0.2rem]',
+            'font-medium text-foreground/90',
+          ],
+          // Code block styling
+          !isInline && [
+            'block',
+            'leading-relaxed',
+            '[&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-4',
+            '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
+          ],
           className
         )}
         {...props}
@@ -171,7 +182,9 @@ export const components: MDXComponents = {
   }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        'grid gap-0.5 p-4 text-sm [&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-2',
+        'grid min-h-0 w-full gap-0.5 p-4',
+        'text-[13px] leading-6',
+        '[&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-4',
         '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
         className
       )}
