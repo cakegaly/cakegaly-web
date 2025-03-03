@@ -102,13 +102,18 @@ export const components: MDXComponents = {
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto rounded-lg border border-border/50">
-      <table className={cn('w-full', className)} {...props} />
+      <table
+        className={cn('w-full border-collapse text-sm', className)}
+        {...props}
+      />
     </div>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
       className={cn(
-        'm-0 border-t border-border/50 p-0 even:bg-muted/50',
+        'm-0 border-t border-border/50 p-0',
+        'transition-colors duration-150',
+        'hover:bg-muted/30',
         className
       )}
       {...props}
@@ -117,7 +122,9 @@ export const components: MDXComponents = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'border border-border/50 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border border-border/50 bg-background px-4 py-3 text-left font-bold',
+        'text-foreground/90',
+        '[&[align=center]]:text-center [&[align=right]]:text-right',
         className
       )}
       {...props}
@@ -126,7 +133,9 @@ export const components: MDXComponents = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        'border border-border/50 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
+        'border border-border/50 px-4 py-3 text-left',
+        '[&[align=center]]:text-center [&[align=right]]:text-right',
+        '[&>code]:rounded-sm [&>code]:bg-muted/30 [&>code]:px-1.5 [&>code]:py-0.5',
         className
       )}
       {...props}
