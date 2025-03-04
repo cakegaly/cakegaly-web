@@ -19,6 +19,16 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        {
+          url: '/rss.xml',
+          title: 'cakegaly-web RSS Feed',
+        },
+      ],
+    },
+  },
   keywords: [],
   openGraph: {
     type: 'website',
