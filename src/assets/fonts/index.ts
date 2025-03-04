@@ -1,11 +1,12 @@
-import { Noto_Sans_JP } from 'next/font/google';
+import { M_PLUS_Rounded_1c } from 'next/font/google';
 import localFont from 'next/font/local';
 
-export const fontNotoSansJp = Noto_Sans_JP({
+export const fontMPlusRounded = M_PLUS_Rounded_1c({
+  weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
   preload: false,
-  variable: '--font-noto-sans-jp',
+  variable: '--font-m-plus-rounded',
 });
 
 export const fontHack = localFont({
