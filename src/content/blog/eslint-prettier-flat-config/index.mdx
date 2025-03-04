@@ -11,8 +11,6 @@ tags:
 ## なぜ Flat Config に移行するのか？
 
 Next.js 15 では、ESLint と Prettier の Flat Config への移行が推奨されています。
-Flat Config は `.eslintrc.js` の代わりに **`eslint.config.mjs` を使用する新しい構成方法** です。
-
 従来の `.eslintrc.js` は次第に非推奨になっていくため、早めに Flat Config に移行しておきましょう。
 
 ---
@@ -25,6 +23,12 @@ Flat Config は `.eslintrc.js` の代わりに **`eslint.config.mjs` を使用�
 
 ```sh
 pnpm add -D eslint prettier eslint-config-prettier eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-tailwindcss @next/eslint-plugin-next typescript-eslint
+```
+
+Flat Config では `typescript-eslint` を利用できるようになるため、`@typescript-eslint/parser` と `@typescript-eslint/eslint-plugin` を削除しておきます。
+
+```sh
+pnpm remove @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
 また、VSCode で ESLint を有効にするために、`eslint.useFlatConfig` を `true` に設定しておきます (後述)
