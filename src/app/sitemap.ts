@@ -1,19 +1,27 @@
+import { siteConfig } from '@/config/site';
+import { getBlogPosts } from '@/lib/mdx';
 import { MetadataRoute } from 'next';
 
-/**
- * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap#generating-multiple-sitemaps
- */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const sitemapEntries: MetadataRoute.Sitemap = [];
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
 
-  // top page
-  sitemapEntries.push({
-    url: `${process.env.NEXT_PUBLIC_APP_URL}`,
-  });
+  const posts = await getBlogPosts();
 
-  // blog page
-  // const posts = await getPosts();
-  // ...
+  const blogEntries = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.metadata.date),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
 
-  return sitemapEntries;
+  const staticPages = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
+    },
+  ];
+
+  return [...staticPages, ...blogEntries];
 }
