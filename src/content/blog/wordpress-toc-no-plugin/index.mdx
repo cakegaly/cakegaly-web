@@ -2,11 +2,14 @@
 title: WordPress でプラグインなしで目次を自動生成する方法
 date: 2022-06-17
 description: WordPress テーマをカスタマイズして、プラグインなしで記事に目次を追加する手順を紹介します。
+eyecatch: wordpress
+tags:
+  - wordpress
 ---
 
-## 手順
+## WordPress に目次を追加するコード
 
-以下、コピペして functions.php に貼り付けてください。
+以下、`functions.php` に追加してください。
 
 ```php title="functions.php"
 if ( ! function_exists( 'custom_add_table_of_contents' ) ) {
@@ -95,6 +98,8 @@ if ( ! function_exists( 'custom_add_heading_ids' ) ) {
     }
 }
 ```
+
+簡易的にですが、`chapter-*` の形式で、見出しに id をつけているので、そのまま目次リンクにできます。
 
 あとは、目次の表示スタイルを CSS で適当にいじれば完成です。
 
