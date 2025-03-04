@@ -1,3 +1,4 @@
+import { ModeSwitch } from '@/components/mode-switch';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +17,7 @@ export function SiteHeader() {
           />
           <span className="sr-only">Home</span>
         </Link>
-        {/* <ModeToggle /> */}
+        <ModeSwitch />
       </div>
     </header>
   );

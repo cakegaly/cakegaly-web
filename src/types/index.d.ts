@@ -1,7 +1,3 @@
-export type APIResponse<T = object> =
-  | { success: true; data: T }
-  | { success: false; error: string };
-
 export type NavItem = {
   title: string;
   href: string;
@@ -20,9 +16,3 @@ export type SiteConfig = {
   copyRight: string;
   email: string;
 };
-
-declare global {
-  interface Window {
-    instgrm: any;
-  }
-}

@@ -1,0 +1,117 @@
+---
+title: WordPress でプラグインなしで目次を自動生成する方法
+date: 2022-06-17
+description: WordPress テーマをカスタマイズして、プラグインなしで記事に目次を追加する手順を紹介します。
+---
+
+## 手順
+
+以下、コピペして functions.php に貼り付けてください。
+
+```php title="functions.php"
+if ( ! function_exists( 'custom_add_table_of_contents' ) ) {
+    function custom_add_table_of_contents( $content ) {
+        if ( ! is_single() ) {
+            return $content;
+        }
+
+        $post_id     = get_the_ID();
+        $toc_level   = get_post_meta( $post_id, 'toc_level', true );
+        $target_level = in_array( $toc_level, array( '2', '4' ), true ) ? (int) $toc_level : 3;
+        $is_toc_display = ( '0' !== $toc_level );
+
+        preg_match_all( '/<h([1-6]).*?>(.+?)<\/h[1-6]>/s', $content, $headings, PREG_SET_ORDER );
+        if ( empty( $headings ) ) {
+            return $content;
+        }
+
+        $toc_html = custom_generate_toc_html( $headings, $target_level, $is_toc_display );
+
+        if ( preg_match( '/<h2.*?>/i', $content, $matches ) ) {
+            $content = preg_replace( '/<h2.*?>/i', $toc_html . $matches[0], $content, 1 );
+        }
+
+        return custom_add_heading_ids( $content, $headings, $target_level );
+    }
+    add_filter( 'the_content', 'custom_add_table_of_contents' );
+}
+
+if ( ! function_exists( 'custom_generate_toc_html' ) ) {
+    function custom_generate_toc_html( $headings, $target_level, $is_toc_display ) {
+        $toc_items = array();
+
+        foreach ( $headings as $i => $heading ) {
+            $level = (int) $heading[1];
+            if ( $level > $target_level ) {
+                continue;
+            }
+
+            $toc_items[] = sprintf(
+                '<li><a href="#chapter-%d">%s</a></li>',
+                $i,
+                esc_html( $heading[2] )
+            );
+        }
+
+        if ( empty( $toc_items ) ) {
+            return '';
+        }
+
+        return sprintf(
+            '<div class="table-of-contents" %s>
+                <div class="toc-wrapper">
+                    <div class="toc-title">目次</div>
+                    <ul>%s</ul>
+                </div>
+            </div>',
+            $is_toc_display ? '' : 'style="display:none;"',
+            implode( "\n", $toc_items )
+        );
+    }
+}
+
+if ( ! function_exists( 'custom_add_heading_ids' ) ) {
+    function custom_add_heading_ids( $content, $headings, $target_level ) {
+        $i = 0;
+        return preg_replace_callback(
+            '/<h([1-6])(.*?)>(.+?)<\/h[1-6]>/s',
+            function ( $matches ) use ( &$i, $target_level ) {
+                $level = (int) $matches[1];
+                if ( $level > $target_level ) {
+                    return $matches[0];
+                }
+
+                return sprintf(
+                    '<h%d id="chapter-%d"%s>%s</h%d>',
+                    $level,
+                    $i++,
+                    $matches[2],
+                    $matches[3],
+                    $level
+                );
+            },
+            $content
+        );
+    }
+}
+```
+
+あとは、目次の表示スタイルを CSS で適当にいじれば完成です。
+
+```css
+.table-of-contents {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+}
+.toc-wrapper {
+  padding: 10px;
+}
+.toc-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+```
+
+プラグインなしの WordPress 運用で、目次の組み方で困ったら、ぜひ試してみてください。

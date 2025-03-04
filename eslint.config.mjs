@@ -62,17 +62,58 @@ export default [
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal'],
-          alphabetize: { order: 'asc', caseInsensitive: true },
-          'newlines-between': 'always',
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
           pathGroups: [
+            // React imports
+            { pattern: 'react', group: 'builtin', position: 'before' },
+            { pattern: 'react/**', group: 'builtin', position: 'before' },
+
+            // Next.js imports
+            { pattern: 'next', group: 'builtin', position: 'before' },
+            { pattern: 'next/**', group: 'builtin', position: 'before' },
+
+            // Types
+            { pattern: 'types', group: 'type', position: 'before' },
+
+            // Project imports by path alias - adjusted for src/ directory
+            { pattern: '@/env*', group: 'internal', position: 'before' },
+            { pattern: '@/types/**', group: 'internal', position: 'before' },
+            { pattern: '@/config/**', group: 'internal', position: 'before' },
+            { pattern: '@/lib/**', group: 'internal', position: 'before' },
+            { pattern: '@/hooks/**', group: 'internal', position: 'before' },
             {
-              pattern: 'src/components/**',
+              pattern: '@/components/ui/**',
               group: 'internal',
               position: 'before',
             },
-            { pattern: 'src/lib/**', group: 'internal', position: 'before' },
+            {
+              pattern: '@/components/**',
+              group: 'internal',
+              position: 'before',
+            },
+            { pattern: '@/styles/**', group: 'internal', position: 'before' },
+            { pattern: '@/app/**', group: 'internal', position: 'before' },
+            { pattern: '@/assets/**', group: 'internal', position: 'before' },
+            { pattern: '@/content/**', group: 'internal', position: 'before' },
+
+            // For direct imports from src/ directory (if any)
+            { pattern: 'src/**', group: 'internal', position: 'after' },
           ],
+          pathGroupsExcludedImportTypes: ['react', 'next'],
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+          'newlines-between': 'never',
         },
       ],
       'import/newline-after-import': 'error',

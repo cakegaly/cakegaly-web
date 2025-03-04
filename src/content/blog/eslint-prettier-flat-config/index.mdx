@@ -1,0 +1,195 @@
+---
+title: ESLint と Prettier を Flat Config に移行した
+date: 2025-03-01
+description: Next.js のバージョンアップとあわせて、ESLint と Prettier の設定を Flat Config に移行したメモです。
+eyecatch: eslint
+tags:
+  - typescript
+  - eslint
+---
+
+## なぜ Flat Config に移行するのか？
+
+Next.js 15 では、ESLint と Prettier の Flat Config への移行が推奨されています。
+Flat Config は `.eslintrc.js` の代わりに **`eslint.config.mjs` を使用する新しい構成方法** です。
+
+従来の `.eslintrc.js` は次第に非推奨になっていくため、早めに Flat Config に移行しておきましょう。
+
+---
+
+## Next.js 15 + ESLint + Prettier の Flat Config 設定方法
+
+### 必要なパッケージをインストール
+
+まずは、必要なパッケージをインストールします。
+
+```sh
+pnpm add -D eslint prettier eslint-config-prettier eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-tailwindcss @next/eslint-plugin-next typescript-eslint
+```
+
+また、VSCode で ESLint を有効にするために、`eslint.useFlatConfig` を `true` に設定しておきます (後述)
+
+### ESLint の設定 (`eslint.config.mjs`)
+
+`eslint.config.mjs` をプロジェクトのルートに作成し、以下のように設定します。
+
+```js title="eslint.config.mjs"
+// @ts-check
+
+import eslintPluginNext from '@next/eslint-plugin-next';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import * as eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginReact from 'eslint-plugin-react';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import tailwindcss from 'eslint-plugin-tailwindcss';
+import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
+import tsEslint from 'typescript-eslint';
+
+export default [
+  {
+    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+  },
+  {
+    ignores: [
+      '**/build/',
+      '**/bin/',
+      '**/dist/',
+      '**/obj/',
+      '**/out/',
+      '**/.next/',
+      '**/node_modules/',
+    ],
+  },
+  eslintPluginReact.configs.flat.recommended,
+  eslintPluginReact.configs.flat['jsx-runtime'],
+  {
+    plugins: {
+      'react-hooks': eslintPluginReactHooks,
+      '@next': eslintPluginNext,
+    },
+    ...eslintPluginReactHooks.configs.recommended.rules,
+    ...eslintPluginNext.configs.recommended.rules,
+    ...eslintPluginNext.configs['core-web-vitals'].rules,
+    '@next/next/no-img-element': 'error',
+    'react/prop-types': 'off',
+  },
+  tsEslint.configs.recommended,
+  {
+    languageOptions: {
+      parser: tsEslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/explicit-function-return-type': 'off',
+    },
+  },
+  tailwindcss,
+  {
+    plugins: {
+      import: eslintPluginImport,
+    },
+    rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+          'newlines-between': 'never',
+        },
+      ],
+      'import/newline-after-import': 'error',
+      'import/no-duplicates': 'error',
+    },
+  },
+  {
+    plugins: {
+      'unused-imports': eslintPluginUnusedImports,
+    },
+    rules: {
+      'unused-imports/no-unused-imports': 'error',
+    },
+  },
+  eslintConfigPrettier,
+];
+```
+
+Prettier との競合を防ぐため、 `eslint-config-prettier` は最後に追加しています。
+
+### Prettier の設定 (`prettier.config.mjs`)
+
+次に、Prettier の設定を `prettier.config.mjs` に記述します。
+
+```js title="prettier.config.mjs"
+// @ts-check
+
+/**
+ * @type {import("prettier").Config}
+ */
+export default {
+  printWidth: 80,
+  tabWidth: 2,
+  plugins: ['prettier-plugin-tailwindcss'],
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'es5',
+  bracketSpacing: true,
+};
+```
+
+Tailwind CSS のクラス順序を自動整理するため に、`prettier-plugin-tailwindcss` を入れています。
+
+### VSCode の設定 (`.vscode/settings.json`)
+
+VSCode で保存時に ESLint + Prettier の自動フォーマットを適用するため、`.vscode/settings.json` に以下を追加します。
+
+```json title=".vscode/settings.json"
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.enable": true,
+  "eslint.useFlatConfig": true,
+  "files.insertFinalNewline": true
+}
+```
+
+## ESLint & Prettier の動作確認
+
+### ESLint のチェック
+
+```sh
+pnpm eslint . --fix
+```
+
+### Prettier のフォーマット
+
+```sh
+pnpm prettier --write .
+```
+
+---
+
+## まとめ
+
+flat config により、設定がよりシンプルになりました。
+biome も気になっているので、次回は、比較してみようと思います。

@@ -1,101 +1,199 @@
+import '@/styles/mdx.css';
+
 import { notFound } from 'next/navigation';
 
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
+import { getBlogPosts } from '@/lib/mdx';
+import { absoluteUrl, formatDate } from '@/lib/utils';
+import { ArrowLeft, Calendar, Tag } from 'lucide-react';
+import Link from 'next/link';
 
-import { Metadata } from 'next';
-import Image from 'next/image';
-
-import { RichEditor } from '@/components/rich-editor';
-import { getBlogPost, getBlogPosts } from '@/lib/microcms';
-import { absoluteUrl, formatDate, truncateText } from '@/lib/utils';
+export const revalidate = false;
 
 interface BlogPostPageProps {
   params: Promise<{ postId: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: BlogPostPageProps): Promise<Metadata> {
+async function getPostFromSlug(postId: string) {
+  const contents = await getBlogPosts();
+  const post = contents.find((post) => post.slug === postId);
+  if (!post) {
+    return null;
+  }
+  return post;
+}
+
+export async function generateMetadata({ params }: BlogPostPageProps) {
   const { postId } = await params;
-  const post = await getBlogPost(postId);
+  const post = await getPostFromSlug(postId);
   if (!post) {
     return {};
   }
 
-  const description = truncateText(
-    post.description.replace(/<[^>]+>/g, ''),
-    110
-  );
-
   return {
-    title: post.title,
-    description: description,
+    title: post.metadata.title,
+    description: post.metadata.description,
     openGraph: {
-      title: post.title,
-      description: description,
+      title: post.metadata.title,
+      description: post.metadata.description,
       type: 'article',
-      url: absoluteUrl(`/blog/${post.id}`),
+      url: absoluteUrl(`/blog/${post.slug}`),
       images: [
         {
           url: siteConfig.ogImage,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: post.metadata.title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: description,
+      title: post.metadata.title,
+      description: post.metadata.description,
       images: [siteConfig.ogImage],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const { contents } = await getBlogPosts();
+  const contents = await getBlogPosts();
   const paths = contents.map((post) => {
     return {
-      postId: post.id,
+      postId: post.slug,
     };
   });
   return paths;
 }
 
+// function getReadingTime(content: React.ReactNode): number {
+//   // Convert ReactNode to string and count words
+//   const text = JSON.stringify(content);
+//   const words = text.split(/\s+/).length;
+//   // Average reading speed (words per minute)
+//   const wpm = 238;
+//   return Math.ceil(words / wpm);
+// }
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { postId } = await params;
-  const post = await getBlogPost(postId, {});
+  const post = await getPostFromSlug(postId);
+
   if (!post) {
     notFound();
   }
 
+  // const readingTime = getReadingTime(post.content);
+
   return (
-    <article className="container max-w-screen-lg">
-      {post.createdAt && (
-        <time
-          dateTime={post.createdAt}
-          className="block text-sm text-muted-foreground"
-        >
-          Published on {formatDate(post.createdAt)}
-        </time>
-      )}
-      <h1 className="mt-2 inline-block text-3xl leading-tight">{post.title}</h1>
-      {post.thumbnail && (
-        <Image
-          src={post.thumbnail.url}
-          className="mx-auto aspect-video overflow-hidden object-cover md:w-full md:rounded-md"
-          width={post.thumbnail.width}
-          height={post.thumbnail.height}
-          alt={post.title}
-          priority={true}
-        />
-      )}
-      <div className="my-6 max-w-none gap-6">
-        {post.description && (
-          <RichEditor className="mb-8" html={post.description as string} />
-        )}
-      </div>
-    </article>
+    <div className="container max-w-screen-lg py-6 md:py-10">
+      <article className="relative">
+        <header className="mb-10 space-y-6 border-b pb-8">
+          {/* Date & Time */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+            {post.metadata.date && (
+              <div className="inline-flex items-center gap-1">
+                <Calendar className="size-4" />
+                <time dateTime={post.metadata.date}>
+                  {formatDate(post.metadata.date)}
+                </time>
+              </div>
+            )}
+            {/* <div className="inline-flex items-center gap-1">
+              <Clock className="size-4" />
+              <span>{readingTime} min read</span>
+            </div> */}
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+            {post.metadata.title}
+          </h1>
+
+          {/* Description */}
+          {post.metadata.description && (
+            <p className="text-lg text-muted-foreground md:text-xl">
+              {post.metadata.description}
+            </p>
+          )}
+
+          {/* Tags */}
+          {post.metadata.tags && post.metadata.tags.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Tag className="size-4 text-muted-foreground" />
+              <div className="flex flex-wrap gap-2">
+                {post.metadata.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="secondary"
+                    className="px-3 py-0.5 text-sm"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </header>
+
+        {/* Article content */}
+        <div className="max-w-none pb-12">{post.content}</div>
+
+        {/* Footer */}
+        <footer className="mt-8 border-t pt-8">
+          <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between">
+            <Button variant="ghost" asChild className="h-9 px-2">
+              <Link href="/" className="group inline-flex items-center">
+                <ArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
+                Back to home
+              </Link>
+            </Button>
+
+            {/* Optional: Add share buttons or next/prev posts here */}
+          </div>
+        </footer>
+      </article>
+    </div>
   );
 }
+
+// export default async function BlogPostPage({ params }: BlogPostPageProps) {
+//   const { postId } = await params;
+//   const post = await getPostFromSlug(postId);
+
+//   if (!post) {
+//     notFound();
+//   }
+
+//   return (
+//     <article className="container max-w-screen-lg py-4">
+//       <header className="mb-10 space-y-4 border-b pb-8">
+//         {post.metadata.date && (
+//           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+//             <Icons.calendar className="h-4 w-4" />
+//             <time dateTime={post.metadata.date}>
+//               {formatDate(post.metadata.date)}
+//             </time>
+//           </div>
+//         )}
+
+//         <h1 className="text-3xl font-bold leading-tight tracking-tight">
+//           {post.metadata.title}
+//         </h1>
+
+//         {/* TODO: Tags */}
+
+//         {post.metadata.description && (
+//           <p className="text-muted-foreground">{post.metadata.description}</p>
+//         )}
+//       </header>
+
+//       {/* blog content */}
+//       <div className="prose prose-elly max-w-none dark:prose-invert">
+//         {post.content}
+//       </div>
+//     </article>
+//   );
+// }
