@@ -52,7 +52,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             </Link>
           )}
           <Link
-            href="#"
+            href="/rss.xml"
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
             aria-label="RSS"
             title="RSS Feed (cakegaly -dot- com)"
