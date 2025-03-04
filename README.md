@@ -8,8 +8,10 @@
 - **[Tailwind CSS](https://tailwindcss.com/)**
 - **[shadcn/ui](https://ui.shadcn.com/)**
 - **[MDX](https://mdxjs.com/)**
+- **[Rehype Pretty Code](https://rehype-pretty.pages.dev/)**
+- **[Vercel](https://vercel.com/)**
+- **ESLint** + **Prettier**
 <!-- - **[Storybook](https://storybook.js.org/)** -->
-- **ESLint + Prettier**
 
 ## Running Locally
 
