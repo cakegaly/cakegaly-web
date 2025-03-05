@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
-import { getBlogPosts } from '@/lib/mdx';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import Link from 'next/link';
@@ -13,21 +13,13 @@ import Link from 'next/link';
 export const revalidate = false;
 
 interface BlogPostPageProps {
-  params: Promise<{ postId: string }>;
-}
-
-async function getPostFromSlug(postId: string) {
-  const contents = await getBlogPosts();
-  const post = contents.find((post) => post.slug === postId);
-  if (!post) {
-    return null;
-  }
-  return post;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const { postId } = await params;
-  const post = await getPostFromSlug(postId);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
   if (!post) {
     return {};
   }
@@ -59,33 +51,19 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export async function generateStaticParams() {
-  const contents = await getBlogPosts();
-  const paths = contents.map((post) => {
-    return {
-      postId: post.slug,
-    };
-  });
-  return paths;
+  const allPosts = await getBlogPosts();
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-// function getReadingTime(content: React.ReactNode): number {
-//   // Convert ReactNode to string and count words
-//   const text = JSON.stringify(content);
-//   const words = text.split(/\s+/).length;
-//   // Average reading speed (words per minute)
-//   const wpm = 238;
-//   return Math.ceil(words / wpm);
-// }
-
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { postId } = await params;
-  const post = await getPostFromSlug(postId);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
-
-  // const readingTime = getReadingTime(post.content);
 
   return (
     <div className="container max-w-screen-lg py-6 md:py-10">
@@ -101,10 +79,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </time>
               </div>
             )}
-            {/* <div className="inline-flex items-center gap-1">
-              <Clock className="size-4" />
-              <span>{readingTime} min read</span>
-            </div> */}
           </div>
 
           {/* Title */}
@@ -125,13 +99,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <Tag className="size-4 text-muted-foreground" />
               <div className="flex flex-wrap gap-2">
                 {post.metadata.tags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="px-3 py-0.5 text-sm"
-                  >
-                    {tag}
-                  </Badge>
+                  <Link key={tag} href={`/tag/${tag}`}>
+                    <Badge variant="secondary" className="px-3 py-0.5 text-sm">
+                      {tag}
+                    </Badge>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -158,42 +130,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   );
 }
-
-// export default async function BlogPostPage({ params }: BlogPostPageProps) {
-//   const { postId } = await params;
-//   const post = await getPostFromSlug(postId);
-
-//   if (!post) {
-//     notFound();
-//   }
-
-//   return (
-//     <article className="container max-w-screen-lg py-4">
-//       <header className="mb-10 space-y-4 border-b pb-8">
-//         {post.metadata.date && (
-//           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-//             <Icons.calendar className="h-4 w-4" />
-//             <time dateTime={post.metadata.date}>
-//               {formatDate(post.metadata.date)}
-//             </time>
-//           </div>
-//         )}
-
-//         <h1 className="text-3xl font-bold leading-tight tracking-tight">
-//           {post.metadata.title}
-//         </h1>
-
-//         {/* TODO: Tags */}
-
-//         {post.metadata.description && (
-//           <p className="text-muted-foreground">{post.metadata.description}</p>
-//         )}
-//       </header>
-
-//       {/* blog content */}
-//       <div className="prose prose-elly max-w-none dark:prose-invert">
-//         {post.content}
-//       </div>
-//     </article>
-//   );
-// }

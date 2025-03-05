@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-import { Icons } from '@/components/icons';
+import { LucideIcons } from '@/components/icons';
 import { Switch } from '@/components/ui/switch';
 
 export function ModeSwitch() {
@@ -20,7 +20,7 @@ export function ModeSwitch() {
 
   return (
     <div className="flex items-center space-x-2">
-      <Icons.sun className="h-[1.2rem] w-[1.2rem]" />
+      <LucideIcons.sun className="h-[1.2rem] w-[1.2rem]" />
       <Switch
         checked={theme === 'dark'}
         onCheckedChange={(checked) => {
@@ -28,7 +28,7 @@ export function ModeSwitch() {
         }}
         aria-label="Toggle dark mode"
       />
-      <Icons.moon className="h-[1.2rem] w-[1.2rem]" />
+      <LucideIcons.moon className="h-[1.2rem] w-[1.2rem]" />
     </div>
   );
 }
