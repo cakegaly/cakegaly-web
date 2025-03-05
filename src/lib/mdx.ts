@@ -23,6 +23,36 @@ export type BlogPost = MDXData<{
   icon?: keyof typeof TechIcons;
 }>;
 
+export const getBlogPosts = async (): Promise<BlogPost[]> => {
+  const posts = await getMDXData(blogDir);
+  return posts.sort(
+    (a, b) =>
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+  );
+};
+
+export const getBlogPostsByTagSlug = async (
+  tagSlug: string
+): Promise<BlogPost[]> => {
+  const posts = await getBlogPosts();
+  return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
+};
+
+export const getBlogPostBySlug = async (slug: string) =>
+  getBlogPost((post) => post.slug === slug);
+
+const getBlogPost = async (
+  predicate: (post: BlogPost) => boolean
+): Promise<BlogPost | undefined> => {
+  const posts = await getBlogPosts();
+  return posts.find(predicate);
+};
+
+const getMDXData = async <T>(dir: string): Promise<MDXData<T>[]> => {
+  const files = await getMDXFiles(dir);
+  return Promise.all(files.map((file) => readMDXFile<T>(path.join(dir, file))));
+};
+
 const getMDXFiles = async (dir: string): Promise<string[]> =>
   (await fs.promises.readdir(dir)).filter(
     (file) => path.extname(file) === '.mdx'
@@ -30,7 +60,6 @@ const getMDXFiles = async (dir: string): Promise<string[]> =>
 
 const readMDXFile = async <T>(filePath: string): Promise<MDXData<T>> => {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
-
   const { frontmatter, content } = await compileMDX<Frontmatter<T>>({
     source: rawContent,
     components,
@@ -49,30 +78,3 @@ const readMDXFile = async <T>(filePath: string): Promise<MDXData<T>> => {
     content,
   };
 };
-
-const getMDXData = async <T>(dir: string): Promise<MDXData<T>[]> => {
-  const mdxFiles = await getMDXFiles(dir);
-  return Promise.all(
-    mdxFiles.map((file) => readMDXFile<T>(path.join(dir, file)))
-  );
-};
-
-export const getBlogPosts = async (): Promise<BlogPost[]> =>
-  (await getMDXData(blogDir)).sort(
-    (a, b) =>
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
-  );
-
-export const getBlogPost = async (
-  predicate: (post: BlogPost) => boolean
-): Promise<BlogPost | undefined> => {
-  return (await getBlogPosts()).find(predicate);
-};
-
-export const getBlogPostBySlug = async (slug: string) =>
-  getBlogPost((post) => post.slug === slug);
-
-export const getBlogPostsByTagSlug = async (tagSlug: string) =>
-  (await getBlogPosts()).filter((post) =>
-    post.metadata.tags?.includes(tagSlug)
-  );
