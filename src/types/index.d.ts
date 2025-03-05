@@ -1,9 +1,3 @@
-export type NavItem = {
-  title: string;
-  href: string;
-  disabled?: boolean;
-};
-
 export type SiteConfig = {
   name: string;
   description: string;
@@ -15,4 +9,11 @@ export type SiteConfig = {
   };
   copyRight: string;
   email: string;
+};
+
+export type AuthorConfig = {
+  slug: string;
+  name: string;
+  image: string;
+  twitter: string;
 };

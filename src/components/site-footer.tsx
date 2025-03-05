@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Icons } from '@/components/icons';
+import { LucideIcons, SocialIcons } from '@/components/icons';
 import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               aria-label="Twitter"
               title="Twitter (@cakegaly)"
             >
-              <Icons.twitter className="size-4" />
+              <SocialIcons.twitter className="size-4" />
             </Link>
           )}
           {siteConfig.email && (
@@ -36,7 +36,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               aria-label="Email"
               title="Email (cakegaly -at- gmail -dot- com)"
             >
-              <Icons.mail className="size-4" />
+              <LucideIcons.mail className="size-4" />
             </Link>
           )}
           {siteConfig.links.github && (
@@ -48,7 +48,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               aria-label="GitHub"
               title="GitHub (/cakegaly)"
             >
-              <Icons.gitHub className="size-4" />
+              <SocialIcons.gitHub className="size-4" />
             </Link>
           )}
           <Link
@@ -57,7 +57,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             aria-label="RSS"
             title="RSS Feed (cakegaly -dot- com)"
           >
-            <Icons.rss className="size-4" />
+            <LucideIcons.rss className="size-4" />
           </Link>
         </div>
         {/* <ModeToggle /> */}

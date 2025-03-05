@@ -11,7 +11,7 @@ interface BlogCardProps {
 
 export function BlogCard({ data }: BlogCardProps) {
   const { metadata, slug } = data;
-  const Icon = TechIcons[metadata.eyecatch ?? 'fileHeart'];
+  const Icon = TechIcons[metadata.icon ?? 'fileHeart'];
 
   return (
     <article className="group relative overflow-hidden rounded-lg border bg-card transition-colors hover:bg-accent/5">
