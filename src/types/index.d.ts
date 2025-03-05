@@ -1,8 +1,4 @@
-// export type NavItem = {
-//   title: string;
-//   href: string;
-//   disabled?: boolean;
-// };
+import type { TechIcons } from '@/components/icons';
 
 export type SiteConfig = {
   name: string;
@@ -22,4 +18,10 @@ export type AuthorConfig = {
   name: string;
   image: string;
   twitter: string;
+};
+
+export type BlogTag = {
+  slug: string;
+  name: string;
+  icon: keyof typeof TechIcons;
 };

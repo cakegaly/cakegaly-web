@@ -1,4 +1,4 @@
-import { AuthorConfig } from '@/types';
+import { AuthorConfig, BlogTag } from '@/types';
 
 export const author: AuthorConfig = {
   slug: 'cakegaly',
@@ -6,6 +6,17 @@ export const author: AuthorConfig = {
   image: 'https://github.com/cakegaly.png',
   twitter: 'cakegaly',
 };
+
+export const tags: BlogTag[] = [
+  { slug: 'eslint', name: 'ESLint', icon: 'eslint' },
+  { slug: 'jamstack', name: 'Jamstack', icon: 'jamstack' },
+  { slug: 'nextjs', name: 'Next.js', icon: 'nextjs' },
+  { slug: 'php', name: 'php', icon: 'php' },
+  { slug: 'react', name: 'react', icon: 'react' },
+  { slug: 'typescript', name: 'TypeScript', icon: 'typescript' },
+  { slug: 'vercel', name: 'vercel', icon: 'vercel' },
+  { slug: 'wordpress', name: 'WordPress', icon: 'wordpress' },
+];
 
 export const ellyTheme = {
   name: 'elly',
