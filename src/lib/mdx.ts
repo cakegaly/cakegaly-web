@@ -58,7 +58,10 @@ const getMDXData = async <T>(dir: string): Promise<MDXData<T>[]> => {
 };
 
 export const getBlogPosts = async (): Promise<BlogPost[]> =>
-  getMDXData(blogDir);
+  (await getMDXData(blogDir)).sort(
+    (a, b) =>
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+  );
 
 export const getBlogPost = async (
   predicate: (post: BlogPost) => boolean
