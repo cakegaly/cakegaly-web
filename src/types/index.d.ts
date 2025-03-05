@@ -17,7 +17,7 @@ export type SiteConfig = {
   email: string;
 };
 
-export type authorConfig = {
+export type AuthorConfig = {
   slug: string;
   name: string;
   image: string;
