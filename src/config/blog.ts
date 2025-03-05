@@ -1,4 +1,5 @@
-import { AuthorConfig, BlogTag } from '@/types';
+import type { TechIcons } from '@/components/icons';
+import { AuthorConfig } from '@/types';
 
 export const author: AuthorConfig = {
   slug: 'cakegaly',
@@ -7,16 +8,19 @@ export const author: AuthorConfig = {
   twitter: 'cakegaly',
 };
 
-export const tags: BlogTag[] = [
-  { slug: 'eslint', name: 'ESLint', icon: 'eslint' },
-  { slug: 'jamstack', name: 'Jamstack', icon: 'jamstack' },
-  { slug: 'nextjs', name: 'Next.js', icon: 'nextjs' },
-  { slug: 'php', name: 'php', icon: 'php' },
-  { slug: 'react', name: 'react', icon: 'react' },
-  { slug: 'typescript', name: 'TypeScript', icon: 'typescript' },
-  { slug: 'vercel', name: 'vercel', icon: 'vercel' },
-  { slug: 'wordpress', name: 'WordPress', icon: 'wordpress' },
-];
+export const tags: Record<
+  string,
+  { name: string; icon: keyof typeof TechIcons }
+> = {
+  eslint: { name: 'ESLint', icon: 'eslint' },
+  jamstack: { name: 'Jamstack', icon: 'jamstack' },
+  nextjs: { name: 'Next.js', icon: 'nextjs' },
+  php: { name: 'php', icon: 'php' },
+  react: { name: 'react', icon: 'react' },
+  typescript: { name: 'TypeScript', icon: 'typescript' },
+  vercel: { name: 'vercel', icon: 'vercel' },
+  wordpress: { name: 'WordPress', icon: 'wordpress' },
+};
 
 export const ellyTheme = {
   name: 'elly',

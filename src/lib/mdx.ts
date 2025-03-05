@@ -20,7 +20,7 @@ const rehypePrettyCodeOptions = {
 export type BlogPost = MDXData<{
   thumbnail?: string;
   tags?: string[];
-  eyecatch?: keyof typeof TechIcons;
+  icon?: keyof typeof TechIcons;
 }>;
 
 const getMDXFiles = async (dir: string): Promise<string[]> =>
