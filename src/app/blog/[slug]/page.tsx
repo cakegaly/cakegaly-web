@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
-import { getBlogPosts } from '@/lib/mdx';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import Link from 'next/link';
@@ -13,21 +13,13 @@ import Link from 'next/link';
 export const revalidate = false;
 
 interface BlogPostPageProps {
-  params: Promise<{ postId: string }>;
-}
-
-async function getPostFromSlug(postId: string) {
-  const contents = await getBlogPosts();
-  const post = contents.find((post) => post.slug === postId);
-  if (!post) {
-    return null;
-  }
-  return post;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const { postId } = await params;
-  const post = await getPostFromSlug(postId);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
   if (!post) {
     return {};
   }
@@ -59,13 +51,10 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export async function generateStaticParams() {
-  const contents = await getBlogPosts();
-  const paths = contents.map((post) => {
-    return {
-      postId: post.slug,
-    };
-  });
-  return paths;
+  const allPosts = await getBlogPosts();
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 // function getReadingTime(content: React.ReactNode): number {
@@ -78,8 +67,8 @@ export async function generateStaticParams() {
 // }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { postId } = await params;
-  const post = await getPostFromSlug(postId);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
