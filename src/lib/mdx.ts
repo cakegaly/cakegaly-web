@@ -7,23 +7,12 @@ import remarkGfm from 'remark-gfm';
 import { TechIcons } from '@/components/icons';
 import { components } from '@/components/mdx-components';
 import { ellyTheme } from '@/config/blog';
+import { Frontmatter, MDXData } from '@/types/mdx';
 
 const rehypePrettyCodeOptions = {
   theme: ellyTheme,
   keepBackground: true,
   defaultLang: 'plaintext',
-};
-
-export type Frontmatter<T = {}> = {
-  title: string;
-  date: string;
-  description: string;
-} & T;
-
-export type MDXData<T = {}> = {
-  metadata: Frontmatter<T>;
-  slug: string;
-  content: React.ReactNode;
 };
 
 export type BlogPost = MDXData<{
@@ -43,17 +32,27 @@ export type Category = {
   slug: string;
 };
 
-const getMDXFiles = (dir: string): string[] =>
-  fs
-    .readdirSync(dir)
+const getMDXFiles = async (dir: string): Promise<string[]> => {
+  const files = await fs.promises.readdir(dir);
+  return files
     .filter((file) => fs.statSync(path.join(dir, file)).isDirectory())
     .map((subDir) => path.join(dir, subDir, 'index.mdx'));
+};
 
 const readMDXFile = async (filePath: string): Promise<MDXData> => {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
+  const { frontmatter, content } = await compileMdxContent(rawContent);
 
-  const { frontmatter, content } = await compileMDX<Frontmatter>({
-    source: rawContent,
+  return {
+    metadata: frontmatter as Frontmatter,
+    slug: path.basename(path.dirname(filePath)),
+    content,
+  };
+};
+
+const compileMdxContent = async (source: string) => {
+  return await compileMDX({
+    source,
     components,
     options: {
       parseFrontmatter: true,
@@ -63,16 +62,10 @@ const readMDXFile = async (filePath: string): Promise<MDXData> => {
       },
     },
   });
-
-  return {
-    metadata: frontmatter,
-    slug: path.basename(path.dirname(filePath)),
-    content,
-  };
 };
 
 const getMDXData = async (dir: string): Promise<MDXData[]> => {
-  const mdxFiles = getMDXFiles(dir);
+  const mdxFiles = await getMDXFiles(dir);
   return Promise.all(mdxFiles.map((file) => readMDXFile(file)));
 };
 
