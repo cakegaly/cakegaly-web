@@ -1,8 +1,8 @@
-export type NavItem = {
-  title: string;
-  href: string;
-  disabled?: boolean;
-};
+// export type NavItem = {
+//   title: string;
+//   href: string;
+//   disabled?: boolean;
+// };
 
 export type SiteConfig = {
   name: string;
@@ -15,4 +15,11 @@ export type SiteConfig = {
   };
   copyRight: string;
   email: string;
+};
+
+export type authorConfig = {
+  slug: string;
+  name: string;
+  image: string;
+  twitter: string;
 };
