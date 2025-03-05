@@ -69,7 +69,7 @@ export const getBlogPost = async (
 export const getBlogPostBySlug = async (slug: string) =>
   getBlogPost((post) => post.slug === slug);
 
-// export const getBlogPostsByTagSlug = async (tagSlug: string) =>
-//   (await getBlogPosts()).filter((post) =>
-//     post.metadata.tags?.includes(tagSlug)
-//   );
+export const getBlogPostsByTagSlug = async (tagSlug: string) =>
+  (await getBlogPosts()).filter((post) =>
+    post.metadata.tags?.includes(tagSlug)
+  );
