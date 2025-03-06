@@ -14,16 +14,17 @@ export function BlogCard({ data }: BlogCardProps) {
   const Icon = TechIcons[metadata.icon ?? 'default'];
 
   return (
-    <article className="relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-4 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md">
-      {/* Tech Icon (左配置) */}
-      <div className="size-12 flex-shrink-0 rounded-lg bg-muted/50 p-3">
-        <Icon className="size-6 text-accent" />
+    <Link
+      href={`/blog/${slug}`}
+      className="group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-4 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md"
+    >
+      {/* Eyecatch (TechIcon) */}
+      <div className="size-12 flex-shrink-0 rounded-lg bg-muted/50 p-3 transition-colors group-hover:bg-muted/70">
+        <Icon className="size-6 text-accent transition-colors group-hover:text-accent/80" />
       </div>
 
-      <Link
-        href={`/blog/${slug}`}
-        className="flex flex-1 flex-col space-y-1 outline-none focus-visible:ring-2 focus-visible:ring-accent"
-      >
+      {/* Content */}
+      <div className="flex flex-1 flex-col space-y-1">
         {/* Title */}
         <h2 className="line-clamp-2 text-lg font-semibold tracking-tight transition-colors group-hover:text-accent">
           {metadata.title}
@@ -62,7 +63,7 @@ export function BlogCard({ data }: BlogCardProps) {
             </div>
           )}
         </div>
-      </Link>
-    </article>
+      </div>
+    </Link>
   );
 }

@@ -6,7 +6,7 @@ import { ModeSwitch } from '@/components/layout/mode-switch';
 export function SiteHeader() {
   return (
     <header className="container sticky top-0 z-40 border-b bg-background/50 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between">
+      <div className="mx-auto flex h-16 max-w-screen-md items-center justify-between">
         <Link href="/" className="rounded-sm p-2">
           <Image
             src="/images/cakegaly.webp"
