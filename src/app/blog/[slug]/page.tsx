@@ -88,9 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Description */}
           {post.metadata.description && (
-            <p className="text-lg text-muted-foreground md:text-xl">
-              {post.metadata.description}
-            </p>
+            <p className="text-muted-foreground">{post.metadata.description}</p>
           )}
 
           {/* Tags */}
