@@ -1,10 +1,10 @@
 import '@/styles/globals.css';
 
 import { fontHack, fontNotoSansJp } from '@/assets/fonts';
-import { SiteFooter } from '@/components/site-footer';
-import { SiteHeader } from '@/components/site-header';
-import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { ThemeProvider } from '@/components/theme-provider';
+import { SiteFooter } from '@/components/layout/site-footer';
+import { SiteHeader } from '@/components/layout/site-header';
+import { ThemeProvider } from '@/components/layout/theme-provider';
+import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
@@ -78,7 +78,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
-          {/* <Toaster className="bg-primary" /> */}
           <TailwindIndicator />
         </ThemeProvider>
       </body>

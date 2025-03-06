@@ -1,4 +1,4 @@
-import { BlogCard } from '@/components/blog-card';
+import { BlogCard } from '@/components/content/blog-card';
 import { getBlogPosts } from '@/lib/mdx';
 
 export default async function TopPage() {

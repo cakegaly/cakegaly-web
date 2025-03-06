@@ -1,7 +1,9 @@
-import { LucideProps } from 'lucide-react';
+import { SVGProps } from 'react';
+
+// export type SocialIconName = 'twitter' | 'github';
 
 export const SocialIcons = {
-  gitHub: ({ ...props }: LucideProps) => (
+  github: (props: SVGProps<SVGSVGElement>) => (
     <svg
       aria-hidden="true"
       focusable="false"
@@ -18,7 +20,7 @@ export const SocialIcons = {
       ></path>
     </svg>
   ),
-  twitter: ({ ...props }: LucideProps) => (
+  twitter: (props: SVGProps<SVGSVGElement>) => (
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"

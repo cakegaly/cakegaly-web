@@ -11,7 +11,7 @@ import {
   Tag,
 } from 'lucide-react';
 
-export const LucideIcons = {
+export const Icons = {
   calendar: Calendar,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
