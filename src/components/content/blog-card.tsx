@@ -14,10 +14,10 @@ export function BlogCard({ data }: BlogCardProps) {
   const Icon = TechIcons[metadata.icon ?? 'default'];
 
   return (
-    <article className="group relative overflow-hidden rounded-lg border bg-card transition-colors hover:bg-accent/5">
+    <article className="relative overflow-hidden rounded-lg border border-border bg-card p-6 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md">
       <Link
         href={`/blog/${slug}`}
-        className="block p-6 outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="block outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
         {/* Tech Icon */}
         <div className="mb-4 inline-flex rounded-lg bg-muted/50 p-3">
