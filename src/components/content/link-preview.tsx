@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { getOGData } from '@/actions/fetch-og-metadata';
+import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
@@ -14,6 +15,7 @@ interface LinkCardProps {
   description?: string;
   image?: string;
   className?: string;
+  error?: boolean;
 }
 
 interface LinkPreviewProps {
@@ -47,6 +49,7 @@ export function LinkCard({
   description,
   image,
   className,
+  error = false,
 }: LinkCardProps) {
   const isExternal = url.startsWith('http');
   const hostname = isExternal ? new URL(url).hostname : '';
@@ -87,25 +90,26 @@ export function LinkCard({
 
         <div className="flex-1">
           <h3 className="font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
-            {title || 'Untitled'}
+            {error ? 'Page Not Found' : title || 'Untitled'}{' '}
           </h3>
-          {description && (
+          {error ? (
+            <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
+              This page may have been moved or deleted.
+            </p>
+          ) : description ? (
             <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
               {description}
             </p>
-          )}
+          ) : null}
         </div>
       </div>
 
       {image ? (
         <div className="hidden w-[148px] shrink-0 sm:block">
           <div className="relative h-full w-full">
-            <Image
+            <ImageWithFallback
               src={image || '/placeholder.svg'}
-              alt={title || ''}
-              className="object-cover"
-              fill
-              sizes="(max-width: 768px) 100vw, 148px"
+              alt={title || 'Link preview'}
             />
           </div>
         </div>
@@ -123,6 +127,7 @@ export function LinkCard({
 
   const cardClasses = cn(
     'group my-4 flex overflow-hidden rounded-lg border bg-card transition-all duration-200 hover:bg-accent/5 hover:shadow-md',
+    error && 'border-border/50 bg-card/50',
     className
   );
 
@@ -142,18 +147,18 @@ export function LinkCard({
   );
 }
 
-async function InternalLinkCard({ url }: { url: string }) {
+async function InternalLinkCard({
+  url,
+  className,
+}: {
+  url: string;
+  className?: string;
+}) {
   const slug = getSlugFromUrl(url);
   const post = await getBlogPostBySlug(slug);
 
   if (!post) {
-    return (
-      <LinkCard
-        url={url}
-        title="Blog Post Not Found"
-        description="This post may have been removed or the URL is incorrect."
-      />
-    );
+    return <LinkCard url={url} error={true} className={className} />;
   }
 
   return (
@@ -162,21 +167,38 @@ async function InternalLinkCard({ url }: { url: string }) {
       title={post.metadata.title}
       description={post.metadata.description}
       image={siteConfig.ogImage}
+      className={className}
     />
   );
 }
 
-async function ExternalLinkCard({ url }: { url: string }) {
-  const ogData = await getOGData(url);
+async function ExternalLinkCard({
+  url,
+  className,
+}: {
+  url: string;
+  className?: string;
+}) {
+  try {
+    const ogData = await getOGData(url);
 
-  return (
-    <LinkCard
-      url={url}
-      title={ogData.title}
-      description={ogData.description}
-      image={ogData.image}
-    />
-  );
+    if (!ogData.title) {
+      return <LinkCard url={url} error={true} className={className} />;
+    }
+
+    return (
+      <LinkCard
+        url={url}
+        title={ogData.title}
+        description={ogData.description}
+        image={ogData.image}
+        className={className}
+      />
+    );
+  } catch (error) {
+    console.error(`Error fetching ${url}:`, error);
+    return <LinkCard url={url} error={true} className={className} />;
+  }
 }
 
 export function LinkPreview({ url, className }: LinkPreviewProps) {
@@ -185,13 +207,18 @@ export function LinkPreview({ url, className }: LinkPreviewProps) {
   return (
     <Suspense
       fallback={
-        <div className="my-4 h-[124px] animate-pulse rounded-lg border bg-muted/50" />
+        <div
+          className={cn(
+            'my-4 h-[124px] animate-pulse rounded-lg border bg-muted/50',
+            className
+          )}
+        />
       }
     >
       {isInternal ? (
-        <InternalLinkCard url={url} />
+        <InternalLinkCard url={url} className={className} />
       ) : (
-        <ExternalLinkCard url={url} />
+        <ExternalLinkCard url={url} className={className} />
       )}
     </Suspense>
   );
