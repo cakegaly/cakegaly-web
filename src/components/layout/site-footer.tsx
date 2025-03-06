@@ -48,7 +48,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               aria-label="GitHub"
               title="GitHub (/cakegaly)"
             >
-              <SocialIcons.gitHub className="size-4" />
+              <SocialIcons.github className="size-4" />
             </Link>
           )}
           <Link
