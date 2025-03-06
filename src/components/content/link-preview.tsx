@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { getOGData } from '@/actions/fetch-og-metadata';
+import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
 
@@ -160,7 +161,7 @@ async function InternalLinkCard({ url }: { url: string }) {
       url={url}
       title={post.metadata.title}
       description={post.metadata.description}
-      image={post.metadata.thumbnail || '/images/blog-placeholder.jpg'}
+      image={siteConfig.ogImage}
     />
   );
 }
@@ -179,7 +180,7 @@ async function ExternalLinkCard({ url }: { url: string }) {
 }
 
 export function LinkPreview({ url, className }: LinkPreviewProps) {
-  const isInternal = !url.startsWith('http') || isInternalBlogLink(url);
+  const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 
   return (
     <Suspense
