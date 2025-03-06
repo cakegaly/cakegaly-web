@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="container max-w-screen-lg py-6 md:py-10">
+    <div className="container max-w-screen-md py-6 md:py-10">
       <article className="relative">
         <header className="mb-10 space-y-6 border-b pb-8">
           {/* Date & Time */}
@@ -82,15 +82,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+          <h1 className="text-2xl font-bold leading-tight tracking-tight">
             {post.metadata.title}
           </h1>
 
           {/* Description */}
           {post.metadata.description && (
-            <p className="text-lg text-muted-foreground md:text-xl">
-              {post.metadata.description}
-            </p>
+            <p className="text-muted-foreground">{post.metadata.description}</p>
           )}
 
           {/* Tags */}

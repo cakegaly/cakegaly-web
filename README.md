@@ -26,21 +26,21 @@ This project follows a **minimalist approach** to building a **Next.js-based MDX
 
 Follow these steps to set up and run the project on your local machine.
 
-### 1️. Clone the repository
+### Clone the repository
 
 ```sh
 git clone git@github.com:cakegaly/cakegaly-web.git
 cd cakegaly-web
 ```
 
-### 2️. Install dependencies & set up environment variables
+### Install dependencies & set up environment variables
 
 ```sh
 pnpm install
 cp .env.example .env.local
 ```
 
-### 3️. Build the project
+### Build the project
 
 ```sh
 pnpm build
@@ -54,7 +54,7 @@ pnpm dev
 
 ### 5️. Open in your browser
 
-Visit **[http://localhost:8888](http://localhost:8888)** to see the site in action.
+Visit **[http://localhost:8888](http://localhost:8888)** to see the site in action 🎅
 
 <!-- ### 6️. Run Storybook
 

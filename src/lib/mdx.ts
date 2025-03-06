@@ -4,8 +4,8 @@ import path from 'path';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 
+import { components } from '@/components/content/mdx-components';
 import { TechIcons } from '@/components/icons';
-import { components } from '@/components/mdx-components';
 import { ellyTheme } from '@/config/blog';
 import { Frontmatter, MDXData } from '@/types/mdx';
 
