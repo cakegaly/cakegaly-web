@@ -3,8 +3,8 @@ import '@/styles/globals.css';
 import { fontHack, fontNotoSansJp } from '@/assets/fonts';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
+import { ThemeProvider } from '@/components/layout/theme-provider';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { ThemeProvider } from '@/components/theme-provider';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
