@@ -4,7 +4,7 @@ import { fontHack, fontNotoSansJp } from '@/assets/fonts';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
-import { TailwindIndicator } from '@/components/tailwind-indicator';
+import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
