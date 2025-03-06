@@ -10,7 +10,7 @@ export const components: MDXComponents = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-12 scroll-m-20 border-b border-border/50 pb-2 text-xl font-bold tracking-tight first:mt-0',
+        'mt-12 scroll-m-20 border-b border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0',
         className
       )}
       {...props}
@@ -19,7 +19,7 @@ export const components: MDXComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-8 scroll-m-20 text-lg font-semibold tracking-tight',
+        'mt-8 scroll-m-20 text-xl font-semibold tracking-tight',
         className
       )}
       {...props}
@@ -28,7 +28,7 @@ export const components: MDXComponents = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'mt-8 scroll-m-20 text-base font-semibold tracking-tight',
+        'mt-8 scroll-m-20 text-lg font-semibold tracking-tight',
         className
       )}
       {...props}
@@ -37,7 +37,7 @@ export const components: MDXComponents = {
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
-        'text-sm font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50',
+        'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50',
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ export const components: MDXComponents = {
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
       className={cn(
-        'text-sm leading-7 text-foreground/90 [&:not(:first-child)]:mt-6',
+        'leading-7 text-foreground/90 [&:not(:first-child)]:mt-6',
         className
       )}
       {...props}
