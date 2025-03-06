@@ -1,3 +1,3 @@
 export { Icons } from './lucide-icons';
 export { SocialIcons } from './social-icons';
-export * from './tech-icons';
+export { TechIcons } from './tech-icons';

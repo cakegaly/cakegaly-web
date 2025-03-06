@@ -15,11 +15,10 @@ export const tags: Record<
   eslint: { name: 'ESLint', icon: 'eslint' },
   jamstack: { name: 'Jamstack', icon: 'jamstack' },
   nextjs: { name: 'Next.js', icon: 'nextjs' },
-  php: { name: 'php', icon: 'php' },
   react: { name: 'react', icon: 'react' },
   typescript: { name: 'TypeScript', icon: 'typescript' },
-  vercel: { name: 'vercel', icon: 'vercel' },
   wordpress: { name: 'WordPress', icon: 'wordpress' },
+  vercel: { name: 'vercel', icon: 'vercel' },
 };
 
 export const ellyTheme = {
