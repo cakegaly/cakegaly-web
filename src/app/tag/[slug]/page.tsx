@@ -1,4 +1,4 @@
-import { BlogCard } from '@/components/blog-card';
+import { BlogCard } from '@/components/content/blog-card';
 import { tags } from '@/config/blog';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
 
