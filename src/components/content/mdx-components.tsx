@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import { Callout } from '@/components/callout';
 import { LinkPreview } from '@/components/content/link-preview';
 import { MdxCard } from '@/components/mdx-card';
+import { Callout } from '@/components/shared/callout';
 import { cn } from '@/lib/utils';
 import { MDXComponents } from 'mdx/types';
 
