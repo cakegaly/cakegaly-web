@@ -1,6 +1,7 @@
-import { ModeSwitch } from '@/components/mode-switch';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { ModeSwitch } from '@/components/layout/mode-switch';
 
 export function SiteHeader() {
   return (
