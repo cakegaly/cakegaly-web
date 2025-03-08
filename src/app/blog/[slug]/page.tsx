@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold leading-snug tracking-normal">
+        <h1 className="text-2xl font-bold leading-snug tracking-normal">
           {post.metadata.title}
         </h1>
 
