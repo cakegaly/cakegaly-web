@@ -2,8 +2,8 @@ import '@/styles/mdx.css';
 
 import { notFound } from 'next/navigation';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/shadcn-ui/badge';
+import { Button } from '@/components/shadcn-ui/button';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="container max-w-screen-md py-6 md:py-12">
-      <article className="relative rounded-lg border border-border bg-background p-6 shadow-sm">
+      <article>
         {/* Metadata (Date & Tags) */}
         <div className="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold leading-snug tracking-normal">
+        <h1 className="text-2xl font-bold leading-snug tracking-normal">
           {post.metadata.title}
         </h1>
 
