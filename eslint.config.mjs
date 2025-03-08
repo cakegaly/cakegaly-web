@@ -10,10 +10,9 @@ import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
 export default [
+  // Base configuration
   {
     files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-  },
-  {
     ignores: [
       '**/build/',
       '**/bin/',
@@ -24,6 +23,8 @@ export default [
       '**/node_modules/',
     ],
   },
+
+  // React configuration
   eslintPluginReact.configs.flat.recommended,
   eslintPluginReact.configs.flat['jsx-runtime'],
   {
@@ -31,12 +32,16 @@ export default [
       'react-hooks': eslintPluginReactHooks,
       '@next': eslintPluginNext,
     },
-    ...eslintPluginReactHooks.configs.recommended.rules,
-    ...eslintPluginNext.configs.recommended.rules,
-    ...eslintPluginNext.configs['core-web-vitals'].rules,
-    '@next/next/no-img-element': 'error',
-    'react/prop-types': 'off',
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs['core-web-vitals'].rules,
+      '@next/next/no-img-element': 'error',
+      'react/prop-types': 'off',
+    },
   },
+
+  // TypeScript configuration
   tsEslint.configs.recommended,
   {
     languageOptions: {
@@ -53,10 +58,15 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
+
+  // Tailwind CSS configuration
   tailwindcss,
+
+  // Import organization
   {
     plugins: {
       import: eslintPluginImport,
+      'unused-imports': eslintPluginUnusedImports,
     },
     rules: {
       'import/order': [
@@ -66,26 +76,19 @@ export default [
             'builtin',
             'external',
             'internal',
-            'parent',
-            'sibling',
-            'index',
-            'object',
+            ['parent', 'sibling', 'index'],
             'type',
           ],
           pathGroups: [
-            // React imports
-            { pattern: 'react', group: 'builtin', position: 'before' },
-            { pattern: 'react/**', group: 'builtin', position: 'before' },
+            // React and Next.js imports
+            {
+              pattern: '{react,react-dom,react/**}',
+              group: 'builtin',
+              position: 'before',
+            },
+            { pattern: '{next,next/**}', group: 'builtin', position: 'before' },
 
-            // Next.js imports
-            { pattern: 'next', group: 'builtin', position: 'before' },
-            { pattern: 'next/**', group: 'builtin', position: 'before' },
-
-            // Types
-            { pattern: 'types', group: 'type', position: 'before' },
-
-            // Project imports by path alias - adjusted for src/ directory
-            { pattern: '@/env*', group: 'internal', position: 'before' },
+            // Project imports by path alias
             { pattern: '@/types/**', group: 'internal', position: 'before' },
             { pattern: '@/config/**', group: 'internal', position: 'before' },
             { pattern: '@/lib/**', group: 'internal', position: 'before' },
@@ -100,15 +103,8 @@ export default [
               group: 'internal',
               position: 'before',
             },
-            { pattern: '@/styles/**', group: 'internal', position: 'before' },
-            { pattern: '@/app/**', group: 'internal', position: 'before' },
-            { pattern: '@/assets/**', group: 'internal', position: 'before' },
-            { pattern: '@/content/**', group: 'internal', position: 'before' },
-
-            // For direct imports from src/ directory (if any)
-            { pattern: 'src/**', group: 'internal', position: 'after' },
+            { pattern: '@/**', group: 'internal', position: 'before' },
           ],
-          pathGroupsExcludedImportTypes: ['react', 'next'],
           alphabetize: {
             order: 'asc',
             caseInsensitive: true,
@@ -118,15 +114,10 @@ export default [
       ],
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
-    },
-  },
-  {
-    plugins: {
-      'unused-imports': eslintPluginUnusedImports,
-    },
-    rules: {
       'unused-imports/no-unused-imports': 'error',
     },
   },
+
+  // Prettier compatibility
   eslintConfigPrettier,
 ];

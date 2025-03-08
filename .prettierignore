@@ -1,17 +1,17 @@
-# Ignore artifacts:
-build
-coverage
-yarn.lock
+# Build outputs
+.next/
+build/
+dist/
+out/
+coverage/
 
-# dotfile
+# Dependencies
+node_modules/
+yarn.lock
+package-lock.json
+
+# Environment and config
 .env*
 
-# markdown
-*.md
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
+# Generated files
+*.generated.*
