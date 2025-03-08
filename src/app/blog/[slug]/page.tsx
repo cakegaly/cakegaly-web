@@ -2,8 +2,8 @@ import '@/styles/mdx.css';
 
 import { notFound } from 'next/navigation';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/shadcn-ui/badge';
+import { Button } from '@/components/shadcn-ui/button';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';

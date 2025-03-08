@@ -94,7 +94,7 @@ export default [
             { pattern: '@/lib/**', group: 'internal', position: 'before' },
             { pattern: '@/hooks/**', group: 'internal', position: 'before' },
             {
-              pattern: '@/components/ui/**',
+              pattern: '@/components/shadcn-ui/**',
               group: 'internal',
               position: 'before',
             },
