@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="container max-w-screen-md py-6 md:py-12">
-      <article className="relative rounded-lg border border-border bg-background p-6 shadow-sm">
+      <article>
         {/* Metadata (Date & Tags) */}
         <div className="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
