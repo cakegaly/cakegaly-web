@@ -93,7 +93,7 @@ const config = {
       },
       fontFamily: {
         sans: [
-          'var(--font-noto-sans-jp)',
+          'var(--font-m-plus-rounded)',
           '"Hiragino Sans"',
           '"Hiragino Kaku Gothic ProN"',
           '"Noto Sans JP"',
