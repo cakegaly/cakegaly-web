@@ -18,7 +18,7 @@ export function ModeSwitch() {
 
   return (
     <div className="flex items-center space-x-2">
-      <Icons.sun className="h-[1.2rem] w-[1.2rem]" />
+      <Icons.sun className="h-4 w-4" />
       <Switch
         checked={resolvedTheme === 'dark'}
         onCheckedChange={(checked) => {
@@ -26,7 +26,7 @@ export function ModeSwitch() {
         }}
         aria-label="Toggle dark mode"
       />
-      <Icons.moon className="h-[1.2rem] w-[1.2rem]" />
+      <Icons.moon className="h-4 w-4" />
     </div>
   );
 }
