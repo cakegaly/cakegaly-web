@@ -54,8 +54,8 @@ export default async function TagPage({ params }: TagPageProps) {
   const posts = await getBlogPostsByTagSlug(slug);
 
   return (
-    <section className="container max-w-screen-lg py-6">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <section className="container max-w-screen-md py-6 md:py-12">
+      <div className="space-y-6">
         {posts.map((blog, index) => (
           <BlogCard key={index} data={blog} />
         ))}
