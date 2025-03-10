@@ -2,11 +2,12 @@ import '@/styles/mdx.css';
 
 import { notFound } from 'next/navigation';
 
+import { CustomMDX } from '@/components/content/custom-mdx';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { ArrowLeft, Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export async function generateStaticParams() {
-  const allPosts = await getBlogPosts();
+  const allPosts = await getAllBlogPosts();
   return allPosts.map((post) => ({
     slug: post.slug,
   }));
@@ -104,7 +105,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Article Content */}
-        <div className="mt-10 max-w-none leading-relaxed">{post.content}</div>
+        <CustomMDX source={post.rawContent} />
 
         {/* Footer */}
         {/* TODO: prev/next button */}
