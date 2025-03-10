@@ -13,29 +13,29 @@ export type BlogPost = MDXData<{
   icon?: keyof typeof TechIcons;
 }>;
 
-export const getBlogPosts = async (): Promise<BlogPost[]> => {
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts = await getMDXData(blogDir);
   return posts.sort(
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
   );
-};
+}
 
-export const getBlogPostsByTagSlug = async (
+export async function getBlogPostsByTagSlug(
   tagSlug: string
-): Promise<BlogPost[]> => {
-  const posts = await getBlogPosts();
+): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
   return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
-};
+}
 
 export async function getBlogPostBySlug(slug: string) {
   return getBlogPost((post) => post.slug === slug);
 }
 
-export async function getBlogPost(
+async function getBlogPost(
   predicate: (post: BlogPost) => boolean
 ): Promise<BlogPost | undefined> {
-  const posts = await getBlogPosts();
+  const posts = await getAllBlogPosts();
   return posts.find(predicate);
 }
 

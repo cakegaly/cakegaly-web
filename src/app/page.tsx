@@ -1,8 +1,8 @@
 import { BlogCard } from '@/components/content/blog-card';
-import { getBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/mdx';
 
 export default async function TopPage() {
-  const allPosts = await getBlogPosts();
+  const allPosts = await getAllBlogPosts();
 
   return (
     <section className="container max-w-screen-md py-6 md:py-12">
