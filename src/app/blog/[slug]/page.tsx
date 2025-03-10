@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
+import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -83,7 +84,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="inline-flex flex-wrap gap-2">
               {post.metadata.tags.map((tag) => (
                 <Link key={tag} href={`/tag/${tag}`}>
-                  <Badge className="px-2 py-0.5 text-xs">{tag}</Badge>
+                  <Badge className="px-2 py-0.5 text-xs">
+                    {tags[tag]?.name}
+                  </Badge>
                 </Link>
               ))}
             </div>
@@ -104,6 +107,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mt-10 max-w-none leading-relaxed">{post.content}</div>
 
         {/* Footer */}
+        {/* TODO: prev/next button */}
         <footer className="mt-10 border-t pt-8">
           <Button variant="ghost" asChild className="h-9 px-2">
             <Link href="/" className="group inline-flex items-center">

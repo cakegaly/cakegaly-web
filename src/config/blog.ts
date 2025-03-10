@@ -16,6 +16,7 @@ export const tags: Record<
   jamstack: { name: 'Jamstack', icon: 'jamstack' },
   nextjs: { name: 'Next.js', icon: 'nextjs' },
   react: { name: 'react', icon: 'react' },
+  tailwindcss: { name: 'Tailwind CSS', icon: 'tailwindcss' },
   typescript: { name: 'TypeScript', icon: 'typescript' },
   wordpress: { name: 'WordPress', icon: 'wordpress' },
   vercel: { name: 'vercel', icon: 'vercel' },
