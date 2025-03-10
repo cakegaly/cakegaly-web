@@ -93,7 +93,7 @@ const config = {
       },
       fontFamily: {
         sans: [
-          'var(--font-noto-sans-jp)',
+          'var(--font-m-plus-rounded)',
           '"Hiragino Sans"',
           '"Hiragino Kaku Gothic ProN"',
           '"Noto Sans JP"',
@@ -110,11 +110,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    require('@tailwindcss/typography'),
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar')],
 } satisfies Config;
 
 export default config;
