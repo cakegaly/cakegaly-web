@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Icons, TechIcons } from '@/components/icons';
+import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 
@@ -19,7 +20,7 @@ export function BlogCard({ data }: BlogCardProps) {
     >
       {/* Eyecatch (TechIcon) */}
       {/* TODO: set tailwind color */}
-      <div className="size-16 flex-shrink-0 rounded-md bg-[#F3F4F6] bg-muted p-3 transition-colors group-hover:bg-muted/70">
+      <div className="size-16 flex-shrink-0 rounded-md bg-muted p-3 transition-colors group-hover:bg-muted/70">
         <Icon className="size-10 text-primary transition-colors group-hover:text-primary/80" />
       </div>
 
@@ -54,7 +55,7 @@ export function BlogCard({ data }: BlogCardProps) {
                     key={tag}
                     className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium"
                   >
-                    {tag}
+                    {tags[tag].name}
                   </span>
                 ))}
                 {metadata.tags.length > 2 && (
