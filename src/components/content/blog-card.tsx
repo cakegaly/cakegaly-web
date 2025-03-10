@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Icons, TechIcons } from '@/components/icons';
+import { Badge } from '@/components/shadcn-ui/badge';
 import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
@@ -51,12 +52,9 @@ export function BlogCard({ data }: BlogCardProps) {
               <Icons.tag className="size-4" />
               <div className="flex gap-1">
                 {metadata.tags.slice(0, 2).map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium"
-                  >
-                    {tags[tag].name}
-                  </span>
+                  <Badge key={tag} className="px-2 py-0.5 text-xs font-medium">
+                    {tags[tag]?.name}
+                  </Badge>
                 ))}
                 {metadata.tags.length > 2 && (
                   <span className="text-xs">+{metadata.tags.length - 2}</span>
