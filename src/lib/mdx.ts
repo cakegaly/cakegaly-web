@@ -1,21 +1,11 @@
 import fs from 'fs';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import matter from 'gray-matter';
 import path from 'path';
-import rehypePrettyCode from 'rehype-pretty-code';
-import remarkGfm from 'remark-gfm';
 
-import { components } from '@/components/content/mdx-components';
 import { TechIcons } from '@/components/icons';
-import { ellyTheme } from '@/config/blog';
 import { Frontmatter, MDXData } from '@/types/mdx';
 
 const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
-
-const rehypePrettyCodeOptions = {
-  theme: ellyTheme,
-  keepBackground: true,
-  defaultLang: 'plaintext',
-};
 
 export type BlogPost = MDXData<{
   thumbnail?: string;
@@ -23,58 +13,51 @@ export type BlogPost = MDXData<{
   icon?: keyof typeof TechIcons;
 }>;
 
-export const getBlogPosts = async (): Promise<BlogPost[]> => {
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts = await getMDXData(blogDir);
   return posts.sort(
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
   );
-};
+}
 
-export const getBlogPostsByTagSlug = async (
+export async function getBlogPostsByTagSlug(
   tagSlug: string
-): Promise<BlogPost[]> => {
-  const posts = await getBlogPosts();
+): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
   return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
-};
+}
 
-export const getBlogPostBySlug = async (slug: string) =>
-  getBlogPost((post) => post.slug === slug);
+export async function getBlogPostBySlug(slug: string) {
+  return getBlogPost((post) => post.slug === slug);
+}
 
-const getBlogPost = async (
+async function getBlogPost(
   predicate: (post: BlogPost) => boolean
-): Promise<BlogPost | undefined> => {
-  const posts = await getBlogPosts();
+): Promise<BlogPost | undefined> {
+  const posts = await getAllBlogPosts();
   return posts.find(predicate);
-};
+}
 
-const getMDXData = async <T>(dir: string): Promise<MDXData<T>[]> => {
+async function getMDXData<T>(dir: string): Promise<MDXData<T>[]> {
   const files = await getMDXFiles(dir);
   return Promise.all(files.map((file) => readMDXFile<T>(path.join(dir, file))));
-};
+}
 
-const getMDXFiles = async (dir: string): Promise<string[]> =>
-  (await fs.promises.readdir(dir)).filter(
+async function getMDXFiles(dir: string): Promise<string[]> {
+  return (await fs.promises.readdir(dir)).filter(
     (file) => path.extname(file) === '.mdx'
   );
+}
 
-const readMDXFile = async <T>(filePath: string): Promise<MDXData<T>> => {
+async function readMDXFile<T>(filePath: string): Promise<MDXData<T>> {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
-  const { frontmatter, content } = await compileMDX<Frontmatter<T>>({
-    source: rawContent,
-    components,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
-      },
-    },
-  });
+
+  const { data, content } = matter(rawContent);
 
   return {
-    metadata: frontmatter,
+    metadata: data as Frontmatter<T>,
     slug: path.basename(filePath, path.extname(filePath)),
-    content,
+    rawContent: content,
   };
-};
+}

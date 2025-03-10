@@ -19,7 +19,7 @@
     --secondary: 84 20% 60%; /* #9BAA89 */
     --secondary-foreground: 205 29% 9%;
 
-    --muted: 210 19% 40%; /* #4F5D6B */
+    --muted: 210 19% 55%; /* #768897 */
     --muted-foreground: 210 15% 70%; /* #A7B4C2 */
 
     --accent: 33 30% 65%; /* #C4AB8E */
@@ -86,5 +86,10 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  strong,
+  b {
+    font-weight: 500;
   }
 }
