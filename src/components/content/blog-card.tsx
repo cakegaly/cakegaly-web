@@ -19,7 +19,7 @@ export function BlogCard({ data }: BlogCardProps) {
     >
       {/* Eyecatch (TechIcon) */}
       {/* TODO: set tailwind color */}
-      <div className="size-16 flex-shrink-0 rounded-md bg-[#F3F4F6] bg-muted p-3 transition-colors group-hover:bg-muted/70">
+      <div className="size-16 flex-shrink-0 rounded-md bg-muted p-3 transition-colors group-hover:bg-muted/70">
         <Icon className="size-10 text-primary transition-colors group-hover:text-primary/80" />
       </div>
 
