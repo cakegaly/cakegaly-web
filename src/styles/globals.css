@@ -87,4 +87,9 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  strong,
+  b {
+    font-weight: 500;
+  }
 }
