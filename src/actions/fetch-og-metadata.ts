@@ -1,6 +1,5 @@
 'use server';
 
-import { parse } from 'node-html-parser';
 import { cache } from 'react';
 
 interface OGData {
@@ -20,18 +19,19 @@ export const getOGData = cache(
       });
 
       const html = await response.text();
-      const root = parse(html);
 
-      const getMetaContent = (property: string) => {
-        const element = root.querySelector(
-          `meta[property="${property}"], meta[name="${property}"]`
+      const getMetaContent = (property: string): string | undefined => {
+        const regex = new RegExp(
+          `<meta[^>]+(?:property|name)="${property}"[^>]+content="([^"]+)"`,
+          'i'
         );
-        return element?.getAttribute('content');
+        return regex.exec(html)?.[1];
       };
 
+      const titleMatch = /<title>(.*?)<\/title>/i.exec(html);
+
       return {
-        title:
-          getMetaContent('og:title') || root.querySelector('title')?.text || '',
+        title: getMetaContent('og:title') || titleMatch?.[1] || '',
         description:
           getMetaContent('og:description') ||
           getMetaContent('description') ||

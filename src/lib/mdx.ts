@@ -1,138 +1,63 @@
 import fs from 'fs';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import matter from 'gray-matter';
 import path from 'path';
-import rehypePrettyCode from 'rehype-pretty-code';
-import remarkGfm from 'remark-gfm';
 
 import { TechIcons } from '@/components/icons';
-import { components } from '@/components/mdx-components';
+import { Frontmatter, MDXData } from '@/types/mdx';
 
-const ellyTheme = {
-  name: 'elly',
-  type: 'dark',
-  colors: {
-    'editor.background': '#111A1F',
-    'editor.foreground': '#C4C4C4',
-  },
-  tokenColors: [
-    {
-      scope: ['comment'],
-      settings: {
-        foreground: '#6A6A6A',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['string'],
-      settings: {
-        foreground: '#98A982',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['keyword'],
-      settings: {
-        foreground: '#89B8D3',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['variable', 'constant'],
-      settings: {
-        foreground: '#AD9876',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['entity.name.function', 'support.function'],
-      settings: {
-        foreground: '#93ACBC',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['entity.name.type', 'support.type'],
-      settings: {
-        foreground: '#BBB277',
-        // fontStyle: 'italic',
-      },
-    },
-    {
-      scope: ['punctuation', 'meta.brace'],
-      settings: {
-        foreground: '#A6ABAD',
-      },
-    },
-  ],
-};
-
-const rehypePrettyCodeOptions = {
-  theme: ellyTheme,
-  keepBackground: true,
-  defaultLang: 'plaintext',
-};
-
-export type Frontmatter<T = {}> = {
-  title: string;
-  date: string;
-  description: string;
-} & T;
-
-export type MDXData<T = {}> = {
-  metadata: Frontmatter<T>;
-  slug: string;
-  content: React.ReactNode;
-};
+const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
 
 export type BlogPost = MDXData<{
   thumbnail?: string;
   tags?: string[];
-  categories?: string[];
-  eyecatch?: keyof typeof TechIcons;
+  icon?: keyof typeof TechIcons;
 }>;
 
-export type Tag = {
-  name: string;
-  slug: string;
-};
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  const posts = await getMDXData(blogDir);
+  return posts.sort(
+    (a, b) =>
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+  );
+}
 
-export type Category = {
-  name: string;
-  slug: string;
-};
+export async function getBlogPostsByTagSlug(
+  tagSlug: string
+): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
+}
 
-const getMDXFiles = (dir: string): string[] =>
-  fs
-    .readdirSync(dir)
-    .filter((file) => fs.statSync(path.join(dir, file)).isDirectory())
-    .map((subDir) => path.join(dir, subDir, 'index.mdx'));
+export async function getBlogPostBySlug(slug: string) {
+  return getBlogPost((post) => post.slug === slug);
+}
 
-const readMDXFile = async (filePath: string): Promise<MDXData> => {
+async function getBlogPost(
+  predicate: (post: BlogPost) => boolean
+): Promise<BlogPost | undefined> {
+  const posts = await getAllBlogPosts();
+  return posts.find(predicate);
+}
+
+async function getMDXData<T>(dir: string): Promise<MDXData<T>[]> {
+  const files = await getMDXFiles(dir);
+  return Promise.all(files.map((file) => readMDXFile<T>(path.join(dir, file))));
+}
+
+async function getMDXFiles(dir: string): Promise<string[]> {
+  return (await fs.promises.readdir(dir)).filter(
+    (file) => path.extname(file) === '.mdx'
+  );
+}
+
+async function readMDXFile<T>(filePath: string): Promise<MDXData<T>> {
   const rawContent = await fs.promises.readFile(filePath, 'utf-8');
 
-  const { frontmatter, content } = await compileMDX<Frontmatter>({
-    source: rawContent,
-    components,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
-      },
-    },
-  });
+  const { data, content } = matter(rawContent);
 
   return {
-    metadata: frontmatter,
-    slug: path.basename(path.dirname(filePath)),
-    content,
+    metadata: data as Frontmatter<T>,
+    slug: path.basename(filePath, path.extname(filePath)),
+    rawContent: content,
   };
-};
-
-const getMDXData = async (dir: string): Promise<MDXData[]> => {
-  const mdxFiles = getMDXFiles(dir);
-  return Promise.all(mdxFiles.map((file) => readMDXFile(file)));
-};
-
-export const getBlogPosts = async (): Promise<BlogPost[]> =>
-  getMDXData(path.join(process.cwd(), 'src/content/blog'));
+}

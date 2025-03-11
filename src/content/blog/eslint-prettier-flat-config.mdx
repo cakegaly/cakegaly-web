@@ -2,18 +2,16 @@
 title: ESLint と Prettier を Flat Config に移行した
 date: 2025-03-01
 description: Next.js のバージョンアップとあわせて、ESLint と Prettier の設定を Flat Config に移行したメモです。
-eyecatch: eslint
+icon: eslint
 tags:
-  - typescript
   - eslint
+  - typescript
 ---
 
-## なぜ Flat Config に移行するのか？
+## はじめに
 
-Next.js 15 では、ESLint と Prettier の Flat Config への移行が推奨されています。
-Flat Config は `.eslintrc.js` の代わりに **`eslint.config.mjs` を使用する新しい構成方法** です。
-
-従来の `.eslintrc.js` は次第に非推奨になっていくため、早めに Flat Config に移行しておきましょう。
+Next.js v15 で対応した ESLint v9 では、Flat Config がデフォルトになりました。
+Flat Config では、従来の `.eslintrc.*` と `.eslintignore` に代わり、**`eslint.config.mjs`** に設定をまとめます。
 
 ---
 
@@ -25,6 +23,13 @@ Flat Config は `.eslintrc.js` の代わりに **`eslint.config.mjs` を使用�
 
 ```sh
 pnpm add -D eslint prettier eslint-config-prettier eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-tailwindcss @next/eslint-plugin-next typescript-eslint
+```
+
+[typescript-eslint 公式ドキュメント](https://typescript-eslint.io/packages/typescript-eslint/#migrating-from-legacy-eslintrc-configs)
+にも書かれている通り、レガシーとなった `@typescript-eslint/parser` と `@typescript-eslint/eslint-plugin` は、削除しておきます。
+
+```sh
+pnpm remove @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
 また、VSCode で ESLint を有効にするために、`eslint.useFlatConfig` を `true` に設定しておきます (後述)
@@ -131,7 +136,10 @@ export default [
 ];
 ```
 
-Prettier との競合を防ぐため、 `eslint-config-prettier` は最後に追加しています。
+`eslint-config-next` ではなく `@next/eslint-plugin-next`, `eslint-plugin-react`, `eslint-plugin-react-hooks` を導入しているのは、
+[こちら](https://github.com/vercel/next.js/discussions/49337) で議論されているように、Flat Config の対応状況によるものです。
+
+なお、Prettier との競合を防ぐため、 `eslint-config-prettier` は最後に追加しています。
 
 ### Prettier の設定 (`prettier.config.mjs`)
 
@@ -155,6 +163,8 @@ export default {
 ```
 
 Tailwind CSS のクラス順序を自動整理するため に、`prettier-plugin-tailwindcss` を入れています。
+
+ESLint とは異なり、ignore 設定については、これまで通りに `.prettierignore` に記述します。
 
 ### VSCode の設定 (`.vscode/settings.json`)
 
@@ -191,5 +201,5 @@ pnpm prettier --write .
 
 ## まとめ
 
-flat config により、設定がよりシンプルになりました。
-biome も気になっているので、次回は、比較してみようと思います。
+Flat Config 移行により、以前よりもシンプルに設定を書けるようになりました。
+最近なにかと話題の(?) [Biome](https://github.com/biomejs/biome) も気になっているので、今度試して比較してみます。

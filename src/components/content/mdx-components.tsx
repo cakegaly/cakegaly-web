@@ -1,16 +1,14 @@
 import Image from 'next/image';
 
-import { Callout } from '@/components/callout';
-import { LinkPreview } from '@/components/link-preview';
-import { MdxCard } from '@/components/mdx-card';
+import { LinkPreview } from '@/components/content/link-preview';
+import { Callout } from '@/components/shared/callout';
 import { cn } from '@/lib/utils';
-import { MDXComponents } from 'mdx/types';
 
-export const components: MDXComponents = {
+export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-12 scroll-m-20 border-b border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0 md:text-3xl',
+        'mt-12 scroll-m-20 border-b border-accent/50 pb-2 text-2xl font-medium tracking-tight first:mt-0',
         className
       )}
       {...props}
@@ -19,7 +17,7 @@ export const components: MDXComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-8 scroll-m-20 text-xl font-semibold tracking-tight md:text-2xl',
+        'mt-8 scroll-m-20 text-xl font-medium tracking-tight',
         className
       )}
       {...props}
@@ -28,7 +26,7 @@ export const components: MDXComponents = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'mt-8 scroll-m-20 text-lg font-semibold tracking-tight md:text-xl',
+        'mt-8 scroll-m-20 text-lg font-medium tracking-tight',
         className
       )}
       {...props}
@@ -122,7 +120,7 @@ export const components: MDXComponents = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'border border-border/50 bg-background px-4 py-3 text-left font-bold',
+        'border border-border/50 bg-background px-4 py-3 text-left font-medium',
         'text-foreground/90',
         '[&[align=center]]:text-center [&[align=right]]:text-right',
         className
@@ -193,6 +191,5 @@ export const components: MDXComponents = {
   ),
   Image,
   Callout,
-  Card: MdxCard,
   LinkPreview,
-} as MDXComponents;
+};
