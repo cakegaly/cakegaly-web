@@ -1,4 +1,4 @@
-import '@/styles/globals.css';
+import type { Metadata } from 'next';
 
 import { fontHack, fontMPlusRounded } from '@/assets/fonts';
 import { SiteFooter } from '@/components/layout/site-footer';
@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import type { Metadata } from 'next';
+import '@/styles/globals.css';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       ],
     },
   },
-  keywords: [],
+  keywords: ['Tech Blog', 'Next.js', 'React', 'Tailwind CSS', 'shadcn ui'],
   openGraph: {
     type: 'website',
     locale: 'ja_JP',
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/og.png`],
     creator: '@cakegaly',
   },
-  // verification: {
-  //   google: '',
-  // },
+  verification: {
+    google: 'sOglKlq48i0vvrlPm0URAufimNWPcnmNzsj6ZnFk_UE',
+  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
