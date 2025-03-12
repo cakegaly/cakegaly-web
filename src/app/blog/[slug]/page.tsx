@@ -70,8 +70,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="container max-w-screen-md py-6 md:py-12">
       <article>
+        {/* Title */}
+        <h1 className="font-heading text-2xl font-medium leading-tight">
+          {post.metadata.title}
+        </h1>
+
         {/* Metadata (Date & Tags) */}
-        <div className="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
+        <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
             <div className="inline-flex items-center gap-1">
               <Calendar className="size-4" />
@@ -93,16 +98,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           )}
         </div>
-
-        {/* Title */}
-        <h1 className="text-2xl font-medium leading-snug tracking-normal">
-          {post.metadata.title}
-        </h1>
-
-        {/* Description */}
-        {post.metadata.description && (
-          <p className="mt-4 text-foreground/80">{post.metadata.description}</p>
-        )}
 
         {/* Article Content */}
         <CustomMDX source={post.rawContent} />
