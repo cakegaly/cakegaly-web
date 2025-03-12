@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 
 import { getOGData } from '@/actions/fetch-og-metadata';
 import { Icons } from '@/components/icons';
-import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
@@ -107,7 +106,8 @@ export function LinkCard({
         </div>
       </div>
 
-      {!hideImage && (
+      {/* TODO: display og image */}
+      {/* {!hideImage && (
         <div
           className={cn(
             'hidden w-[148px] shrink-0 sm:block',
@@ -130,7 +130,7 @@ export function LinkCard({
             </div>
           )}
         </div>
-      )}
+      )} */}
     </>
   );
 
@@ -280,9 +280,10 @@ function LinkCardSkeleton({
         <div className="mt-1.5 h-4 w-full animate-pulse rounded bg-muted/50" />
       </div>
 
-      {!hideImage && (
+      {/* TODO: display og image */}
+      {/* {!hideImage && (
         <div className="hidden w-[148px] animate-pulse bg-muted/50 sm:block" />
-      )}
+      )} */}
     </div>
   );
 }
