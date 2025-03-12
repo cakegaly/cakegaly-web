@@ -3,6 +3,7 @@ import '@/styles/mdx.css';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/content/custom-mdx';
+import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
@@ -71,9 +72,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <div className="container max-w-screen-md py-6 md:py-12">
       <article>
         {/* Title */}
-        <h1 className="font-heading text-2xl font-medium leading-tight">
-          {post.metadata.title}
-        </h1>
+        <PageHeader title={post.metadata.title} />
 
         {/* Metadata (Date & Tags) */}
         <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
