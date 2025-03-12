@@ -93,14 +93,14 @@ export function LinkCard({
 
         <div className="flex-1">
           <h3 className="line-clamp-1 font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
-            {error ? 'Page Not Found' : title || 'Untitled'}{' '}
+            {error ? 'Page Not Found' : title || 'Untitled'}
           </h3>
           {error ? (
-            <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
+            <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
               This page may have been moved or deleted.
             </p>
           ) : description ? (
-            <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
+            <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
               {description}
             </p>
           ) : null}
@@ -272,13 +272,12 @@ function LinkCardSkeleton({
 }) {
   return (
     <div
-      className={cn('my-4 flex h-[124px] rounded-lg border bg-card', className)}
+      className={cn('my-4 flex h-[108px] rounded-lg border bg-card', className)}
     >
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="h-4 w-24 animate-pulse rounded bg-muted/50" />
         <div className="mt-2 h-5 w-3/4 animate-pulse rounded bg-muted/50" />
         <div className="mt-1.5 h-4 w-full animate-pulse rounded bg-muted/50" />
-        <div className="mt-0.5 h-4 w-2/3 animate-pulse rounded bg-muted/50" />
       </div>
 
       {!hideImage && (
