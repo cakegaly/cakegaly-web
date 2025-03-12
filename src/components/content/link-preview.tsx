@@ -80,7 +80,7 @@ export function LinkCard({
             ) : (
               <span className="flex items-center gap-1.5">
                 <div className="size-4 rounded-full bg-primary/10">
-                  <span className="flex h-full w-full items-center justify-center text-[10px] font-bold text-primary">
+                  <span className="flex h-full w-full items-center justify-center text-[10px] text-primary">
                     B
                   </span>
                 </div>
