@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { fontHack, fontMPlusRounded } from '@/assets/fonts';
+import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
@@ -63,8 +63,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontMPlusRounded.variable,
-          fontHack.variable
+          fontSans.variable,
+          fontHeading.variable,
+          fontMono.variable
         )}
       >
         <ThemeProvider
