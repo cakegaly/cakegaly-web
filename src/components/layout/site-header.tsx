@@ -17,6 +17,7 @@ export function SiteHeader() {
             width="32"
             height="32"
             className="rounded-full ring-1 ring-border"
+            priority={true}
           />
           <span className="font-mono text-sm">cakegaly.com</span>
         </Link>
