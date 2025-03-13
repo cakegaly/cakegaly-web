@@ -3,13 +3,14 @@ import '@/styles/mdx.css';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/content/custom-mdx';
+import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export const revalidate = false;
@@ -70,11 +71,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="container max-w-screen-md py-6 md:py-12">
       <article>
+        {/* Title */}
+        <PageHeader title={post.metadata.title} />
+
         {/* Metadata (Date & Tags) */}
-        <div className="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
+        <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
             <div className="inline-flex items-center gap-1">
-              <Calendar className="size-4" />
               <time dateTime={post.metadata.date}>
                 {formatDate(post.metadata.date)}
               </time>
@@ -93,16 +96,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           )}
         </div>
-
-        {/* Title */}
-        <h1 className="text-2xl font-medium leading-snug tracking-normal">
-          {post.metadata.title}
-        </h1>
-
-        {/* Description */}
-        {post.metadata.description && (
-          <p className="mt-4 text-foreground/80">{post.metadata.description}</p>
-        )}
 
         {/* Article Content */}
         <CustomMDX source={post.rawContent} />
