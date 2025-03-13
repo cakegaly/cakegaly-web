@@ -22,7 +22,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               rel="noreferrer"
               className={buttonVariants({ variant: 'outline', size: 'icon' })}
               aria-label="Twitter"
-              title="Twitter (@cakegaly)"
+              title="X (Twitter) (@cakegaly)"
             >
               <SocialIcons.twitter className="size-4" />
             </Link>
@@ -54,6 +54,8 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           <Link
             href="/rss.xml"
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
+            target="_blank"
+            rel="noreferrer"
             aria-label="RSS"
             title="RSS Feed (cakegaly -dot- com)"
           >

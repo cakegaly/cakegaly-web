@@ -30,6 +30,11 @@
   @apply mt-0 rounded-t-none;
 }
 
+/* Vertical scrollbar styling for code blocks */
+pre {
+  @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted;
+}
+
 /* Inline code specific styles */
 :not(pre) > code {
   font-feature-settings:

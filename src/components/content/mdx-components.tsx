@@ -142,9 +142,11 @@ export const components = {
   pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
       className={cn(
-        'my-6 overflow-x-auto rounded-lg border border-border/50 p-4',
+        'my-6 overflow-x-auto rounded-lg border p-4',
         'bg-[#111A1F] dark:bg-[#151A1E]',
         'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
+        'max-h-[calc(24*1.375rem+2rem)]',
+        'overflow-y-auto',
         className
       )}
       {...props}
