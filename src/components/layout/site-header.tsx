@@ -12,8 +12,8 @@ export function SiteHeader() {
           className="flex items-center gap-2 rounded-md p-2 hover:bg-accent/20"
         >
           <Image
-            src="/images/cakegaly.webp"
-            alt="Cakegaly logo"
+            src="/images/avatars/cakegaly.webp"
+            alt="cakegaly icon"
             width="32"
             height="32"
             className="rounded-full ring-1 ring-border"
