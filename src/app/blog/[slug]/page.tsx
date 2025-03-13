@@ -10,7 +10,7 @@ import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export const revalidate = false;
@@ -78,7 +78,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
             <div className="inline-flex items-center gap-1">
-              <Calendar className="size-4" />
               <time dateTime={post.metadata.date}>
                 {formatDate(post.metadata.date)}
               </time>

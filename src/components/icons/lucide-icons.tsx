@@ -1,5 +1,4 @@
 import {
-  Calendar,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
@@ -14,7 +13,6 @@ import {
 } from 'lucide-react';
 
 export const Icons = {
-  calendar: Calendar,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   externalLink: ExternalLink,
