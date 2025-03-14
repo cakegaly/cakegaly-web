@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import profilePic from '@/assets/images/cakegaly.webp';
 import { ModeSwitch } from '@/components/layout/mode-switch';
+import { siteConfig } from '@/config/site';
 
 export function SiteHeader() {
   return (
@@ -20,7 +21,7 @@ export function SiteHeader() {
             className="rounded-full ring-1 ring-border"
             priority={true}
           />
-          <span className="font-mono text-sm">cakegaly.com</span>
+          <span className="font-mono text-sm">{siteConfig.name}</span>
         </Link>
         <ModeSwitch />
       </div>
