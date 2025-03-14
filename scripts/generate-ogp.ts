@@ -64,20 +64,24 @@ function wrapText(
   text: string,
   maxWidth: number
 ): string[] {
-  const words = text.split(' ');
   const lines: string[] = [];
   let line = '';
 
-  for (const word of words) {
-    const testLine = line + word + ' ';
+  for (let i = 0; i < text.length; i++) {
+    const testLine = line + text[i];
     const metrics = ctx.measureText(testLine);
+
     if (metrics.width > maxWidth && line !== '') {
-      lines.push(line.trim());
-      line = word + ' ';
+      lines.push(line);
+      line = text[i];
     } else {
       line = testLine;
     }
   }
-  lines.push(line.trim());
+
+  if (line) {
+    lines.push(line);
+  }
+
   return lines;
 }
