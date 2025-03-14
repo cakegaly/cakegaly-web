@@ -1,5 +1,6 @@
 import '@/styles/mdx.css';
 
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/content/custom-mdx';
@@ -7,11 +8,9 @@ import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
-import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 
 export const revalidate = false;
 
@@ -27,6 +26,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return {};
   }
 
+  // TODO: set fallback image
+  // const ogImageExists = fs.existsSync(path.join('./public/ogp/', `${slug}.png`));
+  // const ogImagePath = absoluteUrl(
+  //   ogImageExists ? `/ogp/${slug}.png` : siteConfig.ogImage
+  // );
+  const ogImagePath = absoluteUrl(`/ogp/${slug}.png`);
+
   return {
     title: post.metadata.title,
     description: post.metadata.description,
@@ -37,7 +43,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       url: absoluteUrl(`/blog/${post.slug}`),
       images: [
         {
-          url: siteConfig.ogImage,
+          url: ogImagePath,
           width: 1200,
           height: 630,
           alt: post.metadata.title,
@@ -48,7 +54,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       card: 'summary_large_image',
       title: post.metadata.title,
       description: post.metadata.description,
-      images: [siteConfig.ogImage],
+      images: [ogImagePath],
     },
   };
 }
