@@ -22,7 +22,7 @@ description: Thunderbird でテキストメールを利用している人向け�
 愛用しているメーラ "Thunderbird" 上で，送信する際に自動で70字で改行するように設定しています．
 
 Thunderbird では，デフォルトで自動改行されるようになっており，
-mailnews.wraplength の値で一行の文字数を指定するだけで，指定した文字数で自動改行できます．
+`mailnews.wraplength` の値で一行の文字数を指定するだけで，指定した文字数で自動改行できます．
 
 しかし，ここでの設定はテキストエンコーディングに依存しており，
 日本語版 Thunderbird においては，ISO-2022-JP で作成されたメールのみに適用されます．
@@ -34,8 +34,8 @@ mailnews.wraplength の値で一行の文字数を指定するだけで，指定
 
 そこで，「設定エディター」上の設定を以下の通りに変更することで，この問題に対処できます．
 
-- mailnews.send_plaintext_flowed を false に設定
-- plain_text.wrap_long_lines　を true に設定
+- `mailnews.send_plaintext_flowed` を false に設定
+- `plain_text.wrap_long_lines` を true に設定
 
 あとは，mailnews.wraplength の値を改行したい任意の文字数に設定すれば，完了です．
 
