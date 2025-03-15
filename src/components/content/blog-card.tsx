@@ -21,14 +21,14 @@ export function BlogCard({ data }: BlogCardProps) {
     >
       {/* Eyecatch (TechIcon) */}
       {/* TODO: set tailwind color */}
-      <div className="size-16 flex-shrink-0 rounded-md bg-muted p-3 transition-colors group-hover:bg-muted/70">
-        <Icon className="size-10 text-primary transition-colors group-hover:text-primary/80" />
+      <div className="size-16 flex-shrink-0 rounded-md p-3 transition-colors">
+        <Icon className="size-10 transition-colors" />
       </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-2">
         {/* Title */}
-        <h2 className="line-clamp-2 text-lg font-medium tracking-tight transition-colors">
+        <h2 className="font-heading line-clamp-2 text-lg font-medium tracking-tight">
           {metadata.title}
         </h2>
 

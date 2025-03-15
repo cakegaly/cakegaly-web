@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import profilePic from '@/assets/images/cakegaly.webp';
 import { ModeSwitch } from '@/components/layout/mode-switch';
+import { siteConfig } from '@/config/site';
 
 export function SiteHeader() {
   return (
@@ -12,14 +14,14 @@ export function SiteHeader() {
           className="flex items-center gap-2 rounded-md p-2 hover:bg-accent/20"
         >
           <Image
-            src="/images/avatars/cakegaly.webp"
+            src={profilePic}
             alt="cakegaly icon"
-            width="32"
-            height="32"
+            width={32}
+            height={32}
             className="rounded-full ring-1 ring-border"
             priority={true}
           />
-          <span className="font-mono text-sm">cakegaly.com</span>
+          <span className="font-mono text-sm">{siteConfig.name}</span>
         </Link>
         <ModeSwitch />
       </div>
