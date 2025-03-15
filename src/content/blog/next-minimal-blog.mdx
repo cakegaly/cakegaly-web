@@ -11,14 +11,18 @@ tags:
 
 ## この記事の要約 (リポジトリだけ見たい人向け)
 
+Next.js (15.2.1) + MDX + shadcn/ui + Tailwind CSS で「公式ライク && ミニマルなブログテンプレート」を作成しました！
+
+以下のリポジトリで公開しています！ぜひ見ていってください！
+
 <LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
 
-Next.js (15.2.1) + MDX + shadcn/ui + Tailwind CSS で「**公式ライク & ミニマルなブログテンプレート**」を作成しました！
+なお、本ブログもこのテンプレートと同じ構成で構築しています。
 
 ## はじめに
 
 Next.js は、公式でも紹介されているように、SSR / SG (SSG) / ISR / API Routes / Middleware / RSC など、
-「Web アプリケーションに関することなら俺に任せろ！なんでもできるぜ！」フレームワーク になってきました。
+「Web アプリケーションに関することなら俺に任せろ！なんでもできるぜ！」フレームワークへと進化しています。
 
 一方で、こんな声もよく耳にするようになりました。
 
@@ -27,24 +31,22 @@ Next.js は、公式でも紹介されているように、SSR / SG (SSG) / ISR 
 - 「進化が速すぎて追いきれない！気づけば古いバージョンのドキュメントを見てたｗ」
 - 「シンプルに始めたいのに、最初から複雑すぎる」
 
-僕自身も、「Next.js を使ってサクッとシンプルなサイトを作りたいだけなのに、気づけば依存や設定ファイルだらけ」ということがよくありました。
+僕自身も、「Next.js を使ってサクッとシンプルなサイトを作りたいだけなのに、気づけば依存や設定ファイルだらけ・・」ということがよくありました。
 
-そこで、
-**「ミニマリストアプローチ！公式の Next.js / Vercel 製だけでどこまでできる！？」**
-をテーマに、
-**Next.js 15 (App Router) + MDX + shadcn/ui + Tailwind CSS ブログテンプレート**
-を作ってみました。
+そこで、「ミニマリストアプローチ！公式の Next.js / Vercel 製だけでどこまでできる！？」をテーマに、
+Next.js 15 (App Router) + MDX + shadcn/ui + Tailwind CSS ブログテンプレートを作ってみました。
 
 ## next-minimal-blog とは？
 
-**「ミニマリストアプローチ！公式の Next.js / Vercel 製だけでどこまでできる！？」**
+> 「ミニマリストアプローチ！公式の Next.js / Vercel 製だけでどこまでできる！？」
+
 をテーマに作成したブログテンプレートです。
 
 ### 技術構成
 
-- **Next.js 15.2.1 (App Router)** / **React 19.0.0**
-- **MDX**
-- **Tailwind CSS** + **shadcn/ui**
+- Next.js 15.2.1 (App Router) / React 19.0.0
+- MDX
+- Tailwind CSS + shadcn/ui
 
 ### おすすめしたい人
 
@@ -119,22 +121,179 @@ ESLint, Prettier, Tailwind に関連するもの以外は、「公式 > 公式�
 
 コードブロックのシンタックスハイライト用途には、公式推奨の rehype-pretty-code (shiki) + remark-gfm を利用しています。
 
-`@radix-ui` 関連は、呼び出し元の shadcn/ui コンポーネントで最低限必要なものだけに絞っています。
+`@radix-ui` 関連は、単体で追加せず、呼び出し元の shadcn/ui コンポーネントで最低限必要なものだけに絞っています。
 
 ### 主な自作機能
 
-**「とりあえず動くやつ 欲しいけど 余計なライブラリは増やしたくない」**
-を実現するために、
-以下の機能は、
-**Next.js 標準の API / RSC / route handler**
-だけで完結させました！
+「とりあえず 動かせるやつ 欲しいけど 余分なものは なるべく省く (一句)」を実現するために、
+以下の機能は、Next.js 標準の API / RSC / route handler だけで完結させました！
 
-| 機能                     | 説明                                                 | 使っているもの                               |
-| ------------------------ | ---------------------------------------------------- | -------------------------------------------- |
-| **MDXコンテンツ管理**    | シンプルな記事ファイル (MDX) からデータ取得          | `fs`, `@mdx-js/mdx` によるヘルパー関数を自作 |
-| **RSSフィード出力**      | 記事一覧から RSS XML を自動生成                      | App Router + `Response` API                  |
-| **OGP メタデータ fetch** | リンクカード (リンクプレビュー) のための OG タグ取得 | `fetch` (公式 API だけ)                      |
-| **ページネーション**     | ページ分割表示                                       | 自作 paginate 関数 (hooksなし)               |
+| 機能                 | 説明                                                 | 使っているもの                               |
+| -------------------- | ---------------------------------------------------- | -------------------------------------------- |
+| MDXコンテンツ管理    | シンプルな記事ファイル (MDX) からデータ取得          | `fs`, `@mdx-js/mdx` によるヘルパー関数を自作 |
+| OGP メタデータ fetch | リンクカード (リンクプレビュー) のための OG タグ取得 | `fetch` (公式 API だけ)                      |
+| RSSフィード出力      | 記事一覧から RSS XML を自動生成                      | App Router + `Response` API                  |
+| ページネーション     | ページ分割表示                                       | 自作 paginate 関数 (hooksなし)               |
+
+#### MDXコンテンツ管理
+
+MDX コンテンツは `content/` にまとめて管理しています。
+MDX ファイルの basename を slug に、記事ページ `app/blog/[slug]/page.tsx` のパスとします。
+
+ファイルシステムからの読み込み、`gray-matter` による `Frontmatter` パース処理などを、ヘルパー関数としてまとめて実現しました。
+`compileMDX` なしで、RSC 向けにも柔軟に対応できるようにしました。
+
+```ts title="lib/mdx.ts"
+import fs from 'fs';
+import matter from 'gray-matter';
+
+export async function getAllBlogPosts() {
+  const files = await fs.promises.readdir('src/content/blog');
+  return await Promise.all(
+    files.map(async (file) => {
+      const raw = await fs.promises.readFile(
+        `src/content/blog/${file}`,
+        'utf-8'
+      );
+      const { data, content } = matter(raw);
+      return {
+        metadata: data,
+        slug: file.replace(/\.mdx$/, ''),
+        rawContent: content,
+      };
+    })
+  );
+}
+```
+
+ヘルパー関数といっても中身はとてもシンプルで、コンテンツを管理しているディレクトリ (今回の場合、src/content/blog/) の対象ファイルを fs で読み込んでいるだけです。
+
+```tsx title="lib/mdx.ts"
+export async function getBlogPostBySlug(slug: string) {
+  return getBlogPost((post) => post.slug === slug);
+}
+
+async function getBlogPost(
+  predicate: (post: BlogPost) => boolean
+): Promise<BlogPost | undefined> {
+  const posts = await getAllBlogPosts();
+  return posts.find(predicate);
+}
+
+async function getMDXData<T>(dir: string): Promise<MDXData<T>[]> {
+  const files = await getMDXFiles(dir);
+  return Promise.all(files.map((file) => readMDXFile<T>(path.join(dir, file))));
+}
+
+async function getMDXFiles(dir: string): Promise<string[]> {
+  return (await fs.promises.readdir(dir)).filter(
+    (file) => path.extname(file) === '.mdx'
+  );
+}
+
+async function readMDXFile<T>(filePath: string): Promise<MDXData<T>> {
+  const rawContent = await fs.promises.readFile(filePath, 'utf-8');
+
+  const { data, content } = matter(rawContent);
+
+  return {
+    metadata: data as Frontmatter<T>,
+    slug: path.basename(filePath, path.extname(filePath)),
+    rawContent: content,
+  };
+}
+```
+
+MDX ファイルの操作をシンプルに整理する考え方は、Vercel の Leerob さんの見解がとても参考になりました。
+
+<LinkPreview url="https://archive.leerob.io/blog/2023" />
+
+また、MDX コンテンツの表示も カスタムコンポーネント (mdx-components.tsx) で柔軟に対応できるようにしました。
+スタイル定義は、Tailwind Typography (`prose`) を導入せず、コンポーネント側ですべて対応しています。
+シンタックスハイライトは、`@mdx-js/mdx` で `evaluate()` するときのオプションに rehype-pretty-code, remark-gfm を指定して反映させています。
+
+```tsx title="components/content/custom-mdx.tsx"
+import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
+import * as React from 'react';
+import * as runtime from 'react/jsx-runtime';
+import rehypePrettyCode from 'rehype-pretty-code';
+import remarkGfm from 'remark-gfm';
+
+import { components } from '@/components/content/mdx-components';
+
+interface CustomMDXProps {
+  source: string;
+  additionalComponents?: Record<string, React.ComponentType<any>>;
+}
+
+const rehypePrettyCodeOptions = {
+  theme: 'github-dark',
+  keepBackground: true,
+  defaultLang: 'plaintext',
+};
+
+export async function CustomMDX({
+  source,
+  additionalComponents,
+}: CustomMDXProps) {
+  try {
+    const options: EvaluateOptions = {
+      ...runtime,
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+    };
+
+    const { default: MDXContent } = await evaluate(source, options);
+
+    const mergedComponents = {
+      ...components,
+      ...(additionalComponents || {}),
+    };
+
+    return <MDXContent components={mergedComponents} />;
+  } catch (error) {
+    console.error('Error rendering MDX:', error);
+    return (
+      <div className="border-destructive/50 bg-destructive/10 text-destructive rounded-md border p-4">
+        An error occurred while rendering the content.
+      </div>
+    );
+  }
+}
+```
+
+```tsx title="src/components/content/mdx-components.tsx"
+export const components = {
+  h2: (props) => <h2 className="mt-12 text-2xl font-bold" {...props} />,
+  a: (props) => <a className="text-primary underline" {...props} />,
+  pre: (props) => <pre className="bg-muted/30 rounded-lg p-4" {...props} />,
+  Callout,
+  LinkPreview,
+  // and ...
+};
+```
+
+OGP メタデータの fetch と合わせて、URL を指定すれば、リンクカードのプレビューも表示できます。
+
+例として、MDX コンテンツ内で
+
+```mdx
+GitHub リポジトリは、こちらです。
+
+<LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
+```
+
+とすると、
+
+---
+
+GitHub リポジトリは、こちらです。
+
+<LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
+
+---
+
+と表示されます。
 
 #### OGP メタデータ fetch (リンクプレビュー)
 
@@ -190,16 +349,48 @@ export const getOGData = cache(
 );
 ```
 
+なお、無駄な fetch を減らすため、内部へのリンク (サイト内のブログ記事参照) であるかどうかを判定するようにしています。
+
+```tsx
+function isInternalBlogLink(url: string): boolean {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.pathname.startsWith('/blog/');
+  } catch {
+    return url.startsWith('/blog/');
+  }
+}
+
+export function LinkPreview({ url, className, hideImage }: LinkPreviewProps) {
+  const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
+
+  return (
+    <Suspense
+      fallback={
+        <LinkCardSkeleton className={className} hideImage={hideImage} />
+      }
+    >
+      {isInternal ? (
+        //  ...
+      ) : (
+        // ...
+      )}
+    </Suspense>
+  );
+}
+```
+
 #### RSS / Sitemap 自動生成
 
-next-sitemap や外部パッケージを使わずに、App Router の route handler だけで完結させています。
+`next-sitemap` などのパッケージは利用せずに、[Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) だけで完結させています。
 
 RSS (Atom で出力する例):
 
 ```ts title="app/rss.xml/route.ts"
+import { NextResponse } from 'next/server';
+
 import { siteConfig } from '@/config/site';
 import { getAllBlogPosts } from '@/lib/mdx';
-import { NextResponse } from 'next/server';
 
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
@@ -279,124 +470,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 ```
 
-#### MDXコンテンツ管理
-
-ファイルシステムからの読み込み、`gray-matter` による `Frontmatter` パース処理などを、ヘルパー関数としてまとめて実現しています。
-`compileMDX` なしで、RSC 向けにも柔軟に対応できるようにしました。
-
-```ts title="lib/mdx.ts"
-import fs from 'fs';
-import matter from 'gray-matter';
-
-export async function getAllBlogPosts() {
-  const files = await fs.promises.readdir('src/content/blog');
-  return await Promise.all(
-    files.map(async (file) => {
-      const raw = await fs.promises.readFile(
-        `src/content/blog/${file}`,
-        'utf-8'
-      );
-      const { data, content } = matter(raw);
-      return {
-        metadata: data,
-        slug: file.replace(/\.mdx$/, ''),
-        rawContent: content,
-      };
-    })
-  );
-}
-```
-
-MDX ファイルの操作をシンプルに整理する考え方は、Vercel の Leerob さんの見解を参考にしました。
-
-<LinkPreview url="https://archive.leerob.io/blog/2023" />
-
-また、MDX コンテンツの表示も カスタムコンポーネント (mdx-components.tsx) で柔軟に対応できるようにしました。
-スタイル定義は、Tailwind Typography (`prose`) を導入せず、コンポーネント側ですべて対応しました。
-シンタックスハイライトは、`@mdx-js/mdx` で `evaluate()` するときのオプションに rehype-pretty-code, remark-gfm を指定して反映させています。
-
-```tsx title="components/content/custom-mdx.tsx"
-import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
-import * as React from 'react';
-import * as runtime from 'react/jsx-runtime';
-import rehypePrettyCode from 'rehype-pretty-code';
-import remarkGfm from 'remark-gfm';
-
-import { components } from '@/components/content/mdx-components';
-
-interface CustomMDXProps {
-  source: string;
-  additionalComponents?: Record<string, React.ComponentType<any>>;
-}
-
-const rehypePrettyCodeOptions = {
-  theme: 'github-dark',
-  keepBackground: true,
-  defaultLang: 'plaintext',
-};
-
-export async function CustomMDX({
-  source,
-  additionalComponents,
-}: CustomMDXProps) {
-  try {
-    const options: EvaluateOptions = {
-      ...runtime,
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
-    };
-
-    const { default: MDXContent } = await evaluate(source, options);
-
-    const mergedComponents = {
-      ...components,
-      ...(additionalComponents || {}),
-    };
-
-    return <MDXContent components={mergedComponents} />;
-  } catch (error) {
-    console.error('Error rendering MDX:', error);
-    return (
-      <div className="border-destructive/50 bg-destructive/10 text-destructive rounded-md border p-4">
-        An error occurred while rendering the content.
-      </div>
-    );
-  }
-}
-```
-
-```tsx title="src/components/content/mdx-components.tsx"
-export const components = {
-  h2: (props) => <h2 className="mt-12 text-2xl font-bold" {...props} />,
-  a: (props) => <a className="text-primary underline" {...props} />,
-  pre: (props) => <pre className="bg-muted/30 rounded-lg p-4" {...props} />,
-  Callout,
-  LinkPreview,
-  // and ...
-};
-```
-
-OGP メタデータの fetch と合わせて、URL を指定すれば、リンクカードのプレビューも表示できます。
-
-例として、
-
-```mdx
-GitHub リポジトリは、こちらです。
-
-<LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
-```
-
-とすると、
-
-GitHub リポジトリは、こちらです。
-
-<LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
-
-と表示されます。
-
 #### ページネーション生成
 
-ページ数の合計をもとに、前後のページリンクを取得するだけのシンプルな処理で対応しました。
+ページ数の合計をもとに、前後のページリンクを取得するだけのシンプルな処理を追加しました。
 
 ```ts title="lib/pagination.ts"
 export interface PaginationResult<T> {
@@ -427,17 +503,26 @@ export function paginateItems<T>(
 }
 ```
 
-shadcn/ui の Pagination コンポーネントを導入しても (より柔軟なページネーションを) 実現できますが、ブログ用途であればそこまでページ数もかさまないし、hooks なしの関数ベースにしたほうが楽に管理できそうと判断しました。
+<Callout type="note" title="shadcn-ui Pagination コンポーネントについて">
+  shadcn/ui の Pagination コンポーネントを導入しても
+  (より柔軟なページネーションを)
+  実現できます。ブログ用途であればそこまでページ数もかさまないし、hooks
+  なしの関数ベースにしたほうが楽に管理できそうと判断して、今回は見送りました。
+</Callout>
 
-microCMS, Notion API など、外部のヘッドレス CMS と連携する場合は、MDX ヘルパー関数 lib/mdx.ts を、CMS からデータフェッチするヘルパー関数 (例: lib/microcms.ts) に置き換えれば、対応可能です！
+<Callout title="拡張例 (ヘッドレス CMS との連携)">
+  microCMS, Notion API など、外部のヘッドレス CMS と連携する場合は、MDX
+  ヘルパー関数 lib/mdx.ts を、CMS からデータフェッチするヘルパー関数 (例:
+  lib/microcms.ts) に置き換えれば、対応可能です！
+</Callout>
 
 ## おわりに
 
 > 公式機能だけで、どこまで「ちょうどいい」ブログが作れるか！？
 
-そんな思い立ちから生まれたテンプレートです。
+そんな思い立ちから生まれたテンプレートの紹介でした。
 
 シンプルでミニマルなテンプレートを作ったつもりが、気づけば長い記事になっちゃいましたね（笑）
-興味がある方はぜひ Fork や Star ⭐️ してみてください！
+興味がある方はぜひ Fork や Star してみてください！
 
 <LinkPreview url="https://github.com/cakegaly/next-minimal-blog" />
