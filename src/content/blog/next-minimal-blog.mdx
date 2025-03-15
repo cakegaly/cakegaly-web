@@ -351,7 +351,7 @@ export const getOGData = cache(
 
 なお、無駄な fetch を減らすため、内部へのリンク (サイト内のブログ記事参照) であるかどうかを判定するようにしています。
 
-```tsx
+```tsx title="components/content/link-preview.tsx"
 function isInternalBlogLink(url: string): boolean {
   try {
     const urlObj = new URL(url);
