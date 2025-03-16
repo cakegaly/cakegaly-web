@@ -1,12 +1,18 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react';
+import { withProviders } from './decorators';
 
 const preview: Preview = {
+  decorators: [withProviders],
   parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#111A1F' },
+        { name: 'light', value: '#F5F7F9' },
+      ],
+    },
+    viewport: {
+      defaultViewport: 'responsive',
     },
   },
 };
