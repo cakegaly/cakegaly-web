@@ -1,14 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { ModeSwitch } from './mode-switch';
 
-const meta: Meta<typeof ModeSwitch> = {
-  title: 'Layout/ModeSwitch',
+const meta = {
   component: ModeSwitch,
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof ModeSwitch>;
 
 export default meta;
 
-type Story = StoryObj<typeof ModeSwitch>;
+type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {},
+};
