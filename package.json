@@ -15,7 +15,7 @@
     "format:check": "prettier --check .",
     "clean": "rm -rf .next/ node_modules/",
     "generate-ogp": "tsx scripts/generate-ogp.ts",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build"
   },
   "dependencies": {
