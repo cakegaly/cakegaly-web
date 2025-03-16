@@ -7,7 +7,7 @@ import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 
 interface BlogCardProps {
-  data: BlogPost;
+  data: Pick<BlogPost, 'metadata' | 'slug'>;
 }
 
 export function BlogCard({ data }: BlogCardProps) {
@@ -28,7 +28,7 @@ export function BlogCard({ data }: BlogCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-2">
         {/* Title */}
-        <h2 className="font-heading line-clamp-2 text-lg font-medium tracking-tight">
+        <h2 className="line-clamp-2 font-heading text-lg font-medium tracking-tight">
           {metadata.title}
         </h2>
 
