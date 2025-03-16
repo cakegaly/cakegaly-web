@@ -7,7 +7,17 @@ tags:
   - wordpress
 ---
 
+## はじめに
+
+WordPress サイトで目次を追加するとき、多くの場合、プラグインが導入されるようです。
+よく使われるのは、[Easy Table of Contents](https://ja.wordpress.org/plugins/easy-table-of-contents/) とか [Table of Contents Plus](https://ja.wordpress.org/plugins/table-of-contents-plus/) でしょうか。
+
+ただ、なるべくプラグインの依存は減らしておきたいですよね。
+そこで、プラグインなしで、テーマファイルの回収のみでシンプルに目次を追加する方法を紹介します。
+
 ## WordPress に目次を追加するコード
+
+### 目次の本体を追加
 
 以下、`functions.php` に追加してください。
 
@@ -99,9 +109,12 @@ if ( ! function_exists( 'custom_add_heading_ids' ) ) {
 }
 ```
 
+これで、投稿ページ (single) に目次が表示されます。
 簡易的にですが、`chapter-*` の形式で、見出しに id をつけているので、そのまま目次リンクにできます。
 
-あとは、目次の表示スタイルを CSS で適当にいじれば完成です。
+### 目次の表示をカスタマイズ
+
+見た目は、CSS で適当にいじって調整します。
 
 ```css
 .table-of-contents {
@@ -119,4 +132,17 @@ if ( ! function_exists( 'custom_add_heading_ids' ) ) {
 }
 ```
 
+目次に表示する見出しレベルをカスタムフィールドで管理しておくと、記事ごとの目次表示を管理できます。
+例として、サンプルコードの `toc_level` では、以下のレベルを設定しています。
+
+| 値  | 目次に含める見出し   |
+| --- | -------------------- |
+| 0   | 目次を非表示         |
+| 2   | h2 のみ              |
+| 3   | h2, h3（デフォルト） |
+| 4   | h2, h3, h4           |
+
+## おわりに
+
+functions.php の改修だけで目次を生成するサンプルを紹介しました。
 プラグインなしの WordPress 運用で、目次の組み方で困ったら、ぜひ試してみてください。
