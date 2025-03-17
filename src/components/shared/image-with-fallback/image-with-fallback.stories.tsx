@@ -8,7 +8,6 @@ const meta = {
   decorators: [
     (Story) => (
       <div className="max-w-[300px] border p-4">
-        {/* ✅ Story 専用 decorator で幅制限 */}
         <Story />
       </div>
     ),
