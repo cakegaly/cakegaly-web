@@ -5,6 +5,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import * as eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginStorybook from 'eslint-plugin-storybook';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
@@ -115,6 +116,25 @@ export default [
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
       'unused-imports/no-unused-imports': 'error',
+    },
+  },
+
+  // Storybook configuration
+  {
+    files: ['**/*.stories.@(ts|tsx)'],
+    plugins: {
+      storybook: eslintPluginStorybook,
+    },
+    rules: {
+      'storybook/await-interactions': 'error',
+      'storybook/context-in-play-function': 'error',
+      'storybook/default-exports': 'error',
+      'storybook/hierarchy-separator': 'error',
+      'storybook/meta-inline-properties': 'error',
+      'storybook/no-title-property-in-meta': 'error',
+      'storybook/prefer-pascal-case': 'error',
+      'storybook/story-exports': 'error',
+      'storybook/use-storybook-expect': 'error',
     },
   },
 

@@ -8,7 +8,7 @@ export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'font-heading mt-12 scroll-m-20 border-b border-accent/50 pb-2 text-2xl font-medium tracking-tight first:mt-0',
+        'mt-12 scroll-m-20 border-b border-accent/50 pb-2 font-heading text-2xl font-medium tracking-tight first:mt-0',
         className
       )}
       {...props}
@@ -17,7 +17,7 @@ export const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'font-heading mt-8 scroll-m-20 text-xl font-medium tracking-tight',
+        'mt-8 scroll-m-20 font-heading text-xl font-medium tracking-tight',
         className
       )}
       {...props}
@@ -26,13 +26,16 @@ export const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'font-heading mt-8 scroll-m-20 text-lg font-medium tracking-tight',
+        'mt-8 scroll-m-20 font-heading text-lg font-medium tracking-tight',
         className
       )}
       {...props}
     />
   ),
-  a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
+  a: ({
+    className,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
         'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50',

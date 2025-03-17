@@ -18,9 +18,9 @@ export const tags: Record<
   react: { name: 'React', icon: 'react' },
   tailwindcss: { name: 'Tailwind CSS', icon: 'tailwindcss' },
   typescript: { name: 'TypeScript', icon: 'typescript' },
-  wordpress: { name: 'WordPress', icon: 'wordpress' },
   vercel: { name: 'Vercel', icon: 'vercel' },
   vscode: { name: 'VSCode', icon: 'vscode' },
+  wordpress: { name: 'WordPress', icon: 'wordpress' },
 };
 
 export const ellyTheme = {
