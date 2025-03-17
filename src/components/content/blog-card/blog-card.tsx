@@ -20,7 +20,6 @@ export function BlogCard({ data }: BlogCardProps) {
       className="group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-5 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md"
     >
       {/* Eyecatch (TechIcon) */}
-      {/* TODO: set tailwind color */}
       <div className="size-16 flex-shrink-0 rounded-md p-3 transition-colors">
         <Icon className="size-10 transition-colors" />
       </div>
