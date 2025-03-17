@@ -1,90 +1,115 @@
 ---
-title: ESLint と Prettier を Flat Config に移行した
+title: Next.js 15 対応とあわせて、ESLint と Prettier を Flat Config に移行した
 date: 2025-03-01
-description: Next.js のバージョンアップとあわせて、ESLint と Prettier の設定を Flat Config に移行したメモです。
+description: Next.js のバージョンアップ (14 -> 15) とあわせて、ESLint と Prettier の設定を Flat Config に移行したメモです。
 icon: eslint
 tags:
   - eslint
   - typescript
+  - vscode
 ---
 
 ## はじめに
 
-Next.js v15 で対応した ESLint v9 では、Flat Config がデフォルトになりました。
-Flat Config では、従来の `.eslintrc.*` と `.eslintignore` に代わり、**`eslint.config.mjs`** に設定をまとめます。
+Next.js v15 では、ESLint v9 と Flat Config がデフォルトになり、Flat Config への以降が推奨されています。
+従来の `.eslintrc.*`, `.eslintignore` ファイルで設定する方式は、ESLint v9 以降では deprecated になり、「ESLint v10 以降では完全に削除する」とアナウンスされています。
 
----
+<LinkPreview url="https://eslint.org/blog/2023/10/flat-config-rollout-plans/" />
 
-## Next.js 15 + ESLint + Prettier の Flat Config 設定方法
+2025/3 現在では、Flat Config に関する情報はまだ少なく、Flat Config 未対応のプラグインなども存在します。
 
-### 必要なパッケージをインストール
+この記事では、Next.js の v14 -> v15 移行とあわせて、ESLint と Prettier の設定を Flat Config に移行した手順を紹介します。
 
-まずは、必要なパッケージをインストールします。
+## Flat Config について
+
+Flat Config は、ESLint v9 以降で導入された新しい設定方法です。
+従来の `.eslintrc.json` (`eslintrc.js`) で設定するのではなく、`eslint.config.js` (`eslint.config.cjs`, `eslint.config.mjs`) に設定をまとめます。
+
+Flat Config では、設定内容を JavaScript のモジュールとして import して明示します。このため、プラグインとの依存関係をわかりやすく整理できるようになりました。
+
+また、ignore 対象もあわせて設定できるようになりました。`.eslintignore` が不要になり、設定をまとめて管理できることも、メリットになります。
+
+さらに、公式による最適化で、パフォーマンスも向上しているようです。
+
+<LinkPreview url="https://eslint.org/docs/latest/use/configure/configuration-files" />
+
+## ESLint Flat Config 移行手順
+
+### レガシーパッケージの整理
+
+まず、Flat Config に不要なパッケージを削除します。
 
 ```sh
-pnpm add -D eslint prettier eslint-config-prettier eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-tailwindcss @next/eslint-plugin-next typescript-eslint
+pnpm remove @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-next
 ```
 
-[typescript-eslint 公式ドキュメント](https://typescript-eslint.io/packages/typescript-eslint/#migrating-from-legacy-eslintrc-configs)
-にも書かれている通り、レガシーとなった `@typescript-eslint/parser` と `@typescript-eslint/eslint-plugin` は、削除しておきます。
+`@typescript-eslint/parser`, `@typescript-eslint/eslint-plugin` は、typescript-eslint に統合されているため、削除します。
+
+<LinkPreview url="https://typescript-eslint.io/packages/typescript-eslint/#migrating-from-legacy-eslintrc-configs" />
+
+eslint-config-next は、現時点では Flat Config に未対応です。以下を参考に、該当するプラグインを個別に導入することで対応します。
+
+<LinkPreview url="https://github.com/vercel/next.js/discussions/49337" />
+
+### 必要なパッケージを追加
+
+次に、Flat Config に対応したパッケージをインストールします。
 
 ```sh
-pnpm remove @typescript-eslint/parser @typescript-eslint/eslint-plugin
+pnpm add -D eslint prettier eslint-config-prettier eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-tailwindcss @next/eslint-plugin-next typescript-eslint eslint-plugin-storybook
 ```
 
-また、VSCode で ESLint を有効にするために、`eslint.useFlatConfig` を `true` に設定しておきます (後述)
+`@next/eslint-plugin-next` は、Flat Config に対応したNext.js 公式のプラグインです。
+`typescript-eslint` は、ひとつ前の手順で削除した `@typescript-eslint/parser` と `@typescript-eslint/eslint-plugin` の統合パッケージです。
+`eslint-plugin-storybook` は、storybook 用のプラグインです。Storybook 用のルールを含めない場合は、導入しなくても大丈夫です。
 
-### ESLint の設定 (`eslint.config.mjs`)
+### ESLint のルール設定
 
-`eslint.config.mjs` をプロジェクトのルートに作成し、以下のように設定します。
+#### 対象ファイルと ignore 設定
 
-```js title="eslint.config.mjs"
-// @ts-check
+```js
+{
+  files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+  ignores: [
+    '**/build/', '**/bin/', '**/dist/', '**/obj/', '**/out/',
+    '**/.next/', '**/node_modules/',
+  ],
+}
+```
 
-import eslintPluginNext from '@next/eslint-plugin-next';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import * as eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginReact from 'eslint-plugin-react';
-import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
-import tailwindcss from 'eslint-plugin-tailwindcss';
-import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
-import tsEslint from 'typescript-eslint';
+#### React + Next.js の基本ルール設定
 
-export default [
-  {
-    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-  },
-  {
-    ignores: [
-      '**/build/',
-      '**/bin/',
-      '**/dist/',
-      '**/obj/',
-      '**/out/',
-      '**/.next/',
-      '**/node_modules/',
-    ],
-  },
-  eslintPluginReact.configs.flat.recommended,
+React と Next.js の推奨ルールを適用します。
+`@next/eslint-plugin-next` は、Flat Config に対応した Next.js 公式のプラグインです。
+
+```js
+eslintPluginReact.configs.flat.recommended,
   eslintPluginReact.configs.flat['jsx-runtime'],
   {
     plugins: {
       'react-hooks': eslintPluginReactHooks,
       '@next': eslintPluginNext,
     },
-    ...eslintPluginReactHooks.configs.recommended.rules,
-    ...eslintPluginNext.configs.recommended.rules,
-    ...eslintPluginNext.configs['core-web-vitals'].rules,
-    '@next/next/no-img-element': 'error',
-    'react/prop-types': 'off',
-  },
-  tsEslint.configs.recommended,
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs['core-web-vitals'].rules,
+      '@next/next/no-img-element': 'error',
+      'react/prop-types': 'off',
+    },
+  };
+```
+
+#### TypeScript 向けのルール設定
+
+TypeScript の推奨ルールと、型情報を含めたチェックを有効にします。
+
+```js
+tsEslint.configs.recommended,
   {
     languageOptions: {
       parser: tsEslint.parser,
-      parserOptions: {
-        project: './tsconfig.json',
-      },
+      parserOptions: { project: './tsconfig.json' },
     },
     rules: {
       '@typescript-eslint/no-unused-vars': [
@@ -93,93 +118,114 @@ export default [
       ],
       '@typescript-eslint/explicit-function-return-type': 'off',
     },
-  },
-  tailwindcss,
-  {
-    plugins: {
-      import: eslintPluginImport,
-    },
-    rules: {
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'object',
-            'type',
-          ],
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          'newlines-between': 'never',
-        },
-      ],
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error',
-    },
-  },
-  {
-    plugins: {
-      'unused-imports': eslintPluginUnusedImports,
-    },
-    rules: {
-      'unused-imports/no-unused-imports': 'error',
-    },
-  },
-  eslintConfigPrettier,
-];
+  };
 ```
 
-`eslint-config-next` ではなく `@next/eslint-plugin-next`, `eslint-plugin-react`, `eslint-plugin-react-hooks` を導入しているのは、
-[こちら](https://github.com/vercel/next.js/discussions/49337) で議論されているように、Flat Config の対応状況によるものです。
+#### Tailwind CSS
 
-なお、Prettier との競合を防ぐため、 `eslint-config-prettier` は最後に追加しています。
+Tailwind CSS を利用している場合、ルールセットを追加します。
 
-### Prettier の設定 (`prettier.config.mjs`)
+```js
+tailwindcss,
+```
 
-次に、Prettier の設定を `prettier.config.mjs` に記述します。
+#### import order と unused-imports の設定
 
-```js title="prettier.config.mjs"
+`import` の順序と、未使用の `import` を自動で削除するルールを設定します。
+
+```js
+{
+  plugins: { import: eslintPluginImport, 'unused-imports': eslintPluginUnusedImports },
+  rules: {
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'type'],
+        pathGroups: [
+          { pattern: 'react', group: 'builtin', position: 'before' },
+          { pattern: 'next/**', group: 'builtin', position: 'before' },
+          { pattern: '@/components/**', group: 'internal', position: 'before' },
+          { pattern: '@/lib/**', group: 'internal', position: 'before' },
+        ],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        'newlines-between': 'never',
+      },
+    ],
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+    'unused-imports/no-unused-imports': 'error',
+  },
+}
+```
+
+#### Storybook 向けのルール設定
+
+Storybook を利用するプロジェクト向けに、該当するルールを設定します。基本的なのは、このあたりでしょうか。
+
+```js
+{
+  files: ['**/*.stories.@(ts|tsx)'],
+  plugins: {
+    storybook: eslintPluginStorybook,
+  },
+  rules: {
+    'storybook/await-interactions': 'error',
+    'storybook/context-in-play-function': 'error',
+    'storybook/default-exports': 'error',
+    'storybook/hierarchy-separator': 'error',
+    'storybook/meta-inline-properties': 'error',
+    'storybook/no-title-property-in-meta': 'error',
+    'storybook/prefer-pascal-case': 'error',
+    'storybook/story-exports': 'error',
+    'storybook/use-storybook-expect': 'error',
+  },
+},
+```
+
+#### Prettier 設定
+
+最後に、Prettier の設定を追加します。
+
+```js
+eslintConfigPrettier,
+```
+
+<Callout>
+  ルールが競合するのを防ぐため、Prettier のルールを最後に記載しています。
+</Callout>
+
+## Prettier Flat Config 移行手順
+
+ESLint とあわせて、Prettier も prettier.config.mjs に移行します。
+
+```js
 // @ts-check
-
-/**
- * @type {import("prettier").Config}
- */
 export default {
   printWidth: 80,
   tabWidth: 2,
-  plugins: ['prettier-plugin-tailwindcss'],
   semi: true,
   singleQuote: true,
   trailingComma: 'es5',
   bracketSpacing: true,
+  plugins: ['prettier-plugin-tailwindcss'],
 };
 ```
 
-Tailwind CSS のクラス順序を自動整理するため に、`prettier-plugin-tailwindcss` を入れています。
+`prettier-plugin-tailwindcss` により、Tailwind CSS クラス順序を自動で整理しています。
+個人的に、横に長くなりがちな Tailwind CSS においては、`cn()` ユーティリティ (twMerge + clsx ) とあわせて、必須の設定だと思っています。
 
-ESLint とは異なり、ignore 設定については、これまで通りに `.prettierignore` に記述します。
+## VSCode でファイル保存時に自動フォーマットする設定
 
-### VSCode の設定 (`.vscode/settings.json`)
+ローカルの個人設定 or プロジェクト設定の `.vscode/settings.json` に、以下を追加して、ファイル保存時に自動で ESLint + Prettier が動くように設定します。
 
-VSCode で保存時に ESLint + Prettier の自動フォーマットを適用するため、`.vscode/settings.json` に以下を追加します。
-
-```json title=".vscode/settings.json"
+```json
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.enable": true,
   "eslint.useFlatConfig": true,
-  "files.insertFinalNewline": true
+  "eslint.enable": true
 }
 ```
 
@@ -201,5 +247,12 @@ pnpm prettier --write .
 
 ## まとめ
 
-Flat Config 移行により、以前よりもシンプルに設定を書けるようになりました。
-最近なにかと話題の(?) [Biome](https://github.com/biomejs/biome) も気になっているので、今度試して比較してみます。
+Flat Config 移行により、設定ファイルがひとつにまとまって、見通しが良くなったと感じました。
+
+以前よりもシンプルに設定を書けるようになり、個別のルール適用もわかりやすくなったため、今後のメンテナンスも楽になると思います。
+
+最終的に完成した `eslint.config.mjs` は、このブログの GitHub リポジトリで公開しているので、コピペして使っていただいても大丈夫です。
+
+<LinkPreview url="https://github.com/cakegaly/cakegaly-web/blob/main/eslint.config.mjs" />
+
+最近話題の [Biome](https://github.com/biomejs/biome) も気になっているので、今度試して比較してみる予定です。
