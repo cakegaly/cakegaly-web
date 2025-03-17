@@ -1,3 +1,4 @@
+import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getAllBlogPosts } from '@/lib/mdx';
 import { MetadataRoute } from 'next';
@@ -14,6 +15,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const tagEntries = Object.keys(tags).map((tag) => ({
+    url: `${baseUrl}/tag/${tag}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }));
+
   const staticPages = [
     {
       url: baseUrl,
@@ -23,5 +31,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  return [...staticPages, ...blogEntries];
+  return [...staticPages, ...blogEntries, ...tagEntries];
 }
