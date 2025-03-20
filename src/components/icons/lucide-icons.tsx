@@ -8,6 +8,7 @@ import {
   Mail,
   Moon,
   Rss,
+  Search,
   Sun,
   Tag,
 } from 'lucide-react';
@@ -22,6 +23,7 @@ export const Icons = {
   mail: Mail,
   moon: Moon,
   rss: Rss,
+  search: Search,
   sun: Sun,
   tag: Tag,
 };

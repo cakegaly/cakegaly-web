@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Icons, SocialIcons } from '@/components/icons';
+import { ModeSwitch } from '@/components/layout/mode-switch';
 import { buttonVariants } from '@/components/shadcn-ui/button';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
@@ -62,6 +63,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <Icons.rss className="size-4" />
           </Link>
         </div>
+        <ModeSwitch />
       </div>
     </footer>
   );
