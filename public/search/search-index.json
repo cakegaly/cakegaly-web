@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "title": "VSCode で日本語がズレる問題を Hack Nerd Font と Cica で解決する",
+      "slug": "vscode-font-settings"
+    },
+    {
+      "title": "ミニマリズムを追求した Next.js 15 + MDX ブログテンプレート \"next-minimal-blog\" を作ってみた",
+      "slug": "next-minimal-blog"
+    },
+    {
+      "title": "Next.js 15 対応とあわせて、ESLint と Prettier を Flat Config に移行した",
+      "slug": "eslint-prettier-flat-config"
+    },
+    {
+      "title": "npm / yarn / pnpm コマンド違い早見表",
+      "slug": "npm-vs-yarn-vs-pnpm-commands"
+    },
+    {
+      "title": "WordPress でプラグインなしで目次を自動生成する方法",
+      "slug": "wordpress-toc-no-plugin"
+    },
+    {
+      "title": "Thunderbird で自動改行の設定が反映されないときの対処法",
+      "slug": "thunderbird-line-break-settings"
+    }
+  ],
+  "tags": {
+    "vscode": {
+      "name": "VSCode"
+    },
+    "nextjs": {
+      "name": "Next.js"
+    },
+    "typescript": {
+      "name": "TypeScript"
+    },
+    "tailwindcss": {
+      "name": "Tailwind CSS"
+    },
+    "eslint": {
+      "name": "ESLint"
+    },
+    "wordpress": {
+      "name": "WordPress"
+    }
+  }
+}

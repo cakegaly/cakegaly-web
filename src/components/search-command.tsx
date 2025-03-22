@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
-import { Icons, TechIcons } from '@/components/icons';
+import { Icons } from '@/components/icons';
 import { Button } from '@/components/shadcn-ui/button';
 import {
   CommandDialog,
@@ -13,40 +14,13 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/shadcn-ui/command';
-import { BlogPost } from '@/lib/mdx';
 
-type SearchData = {
-  posts: BlogPost[];
-  tags: Record<
-    string,
-    {
-      name: string;
-      icon: keyof typeof TechIcons;
-    }
-  >;
-};
+import searchIndex from '@/../public/search/search-index.json';
+
+type SearchData = typeof searchIndex;
 
 export function SearchCommand() {
   const [open, setOpen] = React.useState(false);
-  const [data, setData] = React.useState<SearchData | null>(null);
-  const [loading, setLoading] = React.useState(false);
-
-  // Fetch data only when the command dialog is opened
-  React.useEffect(() => {
-    if (open && !data && !loading) {
-      setLoading(true);
-      fetch('/api/search')
-        .then((res) => res.json())
-        .then((searchData: SearchData) => {
-          setData(searchData);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error('Failed to fetch search data:', err);
-          setLoading(false);
-        });
-    }
-  }, [open, data, loading]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -55,10 +29,12 @@ export function SearchCommand() {
         setOpen((open) => !open);
       }
     };
-
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
+
+  const data: SearchData = searchIndex;
+  const router = useRouter();
 
   return (
     <>
@@ -77,46 +53,39 @@ export function SearchCommand() {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="検索" />
         <CommandList>
-          {loading ? (
-            <div className="py-6 text-center text-sm">Loading...</div>
-          ) : (
-            <>
-              <CommandEmpty>No results found.</CommandEmpty>
-              {data && (
-                <>
-                  <CommandGroup heading="ブログ">
-                    {data.posts.map((post) => (
-                      <CommandItem
-                        key={post.slug}
-                        onSelect={() => {
-                          window.location.href = `/blog/${post.slug}`;
-                          setOpen(false);
-                        }}
-                      >
-                        <Icons.fileHeart className="mr-2 size-4" />
-                        <span>{post.metadata.title}</span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                  <CommandSeparator />
-                  <CommandGroup heading="タグ">
-                    {Object.keys(data.tags).map((slug) => (
-                      <CommandItem
-                        key={slug}
-                        onSelect={() => {
-                          window.location.href = `/tag/${slug}`;
-                          setOpen(false);
-                        }}
-                      >
-                        <Icons.tag className="mr-2 size-4" />
-                        <span>{data.tags[slug].name}</span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </>
-              )}
-            </>
-          )}
+          <CommandEmpty>No results found.</CommandEmpty>
+
+          <CommandGroup heading="ブログ">
+            {data.posts.map((post) => (
+              <CommandItem
+                key={post.slug}
+                onSelect={() => {
+                  router.push(`/blog/${post.slug}`);
+                  setOpen(false);
+                }}
+              >
+                <Icons.fileHeart className="mr-2 size-4" />
+                <span>{post.title}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+
+          <CommandSeparator />
+
+          <CommandGroup heading="タグ">
+            {Object.entries(data.tags).map(([slug, tag]) => (
+              <CommandItem
+                key={slug}
+                onSelect={() => {
+                  router.push(`/tag/${slug}`);
+                  setOpen(false);
+                }}
+              >
+                <Icons.tag className="mr-2 size-4" />
+                <span>{tag.name}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </>
