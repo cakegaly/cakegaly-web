@@ -2,13 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import profilePic from '@/assets/images/cakegaly.webp';
-import { Search } from '@/components/search';
-import { tags } from '@/config/blog';
+import { SearchCommand } from '@/components/search-command';
 import { siteConfig } from '@/config/site';
-import { getAllBlogPosts } from '@/lib/mdx';
 
-export async function SiteHeader() {
-  const allPosts = await getAllBlogPosts();
+export function SiteHeader() {
   return (
     <header className="container sticky top-0 z-40 border-b bg-background/50 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-screen-md items-center justify-between">
@@ -31,7 +28,7 @@ export async function SiteHeader() {
           </span>
         </Link>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Search posts={allPosts} tags={tags} />
+          <SearchCommand />
         </div>
       </div>
     </header>
