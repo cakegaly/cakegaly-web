@@ -8,13 +8,13 @@ import { cn } from '@/lib/utils';
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <footer className={cn(className)}>
+    <footer className={cn(className, 'pb-6')}>
       <div
         className={cn(
           'container max-w-screen-md',
-          'flex flex-col items-center justify-between',
+          'flex flex-col items-center',
           'gap-y-6 py-10',
-          'md:h-24 md:flex-row md:gap-x-4 md:gap-y-0 md:py-0'
+          'md:h-24 md:flex-row md:items-center md:justify-between md:gap-y-0 md:py-0'
         )}
       >
         <div className="flex items-center space-x-4">
@@ -67,12 +67,12 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
         </div>
 
         <ModeSwitch />
+      </div>
 
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center font-mono text-xs leading-loose md:text-left">
-            &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
-          </p>
-        </div>
+      <div className="flex justify-center">
+        <p className="text-center font-mono text-xs leading-loose text-muted-foreground">
+          &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
+        </p>
       </div>
     </footer>
   );
