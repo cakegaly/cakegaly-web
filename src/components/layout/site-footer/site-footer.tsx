@@ -17,11 +17,6 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           'md:h-24 md:flex-row md:gap-x-4 md:gap-y-0 md:py-0'
         )}
       >
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center font-mono text-sm leading-loose md:text-left">
-            &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
-          </p>
-        </div>
         <div className="flex items-center space-x-4">
           {siteConfig.links.twitter && (
             <Link
@@ -70,7 +65,14 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <Icons.rss className="size-4" />
           </Link>
         </div>
+
         <ModeSwitch />
+
+        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+          <p className="text-center font-mono text-xs leading-loose md:text-left">
+            &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
+          </p>
+        </div>
       </div>
     </footer>
   );
