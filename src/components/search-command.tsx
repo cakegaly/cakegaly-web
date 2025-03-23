@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/shadcn-ui/button';
 import {
-  CommandDialog,
+  Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -14,6 +14,8 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/shadcn-ui/command';
+import { Dialog, DialogContent } from '@/components/shadcn-ui/dialog';
+import { cn } from '@/lib/utils';
 
 import searchIndex from '@/../public/search/search-index.json';
 
@@ -50,44 +52,53 @@ export function SearchCommand() {
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="検索" />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
 
-          <CommandGroup heading="ブログ">
-            {data.posts.map((post) => (
-              <CommandItem
-                key={post.slug}
-                onSelect={() => {
-                  router.push(`/blog/${post.slug}`);
-                  setOpen(false);
-                }}
-              >
-                <Icons.fileHeart className="mr-2 size-4" />
-                <span>{post.title}</span>
-              </CommandItem>
-            ))}
-          </CommandGroup>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className={cn(
+            'top-20 translate-y-0 p-0 shadow-lg sm:top-1/2 sm:translate-y-[-50%]'
+          )}
+        >
+          <Command>
+            <CommandInput placeholder="検索" />
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
 
-          <CommandSeparator />
+              <CommandGroup heading="ブログ">
+                {data.posts.map((post) => (
+                  <CommandItem
+                    key={post.slug}
+                    onSelect={() => {
+                      router.push(`/blog/${post.slug}`);
+                      setOpen(false);
+                    }}
+                  >
+                    <Icons.fileHeart className="mr-2 size-4" />
+                    <span>{post.title}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
 
-          <CommandGroup heading="タグ">
-            {Object.entries(data.tags).map(([slug, tag]) => (
-              <CommandItem
-                key={slug}
-                onSelect={() => {
-                  router.push(`/tag/${slug}`);
-                  setOpen(false);
-                }}
-              >
-                <Icons.tag className="mr-2 size-4" />
-                <span>{tag.name}</span>
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
+              <CommandSeparator />
+
+              <CommandGroup heading="タグ">
+                {Object.entries(data.tags).map(([slug, tag]) => (
+                  <CommandItem
+                    key={slug}
+                    onSelect={() => {
+                      router.push(`/tag/${slug}`);
+                      setOpen(false);
+                    }}
+                  >
+                    <Icons.tag className="mr-2 size-4" />
+                    <span>{tag.name}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
