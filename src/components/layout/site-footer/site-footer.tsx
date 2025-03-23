@@ -9,7 +9,14 @@ import { cn } from '@/lib/utils';
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
     <footer className={cn(className)}>
-      <div className="container flex max-w-screen-md flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+      <div
+        className={cn(
+          'container max-w-screen-md',
+          'flex flex-col items-center justify-between',
+          'gap-y-6 py-10',
+          'md:h-24 md:flex-row md:gap-x-4 md:gap-y-0 md:py-0'
+        )}
+      >
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           <p className="text-center font-mono text-sm leading-loose md:text-left">
             &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
