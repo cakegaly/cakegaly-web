@@ -121,6 +121,7 @@ export function SearchCommand() {
                   {filteredPosts.map((post) => (
                     <CommandItem
                       key={post.slug}
+                      value={`${post.title} ${post.tags.join(' ')} ${post.description}`}
                       onSelect={() => {
                         router.push(`/blog/${post.slug}`);
                         setOpen(false);
