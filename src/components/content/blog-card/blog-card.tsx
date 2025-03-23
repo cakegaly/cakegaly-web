@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Icons, TechIcons } from '@/components/icons';
+import { TechIcons } from '@/components/icons';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
@@ -27,13 +27,13 @@ export function BlogCard({ data }: BlogCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-2">
         {/* Title */}
-        <h2 className="line-clamp-2 font-heading text-lg font-medium tracking-tight">
+        <h2 className="line-clamp-2 font-heading text-base font-medium tracking-tight md:text-lg">
           {metadata.title}
         </h2>
 
         {/* Description */}
         {metadata.description && (
-          <p className="line-clamp-2 text-sm text-muted-foreground">
+          <p className="line-clamp-2 text-xs text-muted-foreground md:text-sm">
             {metadata.description}
           </p>
         )}
@@ -48,7 +48,6 @@ export function BlogCard({ data }: BlogCardProps) {
 
           {metadata.tags && metadata.tags.length > 0 && (
             <div className="flex items-center gap-1">
-              <Icons.tag className="size-4" />
               <div className="flex gap-1">
                 {metadata.tags.slice(0, 2).map((tag) => (
                   <Badge key={tag} className="px-2 py-0.5 text-xs font-medium">
