@@ -4,6 +4,7 @@
     "plugins": [{ "name": "next" }]
   },
   "exclude": [
+    "scripts",
     "node_modules",
     "dist",
     "out",

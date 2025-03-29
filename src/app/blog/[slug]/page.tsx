@@ -1,16 +1,16 @@
 import '@/styles/mdx.css';
 
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/content/custom-mdx';
+import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
-import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
-import { ArrowLeft, Calendar } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export const revalidate = false;
 
@@ -26,6 +26,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return {};
   }
 
+  // TODO: set fallback image
+  // const ogImageExists = fs.existsSync(path.join('./public/ogp/', `${slug}.png`));
+  // const ogImagePath = absoluteUrl(
+  //   ogImageExists ? `/ogp/${slug}.png` : siteConfig.ogImage
+  // );
+  const ogImagePath = absoluteUrl(`/ogp/${slug}.png`);
+
   return {
     title: post.metadata.title,
     description: post.metadata.description,
@@ -36,7 +43,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       url: absoluteUrl(`/blog/${post.slug}`),
       images: [
         {
-          url: siteConfig.ogImage,
+          url: ogImagePath,
           width: 1200,
           height: 630,
           alt: post.metadata.title,
@@ -47,7 +54,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       card: 'summary_large_image',
       title: post.metadata.title,
       description: post.metadata.description,
-      images: [siteConfig.ogImage],
+      images: [ogImagePath],
     },
   };
 }
@@ -70,11 +77,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="container max-w-screen-md py-6 md:py-12">
       <article>
+        {/* Title */}
+        <PageHeader title={post.metadata.title} />
+
         {/* Metadata (Date & Tags) */}
-        <div className="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
+        <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
           {post.metadata.date && (
             <div className="inline-flex items-center gap-1">
-              <Calendar className="size-4" />
               <time dateTime={post.metadata.date}>
                 {formatDate(post.metadata.date)}
               </time>
@@ -85,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="inline-flex flex-wrap gap-2">
               {post.metadata.tags.map((tag) => (
                 <Link key={tag} href={`/tag/${tag}`}>
-                  <Badge className="px-2 py-0.5 text-xs">
+                  <Badge className="px-2 py-0.5 text-xs font-medium">
                     {tags[tag]?.name}
                   </Badge>
                 </Link>
@@ -93,16 +102,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           )}
         </div>
-
-        {/* Title */}
-        <h1 className="text-2xl font-medium leading-snug tracking-normal">
-          {post.metadata.title}
-        </h1>
-
-        {/* Description */}
-        {post.metadata.description && (
-          <p className="mt-4 text-foreground/80">{post.metadata.description}</p>
-        )}
 
         {/* Article Content */}
         <CustomMDX source={post.rawContent} />

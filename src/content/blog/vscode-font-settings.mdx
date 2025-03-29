@@ -1,0 +1,87 @@
+---
+title: VSCode で日本語がズレる問題を Hack Nerd Font と Cica で解決する
+date: 2025-03-15
+description: VSCode で日本語テキストを編集するときの「なんかもっさりしてるな〜」を、フォント設定を Hack Nerd Font と Cica の組み合わせに変えたら解決した話です。
+icon: vscode
+tags:
+  - vscode
+---
+
+## はじめに
+
+最近、VSCode で Markdown や MDX を書く機会が増えてきました。すると、「あれ、なんか日本語の部分だけもっさりして浮いてない？」と気になってきました。
+
+僕は、エディタとターミナルのフォントに HackNerdFontMono-Italic を愛用しています。
+
+<LinkPreview url="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Italic" />
+
+もともと GitHub の README やコード内のコメントも英語で書くことが多かったのもあり、これまではあまり気づいていなかったんですが、
+いざ日本語の文章や表を書くと、「日本語だけもっさり」「表がズレる」「Hack のイタリックと混ざると違和感」など、地味に気になっちゃって。
+
+いろんなフォントを試した結果、「Hack Nerd Font + Cica」 の組み合わせがしっくり来たので、紹介します。
+
+## VSCode におけるフォント設定
+
+### Hack Nerd Font のお気に入りポイント
+
+- シンプルに見た目がかっこいい
+- イタリックでより見やすくなる
+- Nerd 系統なので、アイコンがたくさんある
+
+![HackNerdFontMono-Italic が適用された VSCode](/images/blog/vscode-hack-nerd-font.webp)
+
+一番は、長年使ってて見慣れてることかもしれません。笑
+
+### 日本語表示の課題
+
+が、日本語を書き始めると、途端に気になることが増えました。
+
+- 日本語だけフォントが浮いている (ように見える)
+- Markdown の表やリストがズレる
+
+![VSCode で日本語の Markdown を編集している様子](/images/blog/vscode-mdx-japanese.webp)
+
+### 日本語フォントの選定
+
+日本語の等幅フォントといえば、Ricty が人気でしたよね。僕も昔使ってたんですが、現在はサポートが終了していました。
+
+<LinkPreview url="https://rictyfonts.github.io/" />
+
+Ricty の後継としては、HackGen (白源) と Cica が定番のようです。
+
+<LinkPreview url="https://github.com/yuru7/HackGen" />
+<LinkPreview url="https://github.com/miiton/Cica" />
+
+今回は、Cica を選びました。
+
+Cica は Hack 系フォントとの親和性 も意識されているので、
+「Hack Nerd Font を使いつつ、日本語もキレイに揃えたい」という今回のニーズにぴったりでした。
+
+### VSCode の設定
+
+VSCode では、言語ごとに `editor.fontFamily` を設定できるため、ベースはこれまで通り Hack Nerd Font として、
+日本語を多く書く `.md` と `.mdx` でのみ、Cica を利用する設定にしました。
+
+```json title="settings.json"
+  "editor.fontFamily": "HackNF-Italic,
+  "[markdown]": {
+    "editor.fontFamily": "Cica",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 1.6
+  },
+  "[mdx]": {
+    "editor.fontFamily": "Cica",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 1.6
+  },
+```
+
+結果として、コード部分は Hack Nerd Font (Italic)、Markdown/MDX は Cica にしたことで、日本語がとても見やすくなりました。
+特に、Markdown の表がズレなくなったのがうれしいです。
+
+![VSCode で日本語の Markdown テーブルを編集している様子](/images/blog/vscode-mdx-table.webp)
+
+## おわりに
+
+技術ブログやメモなどで、VSCode で Markdown を書く人には、特におすすめの設定です。
+気になった方は、ぜひ試してみてください！

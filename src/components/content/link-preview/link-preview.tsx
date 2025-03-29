@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -63,24 +62,14 @@ export function LinkCard({
           <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
             {isExternal ? (
               <>
-                <div className="relative size-4 overflow-hidden rounded-full bg-muted">
-                  {hostname && (
-                    <Image
-                      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=64`}
-                      alt=""
-                      className="object-cover"
-                      fill
-                      sizes="16px"
-                    />
-                  )}
-                </div>
+                <Icons.link className="size-4 text-muted-foreground/70" />
                 <span>{hostname.replace('/^[www./](http://www./)', '')}</span>
                 <Icons.externalLink className="size-3 text-muted-foreground/70" />
               </>
             ) : (
               <span className="flex items-center gap-1.5">
                 <div className="size-4 rounded-full bg-primary/10">
-                  <span className="flex h-full w-full items-center justify-center text-[10px] font-bold text-primary">
+                  <span className="flex h-full w-full items-center justify-center text-[10px] text-primary">
                     B
                   </span>
                 </div>

@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-import { Icons, TechIcons } from '@/components/icons';
+import { TechIcons } from '@/components/icons';
 import { Badge } from '@/components/shadcn-ui/badge';
 import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 
 interface BlogCardProps {
-  data: BlogPost;
+  data: Pick<BlogPost, 'metadata' | 'slug'>;
 }
 
 export function BlogCard({ data }: BlogCardProps) {
@@ -20,21 +20,20 @@ export function BlogCard({ data }: BlogCardProps) {
       className="group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-5 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md"
     >
       {/* Eyecatch (TechIcon) */}
-      {/* TODO: set tailwind color */}
-      <div className="size-16 flex-shrink-0 rounded-md bg-muted p-3 transition-colors group-hover:bg-muted/70">
-        <Icon className="size-10 text-primary transition-colors group-hover:text-primary/80" />
+      <div className="size-16 flex-shrink-0 rounded-md p-3 transition-colors">
+        <Icon className="size-10 transition-colors" />
       </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-2">
         {/* Title */}
-        <h2 className="line-clamp-2 text-lg font-medium tracking-tight transition-colors">
+        <h2 className="line-clamp-2 font-heading text-base font-medium tracking-tight md:text-lg">
           {metadata.title}
         </h2>
 
         {/* Description */}
         {metadata.description && (
-          <p className="line-clamp-2 text-sm text-muted-foreground">
+          <p className="line-clamp-2 text-xs text-muted-foreground md:text-sm">
             {metadata.description}
           </p>
         )}
@@ -49,7 +48,6 @@ export function BlogCard({ data }: BlogCardProps) {
 
           {metadata.tags && metadata.tags.length > 0 && (
             <div className="flex items-center gap-1">
-              <Icons.tag className="size-4" />
               <div className="flex gap-1">
                 {metadata.tags.slice(0, 2).map((tag) => (
                   <Badge key={tag} className="px-2 py-0.5 text-xs font-medium">

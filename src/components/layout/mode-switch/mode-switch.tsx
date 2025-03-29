@@ -25,6 +25,7 @@ export function ModeSwitch() {
           setTheme(checked ? 'dark' : 'light');
         }}
         aria-label="Toggle dark mode"
+        title="テーマを切り替える"
       />
       <Icons.moon className="h-4 w-4" />
     </div>
