@@ -1,9 +1,9 @@
+import profilePic from '@/assets/images/cakegaly.webp';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import profilePic from '@/assets/images/cakegaly.webp';
-import { SearchCommand } from '@/components/search-command';
 import { siteConfig } from '@/config/site';
+import { SearchCommand } from '@/components/search-command';
 
 export function SiteHeader() {
   return (

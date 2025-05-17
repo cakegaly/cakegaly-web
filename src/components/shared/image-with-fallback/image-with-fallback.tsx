@@ -1,8 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useState } from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface ImageWithFallbackProps {
   src: string;

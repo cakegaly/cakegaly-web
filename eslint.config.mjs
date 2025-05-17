@@ -1,19 +1,19 @@
 // @ts-check
 
+import js from '@eslint/js';
 import eslintPluginNext from '@next/eslint-plugin-next';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import * as eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import eslintPluginStorybook from 'eslint-plugin-storybook';
-import tailwindcss from 'eslint-plugin-tailwindcss';
-import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
+
+import eslintPluginTailwindcss from 'eslint-plugin-tailwindcss';
 
 export default [
   // Base configuration
+  { files: ['*.js', '*.jsx', '*.ts', '*.tsx'] },
   {
-    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
     ignores: [
       '**/build/',
       '**/bin/',
@@ -22,122 +22,107 @@ export default [
       '**/out/',
       '**/.next/',
       '**/node_modules/',
+      '**/storybook-static/',
     ],
   },
 
-  // React configuration
-  eslintPluginReact.configs.flat.recommended,
-  eslintPluginReact.configs.flat['jsx-runtime'],
-  {
-    plugins: {
-      'react-hooks': eslintPluginReactHooks,
-      '@next': eslintPluginNext,
-    },
-    rules: {
-      ...eslintPluginReactHooks.configs.recommended.rules,
-      ...eslintPluginNext.configs.recommended.rules,
-      ...eslintPluginNext.configs['core-web-vitals'].rules,
-      '@next/next/no-img-element': 'error',
-      'react/prop-types': 'off',
-    },
-  },
-
   // TypeScript configuration
-  tsEslint.configs.recommended,
   {
-    languageOptions: {
-      parser: tsEslint.parser,
-      parserOptions: {
-        project: './tsconfig.json',
+    name: 'eslint/recommended',
+    rules: js.configs.recommended.rules,
+  },
+  ...tsEslint.configs.recommended,
+
+  // React configuration
+  {
+    name: 'react/jsx-runtime',
+    plugins: {
+      react: eslintPluginReact,
+    },
+    rules: eslintPluginReact.configs['jsx-runtime'].rules,
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
-    rules: {
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        { argsIgnorePattern: '^_' },
-      ],
-      '@typescript-eslint/explicit-function-return-type': 'off',
-    },
   },
-
-  // Tailwind CSS configuration
-  tailwindcss,
-
-  // Import organization
   {
+    name: 'react-hooks/recommended',
     plugins: {
-      import: eslintPluginImport,
-      'unused-imports': eslintPluginUnusedImports,
+      'react-hooks': eslintPluginReactHooks,
+    },
+    rules: eslintPluginReactHooks.configs.recommended.rules,
+  },
+
+  // Next.js configuration
+  {
+    name: 'next/core-web-vitals',
+    plugins: {
+      '@next/next': eslintPluginNext,
     },
     rules: {
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            ['parent', 'sibling', 'index'],
-            'type',
-          ],
-          pathGroups: [
-            // React and Next.js imports
-            {
-              pattern: '{react,react-dom,react/**}',
-              group: 'builtin',
-              position: 'before',
-            },
-            { pattern: '{next,next/**}', group: 'builtin', position: 'before' },
-
-            // Project imports by path alias
-            { pattern: '@/types/**', group: 'internal', position: 'before' },
-            { pattern: '@/config/**', group: 'internal', position: 'before' },
-            { pattern: '@/lib/**', group: 'internal', position: 'before' },
-            { pattern: '@/hooks/**', group: 'internal', position: 'before' },
-            {
-              pattern: '@/components/shadcn-ui/**',
-              group: 'internal',
-              position: 'before',
-            },
-            {
-              pattern: '@/components/**',
-              group: 'internal',
-              position: 'before',
-            },
-            { pattern: '@/**', group: 'internal', position: 'before' },
-          ],
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          'newlines-between': 'never',
-        },
-      ],
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error',
-      'unused-imports/no-unused-imports': 'error',
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs['core-web-vitals'].rules,
     },
   },
 
-  // Storybook configuration
+  // Tailwind CSS
   {
-    files: ['**/*.stories.@(ts|tsx)'],
+    name: 'tailwindcss/rules',
+    plugins: {
+      tailwindcss: eslintPluginTailwindcss,
+    },
+    rules: {
+      'tailwindcss/classnames-order': 'warn',
+      'tailwindcss/no-custom-classname': 'off',
+    },
+  },
+
+  // Storybook plugin
+  {
+    name: 'storybook/rules',
+    files: ['**/*.stories.@(ts|tsx)', '**/*.story.@(ts|tsx)'],
     plugins: {
       storybook: eslintPluginStorybook,
     },
     rules: {
-      'storybook/await-interactions': 'error',
-      'storybook/context-in-play-function': 'error',
-      'storybook/default-exports': 'error',
-      'storybook/hierarchy-separator': 'error',
-      'storybook/meta-inline-properties': 'error',
-      'storybook/no-title-property-in-meta': 'error',
-      'storybook/prefer-pascal-case': 'error',
-      'storybook/story-exports': 'error',
-      'storybook/use-storybook-expect': 'error',
+      'storybook/await-interactions': 'warn',
+      'storybook/default-exports': 'warn',
     },
   },
 
   // Prettier compatibility
-  eslintConfigPrettier,
+  {
+    name: 'prettier/config',
+    ...eslintConfigPrettier,
+  },
+
+  // Project config files
+  {
+    files: ['postcss.config.js', 'next.config.mjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        process: 'readonly',
+        module: 'writable',
+        require: 'readonly',
+      },
+    },
+  },
+  {
+    files: ['tailwind.config.ts'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+
+  // Project custom rules
+  {
+    name: 'project-custom',
+    rules: {
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
 ];

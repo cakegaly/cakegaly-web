@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils';
 import { AlertTriangle, FileText, Info, XCircle } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 
 type CalloutType = 'info' | 'note' | 'warning' | 'danger';
 

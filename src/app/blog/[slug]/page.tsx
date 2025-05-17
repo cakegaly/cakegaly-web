@@ -3,14 +3,14 @@ import '@/styles/mdx.css';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { CustomMDX } from '@/components/content/custom-mdx';
-import { PageHeader } from '@/components/layout/page-header';
-import { Badge } from '@/components/shadcn-ui/badge';
-import { Button } from '@/components/shadcn-ui/button';
 import { tags } from '@/config/blog';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
-import { ArrowLeft } from 'lucide-react';
+import { Badge } from '@/components/shadcn-ui/badge';
+import { Button } from '@/components/shadcn-ui/button';
+import { CustomMDX } from '@/components/content/custom-mdx';
+import { Icons } from '@/components/icons';
+import { PageHeader } from '@/components/layout/page-header';
 
 export const revalidate = false;
 
@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <footer className="mt-10 border-t pt-8">
           <Button variant="ghost" asChild className="h-9 px-2">
             <Link href="/" className="group inline-flex items-center">
-              <ArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
+              <Icons.arrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
               Back to home
             </Link>
           </Button>

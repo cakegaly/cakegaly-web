@@ -1,11 +1,11 @@
+import { getOGData } from '@/actions/fetch-og-metadata';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { getOGData } from '@/actions/fetch-og-metadata';
-import { Icons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
+import { Icons } from '@/components/icons';
 
 interface LinkCardProps {
   url: string;
@@ -47,80 +47,50 @@ export function LinkCard({
   url,
   title,
   description,
-  image,
   className,
   error = false,
-  hideImage = false,
 }: LinkCardProps) {
   const isExternal = url.startsWith('http');
   const hostname = isExternal ? new URL(url).hostname : '';
 
   const CardContent = (
-    <>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex items-center gap-1">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-            {isExternal ? (
-              <>
-                <Icons.link className="size-4 text-muted-foreground/70" />
-                <span>{hostname.replace('/^[www./](http://www./)', '')}</span>
-                <Icons.externalLink className="size-3 text-muted-foreground/70" />
-              </>
-            ) : (
-              <span className="flex items-center gap-1.5">
-                <div className="size-4 rounded-full bg-primary/10">
-                  <span className="flex h-full w-full items-center justify-center text-[10px] text-primary">
-                    B
-                  </span>
-                </div>
-                <span>{siteConfig.name}</span>
-              </span>
-            )}
-          </div>
-        </div>
-
-        <div className="flex-1">
-          <h3 className="line-clamp-1 font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
-            {error ? 'Page Not Found' : title || 'Untitled'}
-          </h3>
-          {error ? (
-            <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
-              This page may have been moved or deleted.
-            </p>
-          ) : description ? (
-            <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
-              {description}
-            </p>
-          ) : null}
+    <div className="flex flex-1 flex-col gap-2 p-4">
+      <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          {isExternal ? (
+            <>
+              <Icons.link className="size-4 text-muted-foreground/70" />
+              <span>{hostname.replace('/^[www./](http://www./)', '')}</span>
+              <Icons.externalLink className="size-3 text-muted-foreground/70" />
+            </>
+          ) : (
+            <span className="flex items-center gap-1.5">
+              <div className="size-4 rounded-full bg-primary/10">
+                <span className="flex h-full w-full items-center justify-center text-[10px] text-primary">
+                  B
+                </span>
+              </div>
+              <span>{siteConfig.name}</span>
+            </span>
+          )}
         </div>
       </div>
 
-      {/* TODO: display og image */}
-      {/* {!hideImage && (
-        <div
-          className={cn(
-            'hidden w-[148px] shrink-0 sm:block',
-            !image && 'bg-muted/30'
-          )}
-        >
-          {image ? (
-            <div className="relative h-full w-full">
-              <ImageWithFallback
-                src={image || '/placeholder.svg'}
-                alt={title || 'Link preview'}
-                className="object-cover"
-              />
-            </div>
-          ) : (
-            <div className="flex h-full w-full items-center justify-center">
-              <span className="text-4xl text-muted-foreground/20">
-                {isExternal ? '🔗' : '📝'}
-              </span>
-            </div>
-          )}
-        </div>
-      )} */}
-    </>
+      <div className="flex-1">
+        <h3 className="line-clamp-1 font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
+          {error ? 'Page Not Found' : title || 'Untitled'}
+        </h3>
+        {error ? (
+          <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
+            This page may have been moved or deleted.
+          </p>
+        ) : description ? (
+          <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </div>
   );
 
   const cardClasses = cn(
@@ -230,11 +200,7 @@ export function LinkPreview({ url, className, hideImage }: LinkPreviewProps) {
   const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 
   return (
-    <Suspense
-      fallback={
-        <LinkCardSkeleton className={className} hideImage={hideImage} />
-      }
-    >
+    <Suspense fallback={<LinkCardSkeleton className={className} />}>
       {isInternal ? (
         <InternalLinkCard
           url={url}
@@ -252,13 +218,7 @@ export function LinkPreview({ url, className, hideImage }: LinkPreviewProps) {
   );
 }
 
-function LinkCardSkeleton({
-  className,
-  hideImage,
-}: {
-  className?: string;
-  hideImage?: boolean;
-}) {
+function LinkCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn('my-4 flex h-[108px] rounded-lg border bg-card', className)}
@@ -268,11 +228,6 @@ function LinkCardSkeleton({
         <div className="mt-2 h-5 w-3/4 animate-pulse rounded bg-muted/50" />
         <div className="mt-1.5 h-4 w-full animate-pulse rounded bg-muted/50" />
       </div>
-
-      {/* TODO: display og image */}
-      {/* {!hideImage && (
-        <div className="hidden w-[148px] animate-pulse bg-muted/50 sm:block" />
-      )} */}
     </div>
   );
 }

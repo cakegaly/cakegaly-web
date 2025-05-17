@@ -4,8 +4,8 @@ import * as runtime from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 
-import { components } from '@/components/content/mdx-components';
 import { ellyTheme } from '@/config/blog';
+import { components } from '@/components/content/mdx-components';
 
 interface CustomMDXProps {
   source: string;
