@@ -1,10 +1,11 @@
 'use client';
 
+import searchIndex from '@/../public/search/search-index.json';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
-import { Icons } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/shadcn-ui/button';
 import {
   Command,
@@ -16,9 +17,7 @@ import {
   CommandSeparator,
 } from '@/components/shadcn-ui/command';
 import { Dialog, DialogContent } from '@/components/shadcn-ui/dialog';
-import { cn } from '@/lib/utils';
-
-import searchIndex from '@/../public/search/search-index.json';
+import { Icons } from '@/components/icons';
 
 export function SearchCommand() {
   const [open, setOpen] = React.useState(false);

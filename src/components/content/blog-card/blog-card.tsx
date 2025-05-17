@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { TechIcons } from '@/components/icons';
-import { Badge } from '@/components/shadcn-ui/badge';
 import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
+import { Badge } from '@/components/shadcn-ui/badge';
+import { TechIcons } from '@/components/icons';
 
 interface BlogCardProps {
   data: Pick<BlogPost, 'metadata' | 'slug'>;
