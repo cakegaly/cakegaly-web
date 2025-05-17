@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { Icons, SocialIcons } from '@/components/icons';
-import { ModeSwitch } from '@/components/layout/mode-switch';
-import { buttonVariants } from '@/components/shadcn-ui/button';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/shadcn-ui/button';
+import { Icons, SocialIcons } from '@/components/icons';
+import { ModeSwitch } from '@/components/layout/mode-switch';
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (

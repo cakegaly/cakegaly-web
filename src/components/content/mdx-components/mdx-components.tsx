@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
+import { cn } from '@/lib/utils';
 import { LinkPreview } from '@/components/content/link-preview';
 import { Callout } from '@/components/shared/callout';
-import { cn } from '@/lib/utils';
 
 export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (

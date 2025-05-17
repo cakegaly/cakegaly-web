@@ -1,8 +1,10 @@
 import {
+  ArrowLeft,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
   FileHeart,
+  Home,
   Laptop,
   Link,
   Mail,
@@ -14,10 +16,12 @@ import {
 } from 'lucide-react';
 
 export const Icons = {
+  arrowLeft: ArrowLeft,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   externalLink: ExternalLink,
   fileHeart: FileHeart,
+  home: Home,
   laptop: Laptop,
   link: Link,
   mail: Mail,

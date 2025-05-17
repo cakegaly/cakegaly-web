@@ -1,5 +1,5 @@
-import { BlogCard } from '@/components/content/blog-card';
 import { getAllBlogPosts } from '@/lib/mdx';
+import { BlogCard } from '@/components/content/blog-card';
 
 export default async function TopPage() {
   const allPosts = await getAllBlogPosts();

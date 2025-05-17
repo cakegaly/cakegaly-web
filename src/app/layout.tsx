@@ -1,12 +1,13 @@
+import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
 import type { Metadata } from 'next';
 
-import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
+
 import '@/styles/globals.css';
 
 interface RootLayoutProps {

@@ -1,7 +1,12 @@
-import type { CanvasRenderingContext2D } from 'canvas';
-import { createCanvas, loadImage, registerFont } from 'canvas';
 import fs from 'fs';
 import path from 'path';
+
+import {
+  createCanvas,
+  loadImage,
+  registerFont,
+  type CanvasRenderingContext2D,
+} from 'canvas';
 
 import { getAllBlogPosts } from '@/lib/mdx';
 
@@ -24,13 +29,13 @@ registerFont('./src/assets/fonts/MPLUSRounded1c-Medium.ttf', {
   const allPosts = await getAllBlogPosts();
 
   for (const post of allPosts) {
-    await generateOGP(post.metadata.title, post.slug, post.metadata.date);
+    await generateOGP(post.metadata.title, post.slug);
   }
 
   console.log('✅ OGP images generated successfully!');
 })();
 
-async function generateOGP(title: string, slug: string, date?: string) {
+async function generateOGP(title: string, slug: string) {
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx = canvas.getContext('2d');
 
