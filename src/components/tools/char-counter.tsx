@@ -27,7 +27,7 @@ function countGraphemeLength(text: string): number {
   return [...segmenter.segment(text)].length;
 }
 
-export function CharCount() {
+export function CharCounter() {
   const [text, setText] = useState('');
   const deferredText = useDeferredValue(text);
 
