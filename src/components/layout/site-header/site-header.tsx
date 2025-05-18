@@ -7,8 +7,8 @@ import { SearchCommand } from '@/components/search-command';
 
 export function SiteHeader() {
   return (
-    <header className="container sticky top-0 z-40 border-b bg-background/50 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-screen-md items-center justify-between">
+    <header className="sticky top-3 z-40 md:top-6">
+      <div className="container flex h-14 max-w-screen-sm items-center justify-between rounded-full border bg-background/50 backdrop-blur-md">
         <Link
           href="/"
           className="flex items-center gap-2 rounded-md p-2 hover:bg-accent/20"

@@ -70,7 +70,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
       </div>
 
       <div className="flex justify-center">
-        <p className="text-center font-mono text-xs leading-loose text-muted-foreground">
+        <p className="text-center text-xs leading-loose text-muted-foreground">
           &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
         </p>
       </div>
