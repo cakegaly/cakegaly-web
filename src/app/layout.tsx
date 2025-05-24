@@ -1,8 +1,9 @@
-import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
 import type { Metadata } from 'next';
+import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
@@ -63,7 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'bg-background min-h-screen font-sans antialiased',
           fontSans.variable,
           fontHeading.variable,
           fontMono.variable

@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+
 import { withProviders } from './decorators';
 
 const preview: Preview = {

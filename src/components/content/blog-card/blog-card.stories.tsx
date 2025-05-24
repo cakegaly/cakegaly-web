@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TechIcons } from '@/components/icons';
 import { tags } from '@/config/blog';
 import type { BlogPost } from '@/lib/mdx';
+
+import { TechIcons } from '@/components/icons';
+
 import { BlogCard } from './blog-card';
 
 const meta = {
