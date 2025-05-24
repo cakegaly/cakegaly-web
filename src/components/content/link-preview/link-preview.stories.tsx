@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { siteConfig } from '@/config/site';
+
 import { LinkCard } from './link-preview';
 
 const meta = {

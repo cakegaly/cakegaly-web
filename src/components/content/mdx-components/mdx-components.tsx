@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
+
 import { LinkPreview } from '@/components/content/link-preview';
 import { Callout } from '@/components/shared/callout';
 
@@ -8,7 +9,7 @@ export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-12 scroll-m-20 border-b border-accent/50 pb-2 font-heading text-2xl font-medium tracking-tight first:mt-0',
+        'border-accent/50 font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-medium tracking-tight first:mt-0',
         className
       )}
       {...props}
@@ -17,7 +18,7 @@ export const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'mt-8 scroll-m-20 font-heading text-xl font-medium tracking-tight',
+        'font-heading mt-8 scroll-m-20 text-xl font-medium tracking-tight',
         className
       )}
       {...props}
@@ -26,7 +27,7 @@ export const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        'mt-8 scroll-m-20 font-heading text-lg font-medium tracking-tight',
+        'font-heading mt-8 scroll-m-20 text-lg font-medium tracking-tight',
         className
       )}
       {...props}
@@ -38,7 +39,7 @@ export const components = {
   }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
-        'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50',
+        'text-primary decoration-primary/30 hover:text-primary/80 hover:decoration-primary/50 font-medium underline-offset-4',
         className
       )}
       {...props}
@@ -47,7 +48,7 @@ export const components = {
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
       className={cn(
-        'leading-7 text-foreground/90 [&:not(:first-child)]:mt-6',
+        'text-foreground/90 leading-7 [&:not(:first-child)]:mt-6',
         className
       )}
       {...props}
@@ -56,7 +57,7 @@ export const components = {
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
       className={cn(
-        'my-6 ml-6 list-disc marker:text-muted-foreground',
+        'marker:text-muted-foreground my-6 ml-6 list-disc',
         className
       )}
       {...props}
@@ -65,14 +66,14 @@ export const components = {
   ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
     <ol
       className={cn(
-        'my-6 ml-6 list-decimal marker:text-muted-foreground',
+        'marker:text-muted-foreground my-6 ml-6 list-decimal',
         className
       )}
       {...props}
     />
   ),
   li: ({ className, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className={cn('mt-2 text-foreground/90', className)} {...props} />
+    <li className={cn('text-foreground/90 mt-2', className)} {...props} />
   ),
   blockquote: ({
     className,
@@ -80,7 +81,7 @@ export const components = {
   }: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
       className={cn(
-        'mt-6 border-l-2 border-primary pl-6 italic text-foreground/80',
+        'border-primary text-foreground/80 mt-6 border-l-2 pl-6 italic',
         className
       )}
       {...props}
@@ -93,16 +94,16 @@ export const components = {
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className={cn('rounded-md border border-border/50', className)}
+      className={cn('border-border/50 rounded-md border', className)}
       alt={alt}
       {...props}
     />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-8 border-border/50" {...props} />
+    <hr className="border-border/50 my-8" {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 w-full overflow-y-auto rounded-lg border border-border/50">
+    <div className="border-border/50 my-6 w-full overflow-y-auto rounded-lg border">
       <table
         className={cn('w-full border-collapse text-sm', className)}
         {...props}
@@ -112,7 +113,7 @@ export const components = {
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
       className={cn(
-        'm-0 border-t border-border/50 p-0',
+        'border-border/50 m-0 border-t p-0',
         'transition-colors duration-150',
         'hover:bg-muted/30',
         className
@@ -123,7 +124,7 @@ export const components = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        'border border-border/50 bg-background px-4 py-3 text-left font-medium',
+        'border-border/50 bg-background border px-4 py-3 text-left font-medium',
         'text-foreground/90',
         '[&[align=center]]:text-center [&[align=right]]:text-right',
         className
@@ -134,9 +135,9 @@ export const components = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        'border border-border/50 px-4 py-3 text-left',
+        'border-border/50 border px-4 py-3 text-left',
         '[&[align=center]]:text-center [&[align=right]]:text-right',
-        '[&>code]:rounded-sm [&>code]:bg-muted/30 [&>code]:px-1.5 [&>code]:py-0.5',
+        '[&>code]:bg-muted/30 [&>code]:rounded-sm [&>code]:px-1.5 [&>code]:py-0.5',
         className
       )}
       {...props}
@@ -164,7 +165,7 @@ export const components = {
           // Inline code styling
           isInline && [
             'rounded px-[0.3rem] py-[0.2rem]',
-            'font-medium text-foreground/90',
+            'text-foreground/90 font-medium',
           ],
           // Code block styling
           !isInline && [

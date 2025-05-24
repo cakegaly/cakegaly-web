@@ -15,7 +15,7 @@ const renderIcons = (iconSet: Record<string, any>) => (
     {Object.entries(iconSet).map(([name, Icon]) => (
       <div key={name} className="flex w-16 flex-col items-center space-y-2">
         <Icon className="h-6 w-6" />
-        <span className="break-words text-center text-xs text-muted-foreground">
+        <span className="text-muted-foreground text-center text-xs break-words">
           {name}
         </span>
       </div>

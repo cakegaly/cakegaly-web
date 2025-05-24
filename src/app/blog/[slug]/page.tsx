@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { tags } from '@/config/blog';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
+
 import { Badge } from '@/components/shadcn-ui/badge';
 import { Button } from '@/components/shadcn-ui/button';
 import { CustomMDX } from '@/components/content/custom-mdx';
@@ -81,7 +82,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <PageHeader title={post.metadata.title} />
 
         {/* Metadata (Date & Tags) */}
-        <div className="mb-6 mt-4 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
+        <div className="text-muted-foreground mt-4 mb-6 flex flex-wrap items-center justify-between text-sm">
           {post.metadata.date && (
             <div className="inline-flex items-center gap-1">
               <time dateTime={post.metadata.date}>

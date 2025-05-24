@@ -1,10 +1,11 @@
-import { getOGData } from '@/actions/fetch-og-metadata';
-import Link from 'next/link';
 import { Suspense } from 'react';
+import Link from 'next/link';
+import { getOGData } from '@/actions/fetch-og-metadata';
 
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
+
 import { Icons } from '@/components/icons';
 
 interface LinkCardProps {
@@ -56,17 +57,17 @@ export function LinkCard({
   const CardContent = (
     <div className="flex flex-1 flex-col gap-2 p-4">
       <div className="flex items-center gap-1">
-        <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+        <div className="text-muted-foreground flex items-center gap-1.5 text-xs font-medium">
           {isExternal ? (
             <>
-              <Icons.link className="size-4 text-muted-foreground/70" />
+              <Icons.link className="text-muted-foreground/70 size-4" />
               <span>{hostname.replace('/^[www./](http://www./)', '')}</span>
-              <Icons.externalLink className="size-3 text-muted-foreground/70" />
+              <Icons.externalLink className="text-muted-foreground/70 size-3" />
             </>
           ) : (
             <span className="flex items-center gap-1.5">
-              <div className="size-4 rounded-full bg-primary/10">
-                <span className="flex h-full w-full items-center justify-center text-[10px] text-primary">
+              <div className="bg-primary/10 size-4 rounded-full">
+                <span className="text-primary flex h-full w-full items-center justify-center text-[10px]">
                   B
                 </span>
               </div>
@@ -77,15 +78,15 @@ export function LinkCard({
       </div>
 
       <div className="flex-1">
-        <h3 className="line-clamp-1 font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
+        <h3 className="text-foreground group-hover:text-accent line-clamp-1 leading-tight font-semibold transition-colors">
           {error ? 'Page Not Found' : title || 'Untitled'}
         </h3>
         {error ? (
-          <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-1.5 line-clamp-1 text-sm">
             This page may have been moved or deleted.
           </p>
         ) : description ? (
-          <p className="mt-1.5 line-clamp-1 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-1.5 line-clamp-1 text-sm">
             {description}
           </p>
         ) : null}
@@ -221,12 +222,12 @@ export function LinkPreview({ url, className, hideImage }: LinkPreviewProps) {
 function LinkCardSkeleton({ className }: { className?: string }) {
   return (
     <div
-      className={cn('my-4 flex h-[108px] rounded-lg border bg-card', className)}
+      className={cn('bg-card my-4 flex h-[108px] rounded-lg border', className)}
     >
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="h-4 w-24 animate-pulse rounded bg-muted/50" />
-        <div className="mt-2 h-5 w-3/4 animate-pulse rounded bg-muted/50" />
-        <div className="mt-1.5 h-4 w-full animate-pulse rounded bg-muted/50" />
+        <div className="bg-muted/50 h-4 w-24 animate-pulse rounded" />
+        <div className="bg-muted/50 mt-2 h-5 w-3/4 animate-pulse rounded" />
+        <div className="bg-muted/50 mt-1.5 h-4 w-full animate-pulse rounded" />
       </div>
     </div>
   );
