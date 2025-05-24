@@ -2,6 +2,7 @@ import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
 import { absoluteUrl } from '@/lib/utils';
+
 import { BlogCard } from '@/components/content/blog-card';
 
 interface TagPageProps {

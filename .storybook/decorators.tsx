@@ -3,6 +3,7 @@ import React from 'react';
 import { fontMono, fontSans } from '../src/assets/fonts';
 import { ThemeProvider } from '../src/components/layout/theme-provider';
 import { cn } from '../src/lib/utils';
+
 import '../src/styles/globals.css';
 
 import { ReactNode } from 'react';

@@ -1,11 +1,12 @@
 'use client';
 
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
 import searchIndex from '@/../public/search/search-index.json';
 import Fuse from 'fuse.js';
-import { useRouter } from 'next/navigation';
-import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+
 import { Button } from '@/components/shadcn-ui/button';
 import {
   Command,
@@ -95,7 +96,7 @@ export function SearchCommand() {
         onClick={() => setOpen(true)}
       >
         <Icons.search className="size-3" />
-        <kbd className="ml-auto hidden h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-xs font-medium opacity-90 sm:flex">
+        <kbd className="ml-auto hidden h-5 items-center gap-1 rounded border px-1.5 font-mono text-xs font-medium opacity-90 select-none sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>

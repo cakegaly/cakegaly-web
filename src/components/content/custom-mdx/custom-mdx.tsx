@@ -1,10 +1,11 @@
-import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
 import * as React from 'react';
 import * as runtime from 'react/jsx-runtime';
+import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 
 import { ellyTheme } from '@/config/blog';
+
 import { components } from '@/components/content/mdx-components';
 
 interface CustomMDXProps {
@@ -47,7 +48,7 @@ export async function CustomMDX({
   } catch (error) {
     console.error('Error rendering MDX:', error);
     return (
-      <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive">
+      <div className="border-destructive/50 bg-destructive/10 text-destructive rounded-md border p-4">
         An error occurred while rendering the content.
       </div>
     );

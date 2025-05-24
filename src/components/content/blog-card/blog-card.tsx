@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { tags } from '@/config/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
+
 import { Badge } from '@/components/shadcn-ui/badge';
 import { TechIcons } from '@/components/icons';
 
@@ -17,7 +18,7 @@ export function BlogCard({ data }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-5 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md"
+      className="group border-border bg-card hover:bg-accent/5 relative flex items-start gap-4 overflow-hidden rounded-lg border p-5 shadow-sm transition-all hover:shadow-md"
     >
       {/* Eyecatch (TechIcon) */}
       <div className="size-16 flex-shrink-0 rounded-md p-3 transition-colors">
@@ -27,19 +28,19 @@ export function BlogCard({ data }: BlogCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-2">
         {/* Title */}
-        <h2 className="line-clamp-2 font-heading text-base font-medium tracking-tight md:text-lg">
+        <h2 className="font-heading line-clamp-2 text-base font-medium tracking-tight md:text-lg">
           {metadata.title}
         </h2>
 
         {/* Description */}
         {metadata.description && (
-          <p className="line-clamp-2 text-xs text-muted-foreground md:text-sm">
+          <p className="text-muted-foreground line-clamp-2 text-xs md:text-sm">
             {metadata.description}
           </p>
         )}
 
         {/* Metadata */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted-foreground">
+        <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs">
           <div className="flex items-center gap-1">
             <time className="font-mono" dateTime={metadata.date}>
               {formatDate(metadata.date)}

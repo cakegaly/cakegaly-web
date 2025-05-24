@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+
 import { buttonVariants } from '@/components/shadcn-ui/button';
 import { Icons, SocialIcons } from '@/components/icons';
 import { ModeSwitch } from '@/components/layout/mode-switch';
@@ -70,7 +71,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
       </div>
 
       <div className="flex justify-center">
-        <p className="text-center text-xs leading-loose text-muted-foreground">
+        <p className="text-muted-foreground text-center text-xs leading-loose">
           &copy; {`${new Date().getFullYear()} ${siteConfig.copyRight}`}
         </p>
       </div>
