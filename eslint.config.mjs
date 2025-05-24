@@ -8,8 +8,6 @@ import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import eslintPluginStorybook from 'eslint-plugin-storybook';
 import tsEslint from 'typescript-eslint';
 
-import eslintPluginTailwindcss from 'eslint-plugin-tailwindcss';
-
 export default [
   // Base configuration
   { files: ['*.js', '*.jsx', '*.ts', '*.tsx'] },
@@ -67,16 +65,16 @@ export default [
   },
 
   // Tailwind CSS
-  {
-    name: 'tailwindcss/rules',
-    plugins: {
-      tailwindcss: eslintPluginTailwindcss,
-    },
-    rules: {
-      'tailwindcss/classnames-order': 'warn',
-      'tailwindcss/no-custom-classname': 'off',
-    },
-  },
+  // {
+  //   name: 'tailwindcss/rules',
+  //   plugins: {
+  //     tailwindcss: eslintPluginTailwindcss,
+  //   },
+  //   rules: {
+  //     'tailwindcss/classnames-order': 'warn',
+  //     'tailwindcss/no-custom-classname': 'off',
+  //   },
+  // },
 
   // Storybook plugin
   {
