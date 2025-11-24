@@ -4,7 +4,7 @@ import { tags } from '@/lib/blog';
 import { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-import { TechIcons } from '@/components/icons';
+import { TechIcons } from '@/components/shared/tech-icons';
 
 interface BlogCardProps {
   data: Pick<BlogPost, 'metadata' | 'slug'>;

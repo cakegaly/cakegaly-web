@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-import { TechIcons } from '@/components/icons';
+import { TechIcons } from '@/components/shared/tech-icons';
 
 const CONTENT_BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
