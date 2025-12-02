@@ -1,8 +1,11 @@
+import Link from 'next/link';
+import { WrenchIcon } from 'lucide-react';
+
 import { siteConfig } from '@/lib/config';
 import { getAllBlogPosts } from '@/lib/mdx';
+import { Button } from '@/components/ui/button';
 import { BlogCard } from '@/components/content/blog-card';
 import { ProfileCard } from '@/components/content/profile-card';
-import { ToolCard } from '@/components/content/tool-card';
 
 export const revalidate = false;
 export const dynamic = 'force-static';
@@ -21,7 +24,7 @@ export default async function IndexPage() {
       </div>
       <div className="content-wrapper">
         <div className="content-inner py-6">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1">
             {allPosts.map((blog, i) => (
               <BlogCard key={i} data={blog} />
             ))}
@@ -30,14 +33,14 @@ export default async function IndexPage() {
       </div>
       <div className="content-wrapper">
         <div className="content-inner py-6">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="flex flex-wrap gap-2">
             {siteConfig.navItems.map((tool, i) => (
-              <ToolCard
-                key={i}
-                href={tool.href}
-                title={tool.title}
-                description={tool.description}
-              />
+              <Button key={i} variant="ghost" asChild>
+                <Link href={tool.href}>
+                  <WrenchIcon />
+                  {tool.title}
+                </Link>
+              </Button>
             ))}
           </div>
         </div>

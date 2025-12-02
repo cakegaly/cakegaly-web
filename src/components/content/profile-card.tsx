@@ -9,7 +9,7 @@ export function ProfileCard() {
   const { author, links } = siteConfig;
 
   return (
-    <div className="bg-background rounded-xl p-5 shadow-md">
+    <div className="bg-background rounded-xl p-5">
       <div className="flex items-center gap-4">
         <Avatar src={author.image} alt={author.name} size="lg" />
         <div className="flex flex-col gap-1">
