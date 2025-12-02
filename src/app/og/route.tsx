@@ -187,7 +187,7 @@ export async function GET(request: Request) {
             height: '100%',
             width: '100%',
             display: 'flex',
-            background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+            background: 'linear-gradient(135deg, #282d3e 0%, #1f242f 100%)',
             fontFamily: fonts.length > 0 ? 'MPlusRounded' : 'sans-serif',
             color: '#ffffff',
             position: 'relative',
@@ -235,7 +235,7 @@ export async function GET(request: Request) {
                     marginTop: '32px',
                     fontSize: '24px',
                     lineHeight: 1.4,
-                    color: '#94a3b8',
+                    color: '#b5bac8',
                     maxWidth: '900px',
                   }}
                 >
@@ -260,12 +260,12 @@ export async function GET(request: Request) {
                 style={{
                   fontSize: '24px',
                   fontWeight: 500,
-                  color: '#94a3b8',
+                  color: '#b5bac8',
                 }}
               >
                 cakegaly
               </div>
-              <SiteLogo size={48} color="#94a3b8" />
+              <SiteLogo size={48} color="#b5bac8" />
             </div>
           </div>
         </div>
@@ -287,7 +287,7 @@ export async function GET(request: Request) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: '#1e293b',
+            background: '#282d3e',
           }}
         >
           <div
