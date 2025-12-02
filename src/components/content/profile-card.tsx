@@ -17,17 +17,32 @@ export function ProfileCard() {
           <p className="text-on-muted text-sm">{author.bio}</p>
           <div className="flex items-center gap-1">
             <Button asChild size="icon-md" variant="ghost">
-              <a href={links.x} target="_blank" rel="noopener noreferrer">
+              <a
+                href={links.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="X (Twitter) (@cakegaly)"
+              >
                 <BrandIcons.x />
               </a>
             </Button>
             <Button asChild size="icon-md" variant="ghost">
-              <a href={links.github} target="_blank" rel="noopener noreferrer">
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub (/cakegaly)"
+              >
                 <BrandIcons.gitHub />
               </a>
             </Button>
             <Button asChild size="icon-md" variant="ghost">
-              <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
+              <a
+                href="/rss.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="RSS Feed (cakegaly -dot- com)"
+              >
                 <RssIcon />
               </a>
             </Button>
