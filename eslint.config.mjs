@@ -1,16 +1,13 @@
 // @ts-check
+import eslintJs from '@eslint/js';
+import pluginNext from '@next/eslint-plugin-next';
+import configPrettier from 'eslint-config-prettier';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginTypeScript from 'typescript-eslint';
 
-import js from '@eslint/js';
-import eslintPluginNext from '@next/eslint-plugin-next';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginReact from 'eslint-plugin-react';
-import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
-import eslintPluginStorybook from 'eslint-plugin-storybook';
-import tsEslint from 'typescript-eslint';
-
-export default [
-  // Base configuration
-  { files: ['*.js', '*.jsx', '*.ts', '*.tsx'] },
+const config = [
+  // Base
   {
     ignores: [
       '**/build/',
@@ -20,24 +17,23 @@ export default [
       '**/out/',
       '**/.next/',
       '**/node_modules/',
-      '**/storybook-static/',
     ],
   },
 
-  // TypeScript configuration
+  // TypeScript
   {
     name: 'eslint/recommended',
-    rules: js.configs.recommended.rules,
+    rules: eslintJs.configs.recommended.rules,
   },
-  ...tsEslint.configs.recommended,
+  ...pluginTypeScript.configs.recommended,
 
-  // React configuration
+  // React
   {
     name: 'react/jsx-runtime',
     plugins: {
-      react: eslintPluginReact,
+      react: pluginReact,
     },
-    rules: eslintPluginReact.configs['jsx-runtime'].rules,
+    rules: pluginReact.configs['jsx-runtime'].rules,
     settings: {
       react: {
         version: 'detect',
@@ -47,72 +43,27 @@ export default [
   {
     name: 'react-hooks/recommended',
     plugins: {
-      'react-hooks': eslintPluginReactHooks,
+      'react-hooks': pluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
+    rules: pluginReactHooks.configs.recommended.rules,
   },
 
-  // Next.js configuration
+  // Next.js
   {
     name: 'next/core-web-vitals',
     plugins: {
-      '@next/next': eslintPluginNext,
+      '@next/next': pluginNext,
     },
     rules: {
-      ...eslintPluginNext.configs.recommended.rules,
-      ...eslintPluginNext.configs['core-web-vitals'].rules,
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
   },
 
-  // Tailwind CSS
-  // {
-  //   name: 'tailwindcss/rules',
-  //   plugins: {
-  //     tailwindcss: eslintPluginTailwindcss,
-  //   },
-  //   rules: {
-  //     'tailwindcss/classnames-order': 'warn',
-  //     'tailwindcss/no-custom-classname': 'off',
-  //   },
-  // },
-
-  // Storybook plugin
-  {
-    name: 'storybook/rules',
-    files: ['**/*.stories.@(ts|tsx)', '**/*.story.@(ts|tsx)'],
-    plugins: {
-      storybook: eslintPluginStorybook,
-    },
-    rules: {
-      'storybook/await-interactions': 'warn',
-      'storybook/default-exports': 'warn',
-    },
-  },
-
-  // Prettier compatibility
+  // Prettier
   {
     name: 'prettier/config',
-    ...eslintConfigPrettier,
-  },
-
-  // Project config files
-  {
-    files: ['postcss.config.js', 'next.config.mjs'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: {
-        process: 'readonly',
-        module: 'writable',
-        require: 'readonly',
-      },
-    },
-  },
-  {
-    files: ['tailwind.config.ts'],
-    rules: {
-      '@typescript-eslint/no-require-imports': 'off',
-    },
+    ...configPrettier,
   },
 
   // Project custom rules
@@ -124,3 +75,5 @@ export default [
     },
   },
 ];
+
+export default config;

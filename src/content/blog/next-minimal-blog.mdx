@@ -213,9 +213,9 @@ MDX ファイルの操作をシンプルに整理する考え方は、Vercel の
 シンタックスハイライトは、`@mdx-js/mdx` で `evaluate()` するときのオプションに rehype-pretty-code, remark-gfm を指定して反映させています。
 
 ```tsx title="components/content/custom-mdx.tsx"
-import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
 import * as React from 'react';
 import * as runtime from 'react/jsx-runtime';
+import { evaluate, type EvaluateOptions } from '@mdx-js/mdx';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 
@@ -441,9 +441,10 @@ export async function GET() {
 サイトマップ (トップページと記事ページを出力する例):
 
 ```ts title="app/sitemap.ts"
+import { MetadataRoute } from 'next';
+
 import { siteConfig } from '@/config/site';
 import { getAllBlogPosts } from '@/lib/mdx';
-import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;

@@ -2,11 +2,22 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-import { Frontmatter, MDXData } from '@/types/mdx';
+import { TechIcons } from '@/components/shared/tech-icons';
 
-import { TechIcons } from '@/components/icons';
+const CONTENT_BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
-const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
+export type Frontmatter<T = {}> = {
+  title: string;
+  date: string;
+  description: string;
+} & T;
+
+export type MDXData<T = {}> = {
+  metadata: Frontmatter<T>;
+  slug: string;
+  content?: React.ReactNode;
+  rawContent: string;
+};
 
 export type BlogPost = MDXData<{
   thumbnail?: string;
@@ -15,7 +26,7 @@ export type BlogPost = MDXData<{
 }>;
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const posts = await getMDXData(blogDir);
+  const posts = await getMDXData(CONTENT_BLOG_DIR);
   return posts.sort(
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()

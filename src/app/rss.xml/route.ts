@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/config';
 import { getAllBlogPosts } from '@/lib/mdx';
 
 export async function GET() {
@@ -16,9 +16,9 @@ export async function GET() {
   const rssXml = `
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel>
-        <title>Your Blog Name</title>
+        <title>${siteConfig.name}</title>
         <link>${baseUrl}</link>
-        <description>Your blog description here</description>
+        <description>${siteConfig.description}</description>
         <language>ja</language>
         <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
         <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml"/>
