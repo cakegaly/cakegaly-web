@@ -22,13 +22,13 @@ export const siteConfig = {
     {
       title: '文字数カウント',
       description: '入力されたテキストの文字数を数えます。',
-      href: '/tools/char-counter',
+      href: '/char-counter',
       icon: TypeIcon,
     },
     {
       title: 'カラーコード変換',
       description: 'hex, hsl, rgb, oklch でカラーコードを変換します。',
-      href: '/tools/color-converter',
+      href: '/color-converter',
       icon: PaletteIcon,
     },
   ],
