@@ -4,6 +4,7 @@ import {
   formatHsl,
   formatRgb,
   parse,
+  wcagContrast,
   type Color,
   type Oklch,
 } from 'culori';
@@ -43,4 +44,14 @@ export function formatOklch(color: Oklch): string {
   }
 
   return `oklch(${lStr} ${cStr} ${hStr})`;
+}
+
+export function getContrastRatios(color: Color) {
+  const contrastWithWhite = wcagContrast(color, 'white');
+  const contrastWithBlack = wcagContrast(color, 'black');
+
+  return {
+    white: contrastWithWhite?.toFixed(2) ?? '-',
+    black: contrastWithBlack?.toFixed(2) ?? '-',
+  };
 }

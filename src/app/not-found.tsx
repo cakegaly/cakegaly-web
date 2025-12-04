@@ -1,45 +1,38 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 
-import { Button } from '@/components/shadcn-ui/button';
-import { Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
+  const router = useRouter();
+
   return (
-    <div className="container flex min-h-[calc(100vh-16rem)] max-w-screen-lg flex-col items-center justify-center">
-      <div className="mx-auto flex max-w-xl flex-col items-center justify-center text-center">
-        <h1 className="from-foreground to-foreground/50 bg-gradient-to-b bg-clip-text text-6xl font-bold text-transparent sm:text-7xl">
+    <div className="bg-canvas flex min-h-svh flex-col items-center justify-center p-4">
+      <div className="flex flex-col items-center gap-8 text-center">
+        <h1 className="text-on-canvas text-6xl leading-none font-medium tracking-tighter">
           404
         </h1>
-
-        <div className="mt-4 space-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            ページが見つかりません
-          </h2>
-          <p className="text-muted-foreground">
+        <div className="flex flex-col gap-2">
+          <p className="text-2xl font-bold">ページが見つかりません</p>
+          <p className="text-on-muted">
             アドレスが変更されたか、ページが削除された可能性があります。
           </p>
         </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Button variant="outline" asChild className="gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button variant="outline" asChild>
             <Link href="/">
-              <Icons.home className="size-4" />
+              <HomeIcon />
               ホームに戻る
             </Link>
           </Button>
-          <Button
-            variant="ghost"
-            onClick={() => window.history.back()}
-            className="gap-2"
-          >
-            <Icons.arrowLeft className="size-4" />
+          <Button variant="ghost" onClick={() => router.back()}>
+            <ArrowLeftIcon />
             前のページに戻る
           </Button>
         </div>
-
-        <div className="mt-8 text-8xl font-bold opacity-10">{':('}</div>
       </div>
     </div>
   );

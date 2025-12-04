@@ -1,54 +1,49 @@
 import type { Metadata } from 'next';
-import { fontHeading, fontMono, fontSans } from '@/assets/fonts';
 
-import { siteConfig } from '@/config/site';
+import { META_THEME_COLORS, siteConfig } from '@/lib/config';
+import { fontVariables } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
-
-import { SiteFooter } from '@/components/layout/site-footer';
-import { SiteHeader } from '@/components/layout/site-header';
-import { ThemeProvider } from '@/components/layout/theme-provider';
 import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
+import { ThemeProvider } from '@/components/shared/theme-provider';
 
 import '@/styles/globals.css';
-
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
 
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s - ${siteConfig.name}`,
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
   description: siteConfig.description,
-  alternates: {
-    types: {
-      'application/rss+xml': [
-        {
-          url: '/rss.xml',
-          title: 'cakegaly-web RSS Feed',
-        },
-      ],
+  authors: [
+    {
+      name: 'cakegaly',
+      url: siteConfig.url,
     },
-  },
-  keywords: ['Tech Blog', 'Next.js', 'React', 'Tailwind CSS', 'shadcn ui'],
+  ],
+  creator: 'cakegaly',
   openGraph: {
     type: 'website',
     locale: 'ja_JP',
-    url: siteConfig.url,
+    url: process.env.NEXT_PUBLIC_APP_URL!,
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/og.png`,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og.png`],
+    images: [`${process.env.NEXT_PUBLIC_APP_URL}/og.png`],
     creator: '@cakegaly',
-  },
-  verification: {
-    google: 'sOglKlq48i0vvrlPm0URAufimNWPcnmNzsj6ZnFk_UE',
   },
   icons: {
     icon: '/favicon.ico',
@@ -56,31 +51,40 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+  verification: {
+    google: 'sOglKlq48i0vvrlPm0URAufimNWPcnmNzsj6ZnFk_UE',
+  },
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
-      <head />
+    <html lang="ja" suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+        <meta name="theme-color" content={META_THEME_COLORS.light} />
+      </head>
       <body
         className={cn(
-          'bg-background min-h-screen font-sans antialiased',
-          fontSans.variable,
-          fontHeading.variable,
-          fontMono.variable
+          'group/body overscroll-none font-sans antialiased',
+          fontVariables
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex min-h-screen flex-col">
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-          </div>
+        <ThemeProvider>
+          {children}
           <TailwindIndicator />
         </ThemeProvider>
       </body>
