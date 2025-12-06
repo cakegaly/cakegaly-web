@@ -14,6 +14,7 @@
   --color-on-background: var(--on-background);
   --color-canvas: var(--canvas);
   --color-canvas-hovered: var(--canvas-hovered);
+  --color-canvas-active: var(--canvas-active);
   --color-on-canvas: var(--on-canvas);
   --color-neutral: var(--neutral);
   --color-neutral-hovered: var(--neutral-hovered);
@@ -40,13 +41,14 @@
   --background-hovered: oklch(0.973 0.006 223.5);
   --background-active: oklch(0.946 0.009 242.8);
   --on-background: oklch(0.252 0.008 264.4);
+  --canvas: oklch(0.988 0.004 197.1);
+  --canvas-hovered: oklch(0.973 0.006 223.5);
+  --canvas-active: oklch(0.946 0.009 242.8);
+  --on-canvas: oklch(0.539 0.026 258.4);
   --neutral: oklch(0.292 0.012 258.4);
   --neutral-hovered: oklch(0.343 0.018 258.4);
   --neutral-active: oklch(0.429 0.022 258.4);
   --on-neutral: oklch(0.988 0.004 197.1);
-  --canvas: oklch(0.988 0.004 197.1);
-  --canvas-hovered: oklch(0.973 0.006 223.5);
-  --on-canvas: oklch(0.539 0.026 258.4);
   --muted: oklch(0.973 0.006 223.5);
   --muted-hovered: oklch(0.946 0.009 242.8);
   --muted-active: oklch(0.904 0.013 251.6);
@@ -70,6 +72,7 @@
   --on-background: oklch(0.988 0.004 197.1);
   --canvas: oklch(0.221 0.002 247.9);
   --canvas-hovered: oklch(0.252 0.008 264.4);
+  --canvas-active: oklch(0.292 0.012 258.4);
   --on-canvas: oklch(0.751 0.023 256.8);
   --neutral: oklch(0.973 0.006 223.5);
   --neutral-hovered: oklch(0.946 0.009 242.8);
