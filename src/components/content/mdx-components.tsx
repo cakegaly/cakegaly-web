@@ -1,10 +1,6 @@
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
-import { CopyButton } from '@/components/content/copy-button';
-import { LinkPreview } from '@/components/content/link-preview';
-import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
-import { Callout } from '@/components/shared/callout';
 import {
   Table,
   TableBody,
@@ -14,6 +10,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TextLink } from '@/components/ui/text-link';
+import { CopyButton } from '@/components/content/copy-button';
+import { LinkPreview } from '@/components/content/link-preview';
+import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
+import { Callout } from '@/components/shared/callout';
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
@@ -214,6 +214,8 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  Callout,
+  Callout: ({ className, ...props }: React.ComponentProps<typeof Callout>) => (
+    <Callout className={cn('mt-6', className)} {...props} />
+  ),
   LinkPreview,
 };
