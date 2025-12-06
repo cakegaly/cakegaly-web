@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { Hsl, Oklch, Rgb } from 'culori';
+import type { Color, Hsl, Oklch, Rgb } from 'culori';
 import { converter, formatHex, formatHsl, formatRgb } from 'culori';
 import { Check, Copy } from 'lucide-react';
 
@@ -126,7 +126,7 @@ function HexEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -177,7 +177,7 @@ function RgbEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -282,7 +282,7 @@ function HslEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -387,7 +387,7 @@ function OklchEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;

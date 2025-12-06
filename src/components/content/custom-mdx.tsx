@@ -45,6 +45,9 @@ export async function CustomMDX({
   source,
   additionalComponents,
 }: CustomMDXProps) {
+  let MDXContent;
+  let error: Error | null = null;
+
   try {
     const options: EvaluateOptions = {
       ...runtime,
@@ -52,20 +55,25 @@ export async function CustomMDX({
       rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
     };
 
-    const { default: MDXContent } = await evaluate(source, options);
+    const result = await evaluate(source, options);
+    MDXContent = result.default;
+  } catch (e) {
+    console.error('Error rendering MDX:', e);
+    error = e as Error;
+  }
 
-    const mergedComponents = {
-      ...mdxComponents,
-      ...(additionalComponents || {}),
-    };
-
-    return <MDXContent components={mergedComponents} />;
-  } catch (error) {
-    console.error('Error rendering MDX:', error);
+  if (error || !MDXContent) {
     return (
       <div className="border-destructive/50 bg-destructive/10 text-destructive rounded-md border p-4">
         An error occurred while rendering the content.
       </div>
     );
   }
+
+  const mergedComponents = {
+    ...mdxComponents,
+    ...(additionalComponents || {}),
+  };
+
+  return <MDXContent components={mergedComponents} />;
 }
