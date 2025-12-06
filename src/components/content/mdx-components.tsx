@@ -72,10 +72,7 @@ export const mdxComponents = {
     );
   },
   p: ({ className, ...props }: React.ComponentProps<'p'>) => (
-    <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
-      {...props}
-    />
+    <p className={cn('leading-7 not-first:mt-6', className)} {...props} />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className={cn('font-medium', className)} {...props} />
@@ -132,7 +129,7 @@ export const mdxComponents = {
       <pre
         className={cn(
           'no-scrollbar min-w-0 overflow-x-auto px-4 py-3.5 outline-none',
-          'has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0',
+          'has-data-highlighted-line:px-0 has-data-line-numbers:px-0 has-data-[slot=tabs]:p-0',
           className
         )}
         {...props}
