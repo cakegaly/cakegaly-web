@@ -9,11 +9,11 @@ export function ProfileCard() {
   const { author, links } = siteConfig;
 
   return (
-    <div className="flex flex-col gap-4 text-base">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
         <Avatar src={author.image} alt={author.name} size="lg" />
         <div className="flex min-w-0 flex-col gap-1">
-          <p className="font-bold">{author.name}</p>
+          <p className="text-base font-bold">{author.name}</p>
           <p className="text-on-muted text-xs">{author.bio}</p>
         </div>
       </div>
