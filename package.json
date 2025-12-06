@@ -43,7 +43,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@next/eslint-plugin-next": "^15.2.3",
     "@types/culori": "^4.0.0",
-    "@types/node": "^20.17.19",
+    "@types/node": "^22",
     "@types/react": "19.2.1",
     "@types/react-dom": "19.2.1",
     "eslint": "^9.23.0",
