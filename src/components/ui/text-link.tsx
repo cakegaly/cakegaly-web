@@ -45,7 +45,7 @@ function TextLink({
         {...props}
       >
         {children}
-        <ExternalLinkIcon className="size-5 flex-shrink-0" />
+        <ExternalLinkIcon className="size-5 shrink-0" />
       </a>
     );
   }
