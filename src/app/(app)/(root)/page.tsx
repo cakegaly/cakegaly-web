@@ -15,13 +15,13 @@ export default async function IndexPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="content-wrapper">
-        <div className="content-inner py-6">
+      <div className="container-wrapper">
+        <div className="container py-6">
           <ProfileCard />
         </div>
       </div>
-      <div className="content-wrapper">
-        <div className="content-inner py-6">
+      <div className="container-wrapper">
+        <div className="container py-6">
           <div className="flex flex-col gap-1">
             {allPosts.map((blog, i) => (
               <BlogCard key={i} data={blog} />
@@ -29,8 +29,8 @@ export default async function IndexPage() {
           </div>
         </div>
       </div>
-      <div className="content-wrapper">
-        <div className="content-inner py-6">
+      <div className="container-wrapper">
+        <div className="container py-6">
           <div className="flex flex-wrap gap-2">
             {siteConfig.navItems.map((tool, i) => (
               <Button key={i} variant="ghost" asChild>

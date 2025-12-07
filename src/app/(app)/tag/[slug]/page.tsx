@@ -28,8 +28,8 @@ export default async function TagPage({
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="content-wrapper">
-        <div className="content-inner py-6">
+      <div className="container-wrapper">
+        <div className="container py-6">
           <div className="flex items-center gap-4">
             <div className="bg-muted flex size-12 items-center justify-center rounded-lg">
               <TagIcon className="text-on-muted size-6" />
@@ -43,8 +43,8 @@ export default async function TagPage({
           </div>
         </div>
       </div>
-      <div className="content-wrapper">
-        <div className="content-inner py-6">
+      <div className="container-wrapper">
+        <div className="container py-6">
           <div className="flex flex-col gap-1">
             {posts.map((blog, index) => (
               <BlogCard key={index} data={blog} />
