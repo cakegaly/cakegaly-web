@@ -4,13 +4,13 @@ import matter from 'gray-matter';
 
 const CONTENT_BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
-export type Frontmatter<T = {}> = {
+type Frontmatter<T = {}> = {
   title: string;
   date: string;
   description: string;
 } & T;
 
-export type MDXData<T = {}> = {
+type MDXData<T = {}> = {
   metadata: Frontmatter<T>;
   slug: string;
   content?: React.ReactNode;

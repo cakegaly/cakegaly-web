@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { tags } from '@/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -91,7 +91,9 @@ export default async function BlogPostPage({
                 {post.metadata.tags &&
                   post.metadata.tags.map((tag) => (
                     <Badge key={tag} asChild>
-                      <Link href={`/tag/${tag}`}>{tags[tag]?.name}</Link>
+                      <Link href={`/tag/${tag}`}>
+                        {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
+                      </Link>
                     </Badge>
                   ))}
               </div>
