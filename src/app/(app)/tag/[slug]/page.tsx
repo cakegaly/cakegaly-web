@@ -1,16 +1,15 @@
+import { notFound } from 'next/navigation';
 import { TagIcon } from 'lucide-react';
 
-import { tags } from '@/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
 import { BlogCard } from '@/components/content/blog-card';
 
 export const revalidate = false;
 export const dynamic = 'force-static';
 
-export async function generateStaticParams() {
-  return Object.keys(tags).map((slug) => ({
-    slug: slug,
-  }));
+export function generateStaticParams() {
+  return INTERNAL_BLOG_TAGS.map((tag) => ({ slug: tag.slug }));
 }
 
 export default async function TagPage({
@@ -19,7 +18,13 @@ export default async function TagPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const posts = await getBlogPostsByTagSlug(slug);
+  const tag = INTERNAL_BLOG_TAGS.find((tag) => tag.slug === slug);
+
+  if (!tag) {
+    return notFound();
+  }
+
+  const posts = await getBlogPostsByTagSlug(tag.slug);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -31,7 +36,7 @@ export default async function TagPage({
             </div>
             <div className="flex flex-col gap-1">
               <h1 className="text-on-background text-2xl font-bold">
-                {tags[slug].name}
+                {tag.name}
               </h1>
               <p className="text-on-muted text-sm">{posts.length}件の記事</p>
             </div>

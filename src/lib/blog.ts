@@ -1,10 +1,3 @@
-export const author = {
-  slug: 'cakegaly',
-  name: 'cakegaly',
-  image: 'https://github.com/cakegaly.png',
-  twitter: 'cakegaly',
-};
-
 export const tags: Record<string, { name: string }> = {
   eslint: { name: 'ESLint' },
   jamstack: { name: 'Jamstack' },
