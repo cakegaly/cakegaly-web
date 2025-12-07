@@ -17,9 +17,7 @@ export default async function IndexPage() {
     <div className="flex flex-1 flex-col">
       <div className="content-wrapper">
         <div className="content-inner py-6">
-          <div className="flex flex-col gap-6">
-            <ProfileCard />
-          </div>
+          <ProfileCard />
         </div>
       </div>
       <div className="content-wrapper">
