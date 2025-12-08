@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLinkIcon } from 'lucide-react';
@@ -7,7 +5,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const textLinkVariants = cva(
-  'inline-flex items-center gap-1 text-link font-normal leading-normal transition-colors hover:underline focus:outline-none focus:ring-2 focus:ring-focused focus:ring-offset-2 visited:text-link-visited',
+  'inline-flex items-center gap-1 text-link font-normal leading-normal transition-all hover:underline focus-visible:outline-2 focus-visible:outline-focused focus-visible:outline-offset-2 visited:text-link-visited',
   {
     variants: {
       size: {
