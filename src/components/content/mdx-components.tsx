@@ -1,10 +1,6 @@
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
-import { CopyButton } from '@/components/content/copy-button';
-import { LinkPreview } from '@/components/content/link-preview';
-import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
-import { Callout } from '@/components/shared/callout';
 import {
   Table,
   TableBody,
@@ -14,6 +10,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TextLink } from '@/components/ui/text-link';
+import { CopyButton } from '@/components/content/copy-button';
+import { LinkPreview } from '@/components/content/link-preview';
+import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
+import { Callout } from '@/components/shared/callout';
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
@@ -72,10 +72,7 @@ export const mdxComponents = {
     );
   },
   p: ({ className, ...props }: React.ComponentProps<'p'>) => (
-    <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
-      {...props}
-    />
+    <p className={cn('leading-7 not-first:mt-6', className)} {...props} />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className={cn('font-medium', className)} {...props} />
@@ -132,7 +129,7 @@ export const mdxComponents = {
       <pre
         className={cn(
           'no-scrollbar min-w-0 overflow-x-auto px-4 py-3.5 outline-none',
-          'has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0',
+          'has-data-highlighted-line:px-0 has-data-line-numbers:px-0 has-data-[slot=tabs]:p-0',
           className
         )}
         {...props}
@@ -181,7 +178,7 @@ export const mdxComponents = {
       return (
         <code
           className={cn(
-            'bg-muted relative rounded-xs px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] outline-none',
+            'bg-muted relative rounded-xs px-[0.3rem] py-[0.2rem] font-mono text-[0.9rem] outline-none',
             className
           )}
           {...props}
@@ -214,6 +211,8 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  Callout,
+  Callout: ({ className, ...props }: React.ComponentProps<typeof Callout>) => (
+    <Callout className={cn('mt-6', className)} {...props} />
+  ),
   LinkPreview,
 };

@@ -9,8 +9,8 @@ import { SiteLogo } from '@/components/shared/site-logo';
 export function SiteHeader() {
   return (
     <header className="bg-canvas sticky top-0 z-50">
-      <div className="content-wrapper max-w-none px-6">
-        <div className="content-inner flex h-14 max-w-none items-center">
+      <div className="container-wrapper">
+        <div className="flex h-14 items-center">
           <Button asChild variant="ghost" size="icon-md">
             <Link href="/">
               <SiteLogo className="size-8" />

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { Hsl, Oklch, Rgb } from 'culori';
+import type { Color, Hsl, Oklch, Rgb } from 'culori';
 import { converter, formatHex, formatHsl, formatRgb } from 'culori';
 import { Check, Copy } from 'lucide-react';
 
@@ -126,7 +126,7 @@ function HexEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -146,9 +146,7 @@ function HexEditableRow({
 
   return (
     <div className="bg-canvas border-border flex items-center gap-3 rounded-lg border p-3">
-      <span className="text-on-muted min-w-[4rem] text-sm font-medium">
-        HEX
-      </span>
+      <span className="text-on-muted min-w-16 text-sm font-medium">HEX</span>
       <Input
         value={hexValue}
         onChange={handleChange}
@@ -158,7 +156,7 @@ function HexEditableRow({
         variant="ghost"
         size="sm"
         onClick={() => onCopy(hexValue)}
-        className="hover:bg-muted-hovered h-8 w-8 flex-shrink-0 p-0"
+        className="hover:bg-muted-hovered h-8 w-8 shrink-0 p-0"
         title={isCopied ? 'コピーしました！' : 'コピー'}
       >
         {isCopied ? (
@@ -177,7 +175,7 @@ function RgbEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -282,7 +280,7 @@ function HslEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
@@ -387,7 +385,7 @@ function OklchEditableRow({
   onCopy,
   isCopied,
 }: {
-  color: any;
+  color: Color;
   onColorChange: (value: string) => void;
   onCopy: (value: string) => void;
   isCopied: boolean;
