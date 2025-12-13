@@ -159,32 +159,17 @@ async function ExternalLinkCard({
   className?: string;
   hideImage?: boolean;
 }) {
+  let ogData;
+  let error: Error | null = null;
+
   try {
-    const ogData = await getOGData(url);
+    ogData = await getOGData(url);
+  } catch (e) {
+    console.error(`Error fetching ${url}:`, e);
+    error = e as Error;
+  }
 
-    if (!ogData.title) {
-      return (
-        <LinkCard
-          url={url}
-          error={true}
-          className={className}
-          hideImage={hideImage}
-        />
-      );
-    }
-
-    return (
-      <LinkCard
-        url={url}
-        title={ogData.title}
-        description={ogData.description}
-        image={ogData.image}
-        className={className}
-        hideImage={hideImage}
-      />
-    );
-  } catch (error) {
-    console.error(`Error fetching ${url}:`, error);
+  if (error || !ogData?.title) {
     return (
       <LinkCard
         url={url}
@@ -194,6 +179,17 @@ async function ExternalLinkCard({
       />
     );
   }
+
+  return (
+    <LinkCard
+      url={url}
+      title={ogData.title}
+      description={ogData.description}
+      image={ogData.image}
+      className={className}
+      hideImage={hideImage}
+    />
+  );
 }
 
 export function LinkPreview({ url, className, hideImage }: LinkPreviewProps) {

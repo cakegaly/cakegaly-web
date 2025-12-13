@@ -74,7 +74,7 @@ function TableHead({
       data-slot="table-head"
       className={cn(
         'text-on-background h-10 px-2 align-middle font-bold whitespace-nowrap',
-        '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        '[&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5',
         align === 'left' && 'text-left',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',
@@ -97,7 +97,7 @@ function TableCell({
       data-slot="table-cell"
       className={cn(
         'p-2 align-middle whitespace-nowrap',
-        '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        '[&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5',
         align === 'left' && 'text-left',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',

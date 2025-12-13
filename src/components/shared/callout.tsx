@@ -1,98 +1,31 @@
-import { AlertTriangle, FileText, Info, XCircle } from 'lucide-react';
+import * as React from 'react';
+import { InfoIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-type CalloutType = 'info' | 'note' | 'warning' | 'danger';
-
-interface CalloutProps {
-  children?: React.ReactNode;
-  type?: CalloutType;
-  title?: string;
-  className?: string;
-}
-
-const calloutStyles: Record<
-  CalloutType,
-  {
-    icon: React.ElementType;
-    title: string;
-    containerClasses: string;
-    iconClasses: string;
-    titleClasses: string;
-  }
-> = {
-  info: {
-    icon: Info,
-    title: 'Info',
-    containerClasses:
-      'border-blue-200 bg-blue-50/50 dark:border-blue-900 dark:bg-blue-950/30',
-    iconClasses: 'text-blue-600 dark:text-blue-400',
-    titleClasses: 'text-blue-800 dark:text-blue-300',
-  },
-  note: {
-    icon: FileText,
-    title: 'Note',
-    containerClasses:
-      'border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30',
-    iconClasses: 'text-slate-600 dark:text-slate-400',
-    titleClasses: 'text-slate-800 dark:text-slate-300',
-  },
-  warning: {
-    icon: AlertTriangle,
-    title: 'Warning',
-    containerClasses:
-      'border-amber-200 bg-amber-50/50 dark:border-amber-900 dark:bg-amber-950/30',
-    iconClasses: 'text-amber-600 dark:text-amber-400',
-    titleClasses: 'text-amber-800 dark:text-amber-300',
-  },
-  danger: {
-    icon: XCircle,
-    title: 'Danger',
-    containerClasses:
-      'border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/30',
-    iconClasses: 'text-red-600 dark:text-red-400',
-    titleClasses: 'text-red-800 dark:text-red-300',
-  },
-};
-
 export function Callout({
   children,
-  type = 'info',
   title,
   className,
   ...props
-}: CalloutProps) {
-  const {
-    icon: Icon,
-    title: defaultTitle,
-    containerClasses,
-    iconClasses,
-    titleClasses,
-  } = calloutStyles[type];
-
-  const calloutTitle = title || defaultTitle;
-
+}: {
+  children?: React.ReactNode;
+  title?: string;
+  className?: string;
+}) {
   return (
     <div
+      role="alert"
       className={cn(
-        'my-6 rounded-lg border p-4 shadow-sm',
-        containerClasses,
+        'bg-muted text-on-muted @container relative flex w-full gap-4 rounded-2xl p-4 [&>svg]:size-5 [&>svg]:shrink-0',
         className
       )}
       {...props}
     >
-      <div className="flex items-start gap-3">
-        <div className="mt-1 shrink-0">
-          <Icon className={cn('size-5', iconClasses)} />
-        </div>
-        <div className="w-full min-w-0">
-          <div className={cn('mb-1 font-medium', titleClasses)}>
-            {calloutTitle}
-          </div>
-          <div className="text-on-background/90 [&>p]:my-0 [&>p:not(:first-child)]:mt-4">
-            {children}
-          </div>
-        </div>
+      <InfoIcon />
+      <div className="flex flex-1 flex-col gap-2">
+        {title && <div className="text-sm leading-5 font-bold">{title}</div>}
+        <div className="text-sm leading-5">{children}</div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { tags } from '@/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -75,8 +75,8 @@ export default async function BlogPostPage({
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="content-wrapper">
-        <div className="content-inner bg-canvas lg:bg-background max-w-4xl rounded-xl py-6 lg:p-8">
+      <div className="container-wrapper">
+        <div className="bg-canvas lg:bg-background container max-w-4xl rounded-xl py-6 lg:p-8">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl font-bold">{post.metadata.title}</h1>
@@ -91,7 +91,9 @@ export default async function BlogPostPage({
                 {post.metadata.tags &&
                   post.metadata.tags.map((tag) => (
                     <Badge key={tag} asChild>
-                      <Link href={`/tag/${tag}`}>{tags[tag]?.name}</Link>
+                      <Link href={`/tag/${tag}`}>
+                        {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
+                      </Link>
                     </Badge>
                   ))}
               </div>

@@ -8,6 +8,7 @@ const TextLength: FC<{ text: string }> = memo(({ text }) => {
   const length = countGraphemeLength(text);
   return <>{length}</>;
 });
+TextLength.displayName = 'TextLength';
 
 const isSegmenter =
   typeof window === 'undefined' || window.Intl?.Segmenter === undefined;
