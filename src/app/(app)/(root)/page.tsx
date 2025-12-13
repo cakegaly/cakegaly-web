@@ -41,16 +41,6 @@ export default async function IndexPage() {
           </div>
         </div>
       </div>
-
-      {/* <div className="container-wrapper">
-        <div className="container py-6">
-          <div className="flex flex-col gap-1">
-            {allPosts.map((blog, i) => (
-              <BlogCard key={i} data={blog} />
-            ))}
-          </div>
-        </div>
-      </div> */}
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-wrap gap-2">
