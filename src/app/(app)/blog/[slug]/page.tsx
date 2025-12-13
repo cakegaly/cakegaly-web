@@ -76,7 +76,7 @@ export default async function BlogPostPage({
   return (
     <div className="flex flex-1 flex-col">
       <div className="container-wrapper">
-        <div className="bg-canvas lg:bg-background container rounded-xl py-6 lg:p-8">
+        <div className="bg-canvas lg:bg-background container max-w-4xl rounded-xl py-6 lg:p-8">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
               <h1 className="text-2xl font-bold">{post.metadata.title}</h1>
