@@ -10,8 +10,8 @@ export function formatDate(input: string | number): string {
   return date.toLocaleDateString('ja-JP', {
     timeZone: 'Asia/Tokyo',
     year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
 }
 
