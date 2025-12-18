@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { CustomMDX } from '@/components/content/custom-mdx';
+import { Callout } from '@/components/shared/callout';
+import { Badge } from '@/components/ui/badge';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
-import { CustomMDX } from '@/components/content/custom-mdx';
-import { Callout } from '@/components/shared/callout';
 
 export const revalidate = false;
 export const dynamic = 'force-static';

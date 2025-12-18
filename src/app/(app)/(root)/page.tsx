@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { WrenchIcon } from 'lucide-react';
 
+import { ProfileCard } from '@/components/content/profile-card';
+import { Button } from '@/components/ui/button';
+import { TextLink } from '@/components/ui/text-link';
 import { getAllPosts } from '@/lib/articles';
 import { siteConfig } from '@/lib/config';
 import { formatDate } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { TextLink } from '@/components/ui/text-link';
-import { ProfileCard } from '@/components/content/profile-card';
 
 export const revalidate = false;
 export const dynamic = 'force-static';

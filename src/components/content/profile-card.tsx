@@ -1,9 +1,11 @@
 import { MailIcon, RssIcon } from 'lucide-react';
 
-import { siteConfig } from '@/lib/config';
+import profilePic from '~/images/avatars/cakegaly.webp';
+
+import { BrandIcons } from '@/components/shared/brand-icons';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { BrandIcons } from '@/components/shared/brand-icons';
+import { siteConfig } from '@/lib/config';
 
 export function ProfileCard() {
   const { author, links } = siteConfig;
@@ -11,7 +13,7 @@ export function ProfileCard() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <Avatar src={author.image} alt={author.name} size="lg" />
+        <Avatar src={profilePic.src} alt={author.name} size="lg" />
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-base font-bold">{author.name}</p>
           <p className="text-on-muted text-xs">{author.bio}</p>

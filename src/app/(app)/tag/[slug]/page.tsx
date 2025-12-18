@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import { TagIcon } from 'lucide-react';
 
+import { BlogCard } from '@/components/content/blog-card';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
-import { BlogCard } from '@/components/content/blog-card';
 
 export const revalidate = false;
 export const dynamic = 'force-static';

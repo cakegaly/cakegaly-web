@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { siteConfig } from '@/lib/config';
-import { Button } from '@/components/ui/button';
 import { GitHubLink } from '@/components/shared/github-link';
 import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { SiteLogo } from '@/components/shared/site-logo';
+import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/config';
 
 export function SiteHeader() {
   return (

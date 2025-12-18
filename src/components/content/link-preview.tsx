@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { getOGData } from '@/actions/fetch-og-metadata';
 import { ExternalLinkIcon, LinkIcon } from 'lucide-react';
 
+import { getOGData } from '@/actions/fetch-og-metadata';
 import { siteConfig } from '@/lib/config';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
