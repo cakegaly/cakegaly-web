@@ -7,11 +7,13 @@ export function Callout({
   children,
   title,
   className,
+  showIcon = false,
   ...props
 }: {
   children?: React.ReactNode;
   title?: string;
   className?: string;
+  showIcon?: boolean;
 }) {
   return (
     <div
@@ -22,7 +24,7 @@ export function Callout({
       )}
       {...props}
     >
-      <InfoIcon />
+      {showIcon && <InfoIcon />}
       <div className="flex flex-1 flex-col gap-2">
         {title && <div className="text-sm leading-5 font-bold">{title}</div>}
         <div className="text-sm leading-5">{children}</div>
