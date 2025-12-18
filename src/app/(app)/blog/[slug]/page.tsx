@@ -6,6 +6,7 @@ import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { CustomMDX } from '@/components/content/custom-mdx';
+import { Callout } from '@/components/shared/callout';
 
 export const revalidate = false;
 export const dynamic = 'force-static';
@@ -76,14 +77,12 @@ export default async function BlogPostPage({
   return (
     <div className="flex flex-1 flex-col">
       <div className="container-wrapper">
-        <div className="bg-canvas lg:bg-background container max-w-4xl rounded-xl py-6 lg:p-8">
+        <div className="bg-canvas container max-w-4xl rounded-xl py-6 lg:p-8">
           <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <h1 className="text-2xl font-bold">{post.metadata.title}</h1>
               {post.metadata.description && (
-                <p className="text-on-muted text-sm">
-                  {post.metadata.description}
-                </p>
+                <Callout>{post.metadata.description}</Callout>
               )}
             </div>
             <div className="flex flex-wrap items-center justify-between">

@@ -5,13 +5,13 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const textLinkVariants = cva(
-  'inline-flex items-center gap-1 text-link font-normal leading-normal transition-all hover:underline focus-visible:outline-2 focus-visible:outline-focused focus-visible:outline-offset-2 visited:text-link-visited',
+  'inline-flex gap-1 underline decoration-border underline-offset-2 hover:decoration-accent focus-visible:outline-focused leading-normal font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2',
   {
     variants: {
       size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
+        sm: 'text-sm [&_svg]:size-4',
+        md: 'text-base [&_svg]:size-5',
+        lg: 'text-lg [&_svg]:size-6',
       },
     },
     defaultVariants: {
@@ -43,7 +43,7 @@ function TextLink({
         {...props}
       >
         {children}
-        <ExternalLinkIcon className="size-5 shrink-0" />
+        <ExternalLinkIcon className="pointer-events-none shrink-0" />
       </a>
     );
   }
