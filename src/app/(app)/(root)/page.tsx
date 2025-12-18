@@ -23,14 +23,11 @@ export default async function IndexPage() {
       </div>
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <h2 className="text-lg font-bold">Blog</h2>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {allPosts.map((blog, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between gap-2"
-                >
+                <div key={i} className="flex items-start justify-between gap-2">
                   <TextLink href={blog.href} size="sm" className="min-w-0">
                     {blog.title}
                   </TextLink>
@@ -45,7 +42,7 @@ export default async function IndexPage() {
       </div>
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <h2 className="text-lg font-bold">Tools</h2>
             <div className="flex flex-wrap gap-2">
               {siteConfig.navItems.map((tool, i) => (

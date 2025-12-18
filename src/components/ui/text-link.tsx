@@ -5,7 +5,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const textLinkVariants = cva(
-  'hover:border-accent focus-visible:outline-focused inline-flex items-center gap-1 border-b border-solid leading-normal font-normal no-underline transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2',
+  'inline-flex gap-1 underline decoration-border underline-offset-2 hover:decoration-accent focus-visible:outline-focused leading-normal font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2',
   {
     variants: {
       size: {
@@ -42,8 +42,8 @@ function TextLink({
         rel="noopener noreferrer"
         {...props}
       >
-        <span className="min-w-0 truncate">{children}</span>
-        <ExternalLinkIcon className="shrink-0" />
+        {children}
+        <ExternalLinkIcon className="pointer-events-none shrink-0" />
       </a>
     );
   }
@@ -54,7 +54,7 @@ function TextLink({
       className={cn(textLinkVariants({ size, className }))}
       {...props}
     >
-      <span className="min-w-0 truncate">{children}</span>
+      {children}
     </a>
   );
 }
