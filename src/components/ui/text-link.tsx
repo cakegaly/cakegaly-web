@@ -9,9 +9,9 @@ const textLinkVariants = cva(
   {
     variants: {
       size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
+        sm: 'text-sm [&_svg]:size-4',
+        md: 'text-base [&_svg]:size-5',
+        lg: 'text-lg [&_svg]:size-6',
       },
     },
     defaultVariants: {
@@ -42,8 +42,8 @@ function TextLink({
         rel="noopener noreferrer"
         {...props}
       >
-        {children}
-        <ExternalLinkIcon className="size-5 shrink-0" />
+        <span className="min-w-0 truncate">{children}</span>
+        <ExternalLinkIcon className="shrink-0" />
       </a>
     );
   }
@@ -54,7 +54,7 @@ function TextLink({
       className={cn(textLinkVariants({ size, className }))}
       {...props}
     >
-      {children}
+      <span className="min-w-0 truncate">{children}</span>
     </a>
   );
 }
