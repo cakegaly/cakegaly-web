@@ -3,7 +3,7 @@ import { WrenchIcon } from 'lucide-react';
 
 import { siteConfig } from '@/lib/config';
 import { getAllBlogPosts } from '@/lib/mdx';
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { TextLink } from '@/components/ui/text-link';
 import { ProfileCard } from '@/components/content/profile-card';
@@ -23,15 +23,15 @@ export default async function IndexPage() {
       </div>
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <h2 className="text-lg font-bold">Latest Blog</h2>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {allPosts.map((blog, i) => (
                 <div key={i} className="flex w-full justify-between">
                   <TextLink
                     href={`/blog/${blog.slug}`}
                     size="sm"
-                    className="line-clamp-1"
+                    className={cn('line-clamp-1')}
                   >
                     {blog.metadata.title}
                   </TextLink>
@@ -46,7 +46,7 @@ export default async function IndexPage() {
       </div>
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <h2 className="text-lg font-bold">Tools</h2>
             <div className="flex flex-wrap gap-2">
               {siteConfig.navItems.map((tool, i) => (

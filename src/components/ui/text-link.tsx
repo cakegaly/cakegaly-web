@@ -5,7 +5,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const textLinkVariants = cva(
-  'inline-flex items-center gap-1 text-link font-normal leading-normal transition-all hover:underline focus-visible:outline-2 focus-visible:outline-focused focus-visible:outline-offset-2 visited:text-link-visited',
+  'hover:border-accent focus-visible:outline-focused inline-flex items-center gap-1 border-b border-solid leading-normal font-normal no-underline transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2',
   {
     variants: {
       size: {
