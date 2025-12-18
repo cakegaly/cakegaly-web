@@ -24,10 +24,10 @@ export default async function IndexPage() {
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-col gap-6">
-            <h2 className="text-lg font-bold">Blog</h2>
+            <h2 className="text-lg font-bold">Writing</h2>
             <div className="flex flex-col gap-4">
               {allPosts.map((blog, i) => (
-                <div key={i} className="flex items-start justify-between gap-2">
+                <div key={i} className="flex justify-between gap-2">
                   <TextLink href={blog.href} size="sm" className="min-w-0">
                     {blog.title}
                   </TextLink>
