@@ -28,7 +28,7 @@ export const mdxComponents = {
   h2: ({ className, ...props }: React.ComponentProps<'h2'>) => (
     <h2
       className={cn(
-        'border-accent/50 mt-12 scroll-m-20 border-b pb-2 text-2xl font-medium tracking-tight first:mt-0',
+        'border-accent/50 mt-12 scroll-m-20 border-b pb-2 text-xl font-medium tracking-tight first:mt-0',
         className
       )}
       {...props}
@@ -37,7 +37,7 @@ export const mdxComponents = {
   h3: ({ className, ...props }: React.ComponentProps<'h3'>) => (
     <h3
       className={cn(
-        'font-heading mt-8 scroll-m-20 text-xl font-medium tracking-tight',
+        'mt-8 scroll-m-20 text-lg font-medium tracking-tight',
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ export const mdxComponents = {
   h4: ({ className, ...props }: React.ComponentProps<'h4'>) => (
     <h4
       className={cn(
-        'font-heading mt-8 scroll-m-20 text-lg font-medium tracking-tight',
+        'mt-8 scroll-m-20 text-base font-medium tracking-tight',
         className
       )}
       {...props}
@@ -73,7 +73,10 @@ export const mdxComponents = {
   },
   p: ({ className, ...props }: React.ComponentProps<'p'>) => (
     <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      className={cn(
+        'text-base leading-7 [&:not(:first-child)]:mt-6',
+        className
+      )}
       {...props}
     />
   ),
