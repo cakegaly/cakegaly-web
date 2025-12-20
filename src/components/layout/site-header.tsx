@@ -6,13 +6,8 @@ import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
-import type { BlogPost } from '@/lib/mdx';
 
-interface SiteHeaderProps {
-  blogPosts: BlogPost[];
-}
-
-export function SiteHeader({ blogPosts }: SiteHeaderProps) {
+export function SiteHeader() {
   return (
     <header className="bg-canvas sticky top-0 z-50">
       <div className="container-wrapper">
@@ -24,7 +19,7 @@ export function SiteHeader({ blogPosts }: SiteHeaderProps) {
             </Link>
           </Button>
           <div className="ml-auto flex items-center gap-1">
-            <CommandMenu blogPosts={blogPosts} />
+            <CommandMenu />
             <GitHubLink />
             <ModeSwitcher />
           </div>
