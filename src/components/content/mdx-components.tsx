@@ -1,6 +1,9 @@
 import Image from 'next/image';
 
-import { cn } from '@/lib/utils';
+import { CopyButton } from '@/components/content/copy-button';
+import { LinkPreview } from '@/components/content/link-preview';
+import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
+import { Callout } from '@/components/shared/callout';
 import {
   Table,
   TableBody,
@@ -10,10 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TextLink } from '@/components/ui/text-link';
-import { CopyButton } from '@/components/content/copy-button';
-import { LinkPreview } from '@/components/content/link-preview';
-import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
-import { Callout } from '@/components/shared/callout';
+import { cn } from '@/lib/utils';
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
@@ -72,7 +72,10 @@ export const mdxComponents = {
     );
   },
   p: ({ className, ...props }: React.ComponentProps<'p'>) => (
-    <p className={cn('leading-7 not-first:mt-6', className)} {...props} />
+    <p
+      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      {...props}
+    />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className={cn('font-medium', className)} {...props} />
