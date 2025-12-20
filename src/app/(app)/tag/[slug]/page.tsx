@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
 import { TagIcon } from 'lucide-react';
 
-import { BlogCard } from '@/components/content/blog-card';
+import { TextLink } from '@/components/ui/text-link';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
+import { formatDate } from '@/lib/utils';
 
-export const revalidate = false;
 export const dynamic = 'force-static';
+export const revalidate = false;
 
 export function generateStaticParams() {
   return INTERNAL_BLOG_TAGS.map((tag) => ({ slug: tag.slug }));
@@ -45,9 +46,20 @@ export default async function TagPage({
       </div>
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex flex-col gap-1">
-            {posts.map((blog, index) => (
-              <BlogCard key={index} data={blog} />
+          <div className="flex flex-col gap-4">
+            {posts.map((blog, i) => (
+              <div key={i} className="flex justify-between gap-2">
+                <TextLink
+                  href={`/blog/${blog.slug}`}
+                  size="sm"
+                  className="min-w-0"
+                >
+                  {blog.metadata.title}
+                </TextLink>
+                <span className="text-on-muted shrink-0 text-xs">
+                  {formatDate(blog.metadata.date)}
+                </span>
+              </div>
             ))}
           </div>
         </div>
