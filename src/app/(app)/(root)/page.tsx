@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { WrenchIcon } from 'lucide-react';
 
 import { ProfileCard } from '@/components/content/profile-card';
 import { Button } from '@/components/ui/button';
@@ -42,14 +41,17 @@ export default async function IndexPage() {
             <div className="flex flex-col gap-4">
               <h2 className="text-lg font-bold">Tools</h2>
               <div className="flex flex-wrap gap-2">
-                {siteConfig.navItems.map((tool, i) => (
-                  <Button key={i} variant="ghost" size="sm" asChild>
-                    <Link href={tool.href}>
-                      <WrenchIcon />
-                      {tool.title}
-                    </Link>
-                  </Button>
-                ))}
+                {siteConfig.navItems.map((tool, i) => {
+                  const Icon = tool.icon;
+                  return (
+                    <Button key={i} variant="ghost" size="sm" asChild>
+                      <Link href={tool.href}>
+                        <Icon />
+                        {tool.title}
+                      </Link>
+                    </Button>
+                  );
+                })}
               </div>
             </div>
           </div>
