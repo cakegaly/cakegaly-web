@@ -1,0 +1,135 @@
+---
+title: eslint-config-next の公式対応を活用して、ESLint Flat Config をさらにシンプルにする
+date: 2025-12-23
+description: Next.js 16 プロジェクトにおける ESLint 設定を、公式パッケージの eslint-config-next でシンプルにまとめたメモです。Prettier と VSCode の設定もあわせて更新しています。
+icon: eslint
+tags:
+  - eslint
+  - typescript
+  - vscode
+---
+
+## はじめに
+
+以前、[Next.js 15 における ESLint の Flat Config 移行手順](/blog/eslint-prettier-flat-config)についてまとめました。
+
+2025/03 時点では、`eslint-config-next` が Flat Config に未対応でした。Flat Config で設定するためには、`FlatCompat` を駆使するか、React や Next.js のプラグインを個別にインストールして設定する必要がありました。
+当時はあまり気にしていませんでしたが、設定ファイルは約 80 行、依存パッケージも 6 個と、(Linter のためだけに) やや複雑な構成になっていました。
+
+Next.js 16 では、`eslint-config-next` が Flat Config に対応しました。公式が紹介している手順に沿って設定ファイルを軽くしつつ、Prettier と VSCode の設定もあらためて整理したので、備忘録を兼ねてメモに残します。
+
+<LinkPreview url="https://nextjs.org/docs/app/api-reference/config/eslint" />
+
+## ESLint の設定
+
+`eslint-config-next/core-web-vitals` と `eslint-config-next/typescript` により、基本的なルールをそのまま取り込めます。
+
+`globalIgnores()` により、より明示的に ignore 対象を定義できるため、従来の `ignores` フィールドの曖昧さが解消されたと感じています。
+
+```js title="eslint.config.mjs"
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import prettier from 'eslint-config-prettier/flat';
+import { defineConfig, globalIgnores } from 'eslint/config';
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  prettier,
+  globalIgnores([
+    'node_modules/**',
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
+  {
+    rules: {
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+]);
+
+export default eslintConfig;
+```
+
+`eslint-config-next` でまとめて導入できるようになったため、`@eslint/js`, `@next/eslint-plugin-next`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `typescript-eslint` は、個別にインストールしなくてもよくなりました。
+
+## Prettier, VSCode の設定
+
+### Prettier
+
+以前は `prettier.config.mjs` として別ファイルで設定していましたが、`package.json` にまとめました。
+
+<LinkPreview url="https://prettier.io/docs/configuration" />
+
+```json title="package.json"
+{
+  // ...
+  "prettier": {
+    "endOfLine": "lf",
+    "printWidth": 80,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "css",
+    "importOrder": [
+      "^(react/(.*)$)|^(react$)",
+      "^(next/(.*)$)|^(next$)",
+      "<THIRD_PARTY_MODULES>",
+      "",
+      "^~/(.*)$",
+      "",
+      "^@/(.*)$",
+      "",
+      "^[./]"
+    ],
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+    "plugins": [
+      "@ianvs/prettier-plugin-sort-imports",
+      "prettier-plugin-tailwindcss"
+    ]
+  }
+}
+```
+
+内容は前回とほぼ同じですが (`importOrder` も、`@/` 以下の細かいルールをやめたくらい) プロジェクトルートの設定ファイルが削減されたのはうれしいです。
+
+### VSCode
+
+最近は、Biome を使っているプロジェクトと競合しないように `"biome.enabled": false,` を明示するようにしています。
+
+```json title=".vscode/settings.json"
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.insertFinalNewline": true,
+
+  "biome.enabled": false,
+  "eslint.enable": true,
+  "eslint.useFlatConfig": true,
+
+  "tailwindCSS.classFunctions": ["cva", "cn"],
+
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifierEnding": "minimal"
+}
+```
+
+## おわりに
+
+今回は、公式ドキュメント通りに進めるだけですぐに設定できました。Next.js 16 のドキュメントは、以前のバージョンよりも内容が充実していて、読んでいて面白いですね。
+
+最終的に完成した設定ファイルは、このブログの GitHub リポジトリで公開しています。
+
+<LinkPreview url="https://github.com/cakegaly/cakegaly-web/blob/main/eslint.config.mjs" />
