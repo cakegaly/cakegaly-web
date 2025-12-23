@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 export function copyToClipboardWithMeta(value: string) {
   navigator.clipboard.writeText(value);

@@ -15,7 +15,6 @@ export const siteConfig = {
   author: {
     slug: 'cakegaly',
     name: 'cakegaly',
-    image: 'https://github.com/cakegaly.png',
     bio: 'Software Engineer',
   },
   navItems: [

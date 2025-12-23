@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
-import { siteConfig } from '@/lib/config';
-import { Button } from '@/components/ui/button';
+import { CommandMenu } from '@/components/cmdk/command-menu';
 import { GitHubLink } from '@/components/shared/github-link';
 import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { SiteLogo } from '@/components/shared/site-logo';
+import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/config';
 
 export function SiteHeader() {
   return (
@@ -18,6 +19,7 @@ export function SiteHeader() {
             </Link>
           </Button>
           <div className="ml-auto flex items-center gap-1">
+            <CommandMenu />
             <GitHubLink />
             <ModeSwitcher />
           </div>

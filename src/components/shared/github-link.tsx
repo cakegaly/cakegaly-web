@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { siteConfig } from '@/lib/config';
 import { BrandIcons } from '@/components/shared/brand-icons';
 import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/config';
 
 export function GitHubLink() {
   return (

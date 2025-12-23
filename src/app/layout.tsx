@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 
+import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
+import { ThemeProvider } from '@/components/shared/theme-provider';
 import { META_THEME_COLORS, siteConfig } from '@/lib/config';
 import { fontVariables } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
-import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
-import { ThemeProvider } from '@/components/shared/theme-provider';
 
 import '@/styles/globals.css';
 
