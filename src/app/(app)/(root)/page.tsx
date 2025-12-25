@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
+import { Button } from '@/components/base-ui/button';
 import { ProfileCard } from '@/components/content/profile-card';
-import { Button } from '@/components/ui/button';
 import { TextLink } from '@/components/ui/text-link';
 import { getAllPosts } from '@/lib/articles';
 import { siteConfig } from '@/lib/config';
@@ -44,11 +44,15 @@ export default async function IndexPage() {
                 {siteConfig.navItems.map((tool, i) => {
                   const Icon = tool.icon;
                   return (
-                    <Button key={i} variant="ghost" size="sm" asChild>
-                      <Link href={tool.href}>
-                        <Icon />
-                        {tool.title}
-                      </Link>
+                    <Button
+                      key={i}
+                      variant="ghost"
+                      size="sm"
+                      render={<Link href={tool.href} />}
+                      nativeButton={false}
+                    >
+                      <Icon />
+                      {tool.title}
                     </Button>
                   );
                 })}

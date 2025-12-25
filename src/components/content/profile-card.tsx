@@ -2,9 +2,9 @@ import { MailIcon, RssIcon } from 'lucide-react';
 
 import profilePic from '~/images/avatars/cakegaly.webp';
 
+import { Button } from '@/components/base-ui/button';
 import { BrandIcons } from '@/components/shared/brand-icons';
 import { Avatar } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
 
 export function ProfileCard() {
@@ -20,49 +20,69 @@ export function ProfileCard() {
         </div>
       </div>
       <div className="flex items-center gap-1">
-        <Button asChild size="icon-sm" variant="ghost">
-          <a
-            href={links.x}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            title="X (Twitter) (@cakegaly)"
-          >
-            <BrandIcons.x />
-          </a>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          render={
+            <a
+              href={links.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              title="X (Twitter) (@cakegaly)"
+            />
+          }
+          nativeButton={false}
+        >
+          <BrandIcons.x />
         </Button>
-        <Button asChild size="icon-sm" variant="ghost">
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            title="GitHub (/cakegaly)"
-          >
-            <BrandIcons.gitHub />
-          </a>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          render={
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              title="GitHub (/cakegaly)"
+            />
+          }
+          nativeButton={false}
+        >
+          <BrandIcons.gitHub />
         </Button>
-        <Button asChild size="icon-sm" variant="ghost">
-          <a
-            href={`mailto:${siteConfig.email}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Email"
-            title="Email (cakegaly -at- gmail -dot- com)"
-          >
-            <MailIcon />
-          </a>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          render={
+            <a
+              href={`mailto:${siteConfig.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              title="Email (cakegaly -at- gmail -dot- com)"
+            />
+          }
+          nativeButton={false}
+        >
+          <MailIcon />
         </Button>
-        <Button asChild size="icon-sm" variant="ghost">
-          <a
-            href="/rss.xml"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="RSS"
-            title="RSS Feed (cakegaly -dot- com)"
-          >
-            <RssIcon />
-          </a>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          render={
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="RSS"
+              title="RSS Feed (cakegaly -dot- com)"
+            />
+          }
+          nativeButton={false}
+        >
+          <RssIcon />
         </Button>
       </div>
     </div>

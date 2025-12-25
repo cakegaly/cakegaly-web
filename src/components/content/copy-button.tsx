@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/base-ui/button';
 import {
   Tooltip,
   TooltipContent,
