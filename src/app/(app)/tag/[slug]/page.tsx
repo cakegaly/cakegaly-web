@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { TagIcon } from 'lucide-react';
 
-import { TextLink } from '@/components/ui/text-link';
+import { TextLink } from '@/components/base-ui/text-link';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';

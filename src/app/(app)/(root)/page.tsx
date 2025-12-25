@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import { Button } from '@/components/base-ui/button';
+import { TextLink } from '@/components/base-ui/text-link';
 import { ProfileCard } from '@/components/content/profile-card';
-import { TextLink } from '@/components/ui/text-link';
 import { getAllPosts } from '@/lib/articles';
 import { siteConfig } from '@/lib/config';
 import { formatDate } from '@/lib/utils';
