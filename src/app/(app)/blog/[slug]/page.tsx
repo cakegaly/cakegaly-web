@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Badge } from '@/components/base-ui/badge';
 import { CustomMDX } from '@/components/content/custom-mdx';
 import { Callout } from '@/components/shared/callout';
-import { Badge } from '@/components/ui/badge';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -89,10 +89,8 @@ export default async function BlogPostPage({
               <div className="flex flex-wrap gap-2">
                 {post.metadata.tags &&
                   post.metadata.tags.map((tag) => (
-                    <Badge key={tag} asChild>
-                      <Link href={`/tag/${tag}`}>
-                        {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
-                      </Link>
+                    <Badge key={tag} render={<Link href={`/tag/${tag}`} />}>
+                      {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
                     </Badge>
                   ))}
               </div>
