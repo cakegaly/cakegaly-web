@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { UserRoundIcon } from 'lucide-react';
 
@@ -26,40 +26,30 @@ const avatarVariants = cva(
 interface AvatarProps
   extends React.ComponentProps<typeof AvatarPrimitive.Root>,
     VariantProps<typeof avatarVariants> {
-  src?: string;
+  src: string;
   alt?: string;
-  fallbackText?: string;
-  showIcon?: boolean;
 }
 
 function Avatar({
   src,
   alt = 'Avatar',
-  fallbackText,
   size,
-  showIcon = false,
   className,
   ...props
 }: AvatarProps) {
-  const hasFallback = fallbackText || showIcon;
-
   return (
     <AvatarPrimitive.Root
       className={cn(avatarVariants({ size }), className)}
       {...props}
     >
-      {src && (
-        <AvatarPrimitive.Image
-          src={src}
-          alt={alt}
-          className="aspect-square size-full object-cover"
-        />
-      )}
-      {hasFallback && (
-        <AvatarPrimitive.Fallback className="flex size-full items-center justify-center">
-          {showIcon ? <UserRoundIcon /> : fallbackText}
-        </AvatarPrimitive.Fallback>
-      )}
+      <AvatarPrimitive.Image
+        src={src}
+        alt={alt}
+        className="aspect-square size-full object-cover"
+      />
+      <AvatarPrimitive.Fallback className="flex size-full items-center justify-center">
+        <UserRoundIcon />
+      </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
   );
 }
