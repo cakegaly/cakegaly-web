@@ -6,7 +6,7 @@ import { converter, formatHex, formatHsl, formatRgb } from 'culori';
 import { Check, Copy } from 'lucide-react';
 
 import { Button } from '@/components/base-ui/button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/base-ui/input';
 import {
   formatOklch,
   getContrastRatios,

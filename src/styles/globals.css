@@ -90,7 +90,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-border/50;
+    @apply border-border outline-border;
   }
   ::selection {
     @apply bg-selected text-on-selected;
