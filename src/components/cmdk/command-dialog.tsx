@@ -6,6 +6,14 @@ import { FileTextIcon, SearchIcon } from 'lucide-react';
 
 import { Button } from '@/components/base-ui/button';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/base-ui/dialog';
+import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -13,14 +21,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { siteConfig } from '@/lib/config';
 import type { BlogPost } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
@@ -57,15 +57,17 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-md"
-          onClick={() => setOpen(true)}
-          aria-label="Search"
-        >
-          <SearchIcon />
-        </Button>
+      <DialogTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon-md"
+            onClick={() => setOpen(true)}
+            aria-label="Search"
+          />
+        }
+      >
+        <SearchIcon />
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
