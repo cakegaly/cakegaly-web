@@ -71,7 +71,7 @@ function CommandGroup({
   return (
     <CommandPrimitive.Group
       className={cn(
-        'text-on-background overflow-hidden p-1',
+        'text-on-background overflow-hidden p-2',
         '**:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5',
         '**:[[cmdk-group-heading]]:text-on-muted **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium',
         className

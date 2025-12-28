@@ -68,7 +68,7 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="overflow-hidden p-0 shadow-2xl"
+        className="max-w-[calc(100%-2rem)] overflow-hidden p-0 shadow-2xl sm:max-w-lg"
       >
         <DialogHeader className="sr-only">
           <DialogTitle>Search</DialogTitle>
