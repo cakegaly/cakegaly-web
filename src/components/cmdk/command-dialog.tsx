@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { FileTextIcon, SearchIcon } from 'lucide-react';
+import { PenLineIcon, SearchIcon } from 'lucide-react';
 
 import {
   Command,
@@ -98,7 +98,7 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
                     runCommand(() => router.push(`/blog/${post.slug}`));
                   }}
                 >
-                  <FileTextIcon />
+                  <PenLineIcon />
                   <span>{post.metadata.title}</span>
                 </CommandItem>
               ))}
