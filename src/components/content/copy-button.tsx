@@ -50,6 +50,7 @@ export function CopyButton({
             copyToClipboardWithMeta(value);
             setHasCopied(true);
           }}
+          aria-label="Copy"
           {...props}
         >
           {hasCopied ? <CheckIcon /> : <CopyIcon />}
