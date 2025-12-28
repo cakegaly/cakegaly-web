@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Image from 'next/image';
 
 import { CopyButton } from '@/components/content/copy-button';
@@ -192,7 +193,7 @@ export const mdxComponents = {
       );
     }
 
-    // Default Code Block
+    // Code Block
     return (
       <>
         {__raw__ && <CopyButton value={__raw__} src={__src__} />}

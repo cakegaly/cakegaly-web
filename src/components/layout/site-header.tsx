@@ -1,27 +1,31 @@
 import Link from 'next/link';
 
 import { CommandMenu } from '@/components/cmdk/command-menu';
-import { GitHubLink } from '@/components/shared/github-link';
 import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
+import { cn } from '@/lib/utils';
 
-export function SiteHeader() {
+export function SiteHeader({
+  className,
+  ...props
+}: React.ComponentProps<'header'>) {
   return (
-    <header className="bg-canvas sticky top-0 z-50">
+    <header className={cn('z-50', className)} {...props}>
       <div className="container-wrapper">
-        <div className="flex h-14 items-center">
-          <Button asChild variant="ghost" size="icon-md">
-            <Link href="/">
-              <SiteLogo className="size-8" />
-              <span className="sr-only">{siteConfig.name}</span>
-            </Link>
-          </Button>
-          <div className="ml-auto flex items-center gap-1">
-            <CommandMenu />
-            <GitHubLink />
-            <ModeSwitcher />
+        <div className="bg-canvas container max-w-none">
+          <div className="flex h-14 items-center">
+            <Button asChild variant="ghost" size="icon-md">
+              <Link href="/">
+                <SiteLogo className="size-8" />
+                <span className="sr-only">{siteConfig.name}</span>
+              </Link>
+            </Button>
+            <div className="ml-auto flex items-center gap-1">
+              <CommandMenu />
+              <ModeSwitcher />
+            </div>
           </div>
         </div>
       </div>
