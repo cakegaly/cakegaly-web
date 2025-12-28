@@ -7,60 +7,63 @@ import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
 
-const links = [
-  {
-    title: 'X (Twitter) (@cakegaly)',
-    label: 'Twitter',
-    href: siteConfig.links.x,
-    icon: BrandIcons.x,
-  },
-  {
-    title: 'GitHub (/cakegaly)',
-    label: 'GitHub',
-    href: siteConfig.links.github,
-    icon: BrandIcons.gitHub,
-  },
-  {
-    title: 'Email (cakegaly -at- gmail -dot- com)',
-    label: 'Email',
-    href: `mailto:${siteConfig.email}`,
-    icon: MailIcon,
-  },
-  {
-    title: 'RSS Feed (cakegaly -dot- com)',
-    label: 'RSS',
-    href: '/rss.xml',
-    icon: RssIcon,
-  },
-];
-
 export function ProfileCard() {
+  const { author, links } = siteConfig;
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <Avatar src={profilePic.src} alt={siteConfig.author.name} size="lg" />
+        <Avatar src={profilePic.src} alt={author.name} size="lg" />
         <div className="flex min-w-0 flex-col gap-1">
-          <p className="text-base font-bold">{siteConfig.author.name}</p>
-          <p className="text-on-muted text-xs">{siteConfig.author.bio}</p>
+          <p className="text-base font-bold">{author.name}</p>
+          <p className="text-on-muted text-xs">{author.bio}</p>
         </div>
       </div>
       <div className="flex items-center gap-1">
-        {links.map((link) => {
-          const Icon = link.icon;
-          return (
-            <Button key={link.label} asChild size="icon-sm" variant="ghost">
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                title={link.title}
-              >
-                <Icon />
-              </a>
-            </Button>
-          );
-        })}
+        <Button asChild size="icon-sm" variant="ghost">
+          <a
+            href={links.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            title="X (Twitter) (@cakegaly)"
+          >
+            <BrandIcons.x />
+          </a>
+        </Button>
+        <Button asChild size="icon-sm" variant="ghost">
+          <a
+            href={links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            title="GitHub (/cakegaly)"
+          >
+            <BrandIcons.gitHub />
+          </a>
+        </Button>
+        <Button asChild size="icon-sm" variant="ghost">
+          <a
+            href={`mailto:${siteConfig.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Email"
+            title="Email (cakegaly -at- gmail -dot- com)"
+          >
+            <MailIcon />
+          </a>
+        </Button>
+        <Button asChild size="icon-sm" variant="ghost">
+          <a
+            href="/rss.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="RSS"
+            title="RSS Feed (cakegaly -dot- com)"
+          >
+            <RssIcon />
+          </a>
+        </Button>
       </div>
     </div>
   );
