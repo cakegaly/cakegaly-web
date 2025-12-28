@@ -16,7 +16,7 @@ function InputBase({ className, ...props }: React.ComponentProps<'input'>) {
         'outline-border outline-1 -outline-offset-1',
         'placeholder:text-on-muted',
         'hover:bg-background-hovered active:bg-background-active',
-        'focus-visible:outline-focused focus-visible:bg-background focus-visible:outline-2',
+        'focus-visible:outline-selected focus-visible:bg-background focus-visible:outline-2',
         'aria-invalid:outline-destructive aria-invalid:bg-background',
         'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40',
         'file:text-on-background file:inline-flex file:h-12 file:border-0 file:bg-transparent file:text-sm file:font-medium',
