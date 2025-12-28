@@ -24,20 +24,20 @@ export function ColorConverter() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Input Section */}
       <div className="flex gap-2">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="例: #ff0000, rgb(255,0,0), oklch(0.6 0.2 40)"
-          className="flex-1"
+          className="flex-1 font-mono"
         />
-        <input
+        <Input
           type="color"
           value={converted?.hex || '#000000'}
           onChange={handleColorPickerChange}
-          className="border-border h-10 w-20 cursor-pointer rounded border"
+          className="w-20 cursor-pointer rounded"
           title="カラーピッカー"
         />
       </div>
@@ -49,15 +49,15 @@ export function ColorConverter() {
 
       {/* Color Preview and Details */}
       {converted && parsed && (
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           {/* Large Color Preview */}
           <div
-            className="border-border h-32 w-full rounded-lg border-2 shadow-sm"
+            className="h-32 w-full rounded-lg shadow-sm"
             style={{ backgroundColor: converted.hex }}
           />
 
           {/* Color Codes */}
-          <div className="space-y-3">
+          <div className="flex flex-col gap-4">
             <HexEditableRow color={parsed} onColorChange={setInput} />
             <RgbEditableRow color={parsed} onColorChange={setInput} />
             <HslEditableRow color={parsed} onColorChange={setInput} />
@@ -66,11 +66,11 @@ export function ColorConverter() {
 
           {/* Contrast Ratios */}
           {contrast && (
-            <div className="border-border bg-muted rounded-lg border p-4">
-              <h3 className="text-on-background mb-3 text-sm font-semibold">
+            <div className="bg-muted flex flex-col gap-4 rounded-lg p-4">
+              <h3 className="text-on-muted text-sm font-bold">
                 アクセシビリティ (WCAG コントラスト比)
               </h3>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <ContrastRow
                   label="白とのコントラスト"
                   ratio={contrast.white}
