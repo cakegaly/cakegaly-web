@@ -88,7 +88,7 @@ function CommandItem({
   return (
     <CommandPrimitive.Item
       className={cn(
-        'relative flex cursor-default items-start gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none',
+        'relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none',
         'data-[selected=true]:bg-muted data-[selected=true]:text-on-muted',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-40',
         "[&_svg:not([class*='text-'])]:text-on-muted [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
