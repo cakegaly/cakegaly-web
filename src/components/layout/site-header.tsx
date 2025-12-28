@@ -14,7 +14,7 @@ export function SiteHeader({
   return (
     <header className={cn('z-50', className)} {...props}>
       <div className="container-wrapper">
-        <div className="bg-background/50 container max-w-sm rounded-xl px-4 shadow-sm backdrop-blur-sm">
+        <div className="bg-canvas container max-w-none">
           <div className="flex h-14 items-center">
             <Button asChild variant="ghost" size="icon-md">
               <Link href="/">
