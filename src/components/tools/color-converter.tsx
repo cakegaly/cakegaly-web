@@ -37,6 +37,7 @@ export function ColorConverter() {
           type="color"
           value={converted?.hex || '#000000'}
           onChange={handleColorPickerChange}
+          className="w-20 cursor-pointer rounded"
           title="カラーピッカー"
         />
       </div>
