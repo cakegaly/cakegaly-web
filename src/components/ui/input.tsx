@@ -27,20 +27,45 @@ function InputBase({ className, ...props }: React.ComponentProps<'input'>) {
   );
 }
 
-interface InputPasswordProps
-  extends Omit<React.ComponentProps<'input'>, 'type'> {
-  /**
-   * Whether to show the password visibility toggle button.
-   * @default true
-   */
-  showPasswordToggle?: boolean;
+function InputNumber({
+  className,
+  preventWheel = true,
+  ...props
+}: Omit<React.ComponentProps<'input'>, 'type'> & {
+  preventWheel?: boolean;
+}) {
+  const handleWheel = React.useCallback(
+    (e: React.WheelEvent<HTMLInputElement>) => {
+      if (preventWheel) {
+        e.currentTarget.blur();
+      }
+    },
+    [preventWheel]
+  );
+
+  return (
+    <InputBase
+      type="number"
+      className={cn(
+        // Hide default spin buttons on Firefox
+        '[appearance:textfield]',
+        // Hide default spin buttons on Chrome/Safari/Edge
+        '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+        className
+      )}
+      onWheel={handleWheel}
+      {...props}
+    />
+  );
 }
 
 function InputPassword({
   className,
   showPasswordToggle = true,
   ...props
-}: InputPasswordProps) {
+}: Omit<React.ComponentProps<'input'>, 'type'> & {
+  showPasswordToggle?: boolean;
+}) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const togglePasswordVisibility = React.useCallback(() => {
@@ -72,21 +97,22 @@ function InputPassword({
   );
 }
 
-export interface InputProps extends React.ComponentProps<'input'> {
-  /**
-   * Whether to show the password visibility toggle button for password inputs.
-   * Only applies when type="password".
-   * @default true
-   */
+function Input({
+  type,
+  showPasswordToggle,
+  preventWheel,
+  ...props
+}: React.ComponentProps<'input'> & {
   showPasswordToggle?: boolean;
-}
-
-function Input({ type, showPasswordToggle, ...props }: InputProps) {
+  preventWheel?: boolean;
+}) {
   switch (type) {
     case 'password':
       return (
         <InputPassword showPasswordToggle={showPasswordToggle} {...props} />
       );
+    case 'number':
+      return <InputNumber preventWheel={preventWheel} {...props} />;
     default:
       return <InputBase type={type} {...props} />;
   }
