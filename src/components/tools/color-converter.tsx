@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import type { Color, Hsl, Oklch, Rgb } from 'culori';
 import { converter, formatHex, formatHsl, formatRgb } from 'culori';
-import { Check, Copy } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { CopyButton } from '@/components/content/copy-button';
 import { Input } from '@/components/ui/input';
 import {
   formatOklch,
@@ -16,16 +15,9 @@ import {
 
 export function ColorConverter() {
   const [input, setInput] = useState('#ffffff');
-  const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const parsed = parseColor(input);
   const converted = parsed ? getFormattedColors(parsed) : null;
   const contrast = parsed ? getContrastRatios(parsed) : null;
-
-  const handleCopy = async (value: string) => {
-    await navigator.clipboard.writeText(value);
-    setCopiedValue(value);
-    setTimeout(() => setCopiedValue(null), 2000);
-  };
 
   const handleColorPickerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -66,30 +58,10 @@ export function ColorConverter() {
 
           {/* Color Codes */}
           <div className="space-y-3">
-            <HexEditableRow
-              color={parsed}
-              onColorChange={setInput}
-              onCopy={handleCopy}
-              isCopied={copiedValue === converted.hex}
-            />
-            <RgbEditableRow
-              color={parsed}
-              onColorChange={setInput}
-              onCopy={handleCopy}
-              isCopied={copiedValue === converted.rgb}
-            />
-            <HslEditableRow
-              color={parsed}
-              onColorChange={setInput}
-              onCopy={handleCopy}
-              isCopied={copiedValue === converted.hsl}
-            />
-            <OklchEditableRow
-              color={parsed}
-              onColorChange={setInput}
-              onCopy={handleCopy}
-              isCopied={copiedValue === converted.oklch}
-            />
+            <HexEditableRow color={parsed} onColorChange={setInput} />
+            <RgbEditableRow color={parsed} onColorChange={setInput} />
+            <HslEditableRow color={parsed} onColorChange={setInput} />
+            <OklchEditableRow color={parsed} onColorChange={setInput} />
           </div>
 
           {/* Contrast Ratios */}
@@ -123,13 +95,9 @@ export function ColorConverter() {
 function HexEditableRow({
   color,
   onColorChange,
-  onCopy,
-  isCopied,
 }: {
   color: Color;
   onColorChange: (value: string) => void;
-  onCopy: (value: string) => void;
-  isCopied: boolean;
 }) {
   const toRgb = converter('rgb');
   const rgb = toRgb(color);
@@ -152,19 +120,10 @@ function HexEditableRow({
         onChange={handleChange}
         className="font-mono text-sm"
       />
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => onCopy(hexValue)}
-        className="hover:bg-muted-hovered h-8 w-8 shrink-0 p-0"
-        title={isCopied ? 'コピーしました！' : 'コピー'}
-      >
-        {isCopied ? (
-          <Check className="text-accent h-4 w-4" />
-        ) : (
-          <Copy className="h-4 w-4" />
-        )}
-      </Button>
+      <CopyButton
+        value={hexValue}
+        className="relative top-0 right-0 h-8 w-8 shrink-0"
+      />
     </div>
   );
 }
@@ -172,13 +131,9 @@ function HexEditableRow({
 function RgbEditableRow({
   color,
   onColorChange,
-  onCopy,
-  isCopied,
 }: {
   color: Color;
   onColorChange: (value: string) => void;
-  onCopy: (value: string) => void;
-  isCopied: boolean;
 }) {
   const toRgb = converter('rgb');
   const rgb = toRgb(color) as Rgb | undefined;
@@ -207,19 +162,10 @@ function RgbEditableRow({
     <div className="bg-canvas border-border rounded-lg border p-3">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-on-muted text-sm font-medium">RGB</span>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onCopy(rgbValue)}
-          className="hover:bg-muted-hovered h-8 w-8 p-0"
-          title={isCopied ? 'コピーしました！' : 'コピー'}
-        >
-          {isCopied ? (
-            <Check className="text-accent h-4 w-4" />
-          ) : (
-            <Copy className="h-4 w-4" />
-          )}
-        </Button>
+        <CopyButton
+          value={rgbValue}
+          className="relative top-0 right-0 h-8 w-8 shrink-0"
+        />
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div>
@@ -277,13 +223,9 @@ function RgbEditableRow({
 function HslEditableRow({
   color,
   onColorChange,
-  onCopy,
-  isCopied,
 }: {
   color: Color;
   onColorChange: (value: string) => void;
-  onCopy: (value: string) => void;
-  isCopied: boolean;
 }) {
   const toHsl = converter('hsl');
   const hsl = toHsl(color) as Hsl | undefined;
@@ -312,19 +254,10 @@ function HslEditableRow({
     <div className="bg-canvas border-border rounded-lg border p-3">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-on-muted text-sm font-medium">HSL</span>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onCopy(hslValue)}
-          className="hover:bg-muted-hovered h-8 w-8 p-0"
-          title={isCopied ? 'コピーしました！' : 'コピー'}
-        >
-          {isCopied ? (
-            <Check className="text-accent h-4 w-4" />
-          ) : (
-            <Copy className="h-4 w-4" />
-          )}
-        </Button>
+        <CopyButton
+          value={hslValue}
+          className="relative top-0 right-0 h-8 w-8 shrink-0"
+        />
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div>
@@ -382,13 +315,9 @@ function HslEditableRow({
 function OklchEditableRow({
   color,
   onColorChange,
-  onCopy,
-  isCopied,
 }: {
   color: Color;
   onColorChange: (value: string) => void;
-  onCopy: (value: string) => void;
-  isCopied: boolean;
 }) {
   const toOklch = converter('oklch');
   const oklch = toOklch(color) as Oklch | undefined;
@@ -417,19 +346,10 @@ function OklchEditableRow({
     <div className="bg-canvas border-border rounded-lg border p-3">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-on-muted text-sm font-medium">OKLCH</span>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onCopy(oklchValue)}
-          className="hover:bg-muted-hovered h-8 w-8 p-0"
-          title={isCopied ? 'コピーしました！' : 'コピー'}
-        >
-          {isCopied ? (
-            <Check className="text-accent h-4 w-4" />
-          ) : (
-            <Copy className="h-4 w-4" />
-          )}
-        </Button>
+        <CopyButton
+          value={oklchValue}
+          className="relative top-0 right-0 h-8 w-8 shrink-0"
+        />
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div>
