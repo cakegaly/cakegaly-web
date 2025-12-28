@@ -13,7 +13,6 @@ export const siteConfig = {
   copyRight: 'cakegaly',
   email: 'cakegaly@gmail.com',
   author: {
-    slug: 'cakegaly',
     name: 'cakegaly',
     bio: 'Software Engineer',
   },
