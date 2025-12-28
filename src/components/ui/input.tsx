@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, MinusIcon, PlusIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -30,10 +30,19 @@ function InputBase({ className, ...props }: React.ComponentProps<'input'>) {
 function InputNumber({
   className,
   preventWheel = true,
+  showSpinButtons = true,
+  value,
+  onChange,
+  step = 1,
+  min,
+  max,
   ...props
 }: Omit<React.ComponentProps<'input'>, 'type'> & {
   preventWheel?: boolean;
+  showSpinButtons?: boolean;
 }) {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
   const handleWheel = React.useCallback(
     (e: React.WheelEvent<HTMLInputElement>) => {
       if (preventWheel) {
@@ -43,19 +52,83 @@ function InputNumber({
     [preventWheel]
   );
 
+  const handleIncrement = React.useCallback(() => {
+    if (!inputRef.current) return;
+    inputRef.current.stepUp();
+    inputRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+  }, []);
+
+  const handleDecrement = React.useCallback(() => {
+    if (!inputRef.current) return;
+    inputRef.current.stepDown();
+    inputRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+  }, []);
+
+  if (!showSpinButtons) {
+    return (
+      <InputBase
+        ref={inputRef}
+        type="number"
+        className={cn(
+          '[appearance:textfield]',
+          '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+          className
+        )}
+        onWheel={handleWheel}
+        value={value}
+        onChange={onChange}
+        step={step}
+        min={min}
+        max={max}
+        {...props}
+      />
+    );
+  }
+
   return (
-    <InputBase
-      type="number"
-      className={cn(
-        // Hide default spin buttons on Firefox
-        '[appearance:textfield]',
-        // Hide default spin buttons on Chrome/Safari/Edge
-        '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
-        className
-      )}
-      onWheel={handleWheel}
-      {...props}
-    />
+    <div className="relative">
+      <InputBase
+        ref={inputRef}
+        type="number"
+        className={cn(
+          'pr-10',
+          '[appearance:textfield]',
+          '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+          className
+        )}
+        onWheel={handleWheel}
+        value={value}
+        onChange={onChange}
+        step={step}
+        min={min}
+        max={max}
+        {...props}
+      />
+      <div className="absolute top-1/2 right-2 flex -translate-y-1/2 flex-col gap-0.5">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="size-5 rounded-sm p-0"
+          onClick={handleIncrement}
+          tabIndex={-1}
+          aria-label="増やす"
+        >
+          <PlusIcon />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="size-5 rounded-sm p-0"
+          onClick={handleDecrement}
+          tabIndex={-1}
+          aria-label="減らす"
+        >
+          <MinusIcon />
+        </Button>
+      </div>
+    </div>
   );
 }
 
@@ -97,14 +170,38 @@ function InputPassword({
   );
 }
 
+function InputColor({
+  className,
+  ...props
+}: Omit<React.ComponentProps<'input'>, 'type'>) {
+  return (
+    <InputBase
+      type="color"
+      className={cn(
+        'h-12 w-20 cursor-pointer',
+        // Remove default padding for color input
+        'p-1',
+        // Style the color picker itself
+        '[&::-webkit-color-swatch-wrapper]:p-0',
+        '[&::-webkit-color-swatch]:rounded-xs [&::-webkit-color-swatch]:border-0',
+        '[&::-moz-color-swatch]:rounded-xs [&::-moz-color-swatch]:border-0',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 function Input({
   type,
   showPasswordToggle,
   preventWheel,
+  showSpinButtons,
   ...props
 }: React.ComponentProps<'input'> & {
   showPasswordToggle?: boolean;
   preventWheel?: boolean;
+  showSpinButtons?: boolean;
 }) {
   switch (type) {
     case 'password':
@@ -112,7 +209,15 @@ function Input({
         <InputPassword showPasswordToggle={showPasswordToggle} {...props} />
       );
     case 'number':
-      return <InputNumber preventWheel={preventWheel} {...props} />;
+      return (
+        <InputNumber
+          preventWheel={preventWheel}
+          showSpinButtons={showSpinButtons}
+          {...props}
+        />
+      );
+    case 'color':
+      return <InputColor {...props} />;
     default:
       return <InputBase type={type} {...props} />;
   }
