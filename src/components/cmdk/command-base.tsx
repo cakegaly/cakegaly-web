@@ -26,13 +26,13 @@ function CommandInput({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
-    <div className="flex h-9 items-center gap-2 border-b px-3">
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
+    <div className="flex h-11 items-center gap-2 border-b px-3">
+      <SearchIcon className="size-4 shrink-0 opacity-40" />
       <CommandPrimitive.Input
         className={cn(
           'flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden',
           'placeholder:text-on-muted',
-          'disabled:cursor-not-allowed disabled:opacity-50',
+          'disabled:cursor-not-allowed disabled:opacity-40',
           className
         )}
         {...props}
@@ -71,7 +71,7 @@ function CommandGroup({
   return (
     <CommandPrimitive.Group
       className={cn(
-        'text-on-background overflow-hidden p-1',
+        'text-on-background overflow-hidden p-2',
         '**:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5',
         '**:[[cmdk-group-heading]]:text-on-muted **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium',
         className
@@ -88,10 +88,10 @@ function CommandItem({
   return (
     <CommandPrimitive.Item
       className={cn(
-        'relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none',
+        'relative flex cursor-default items-start gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none',
         'data-[selected=true]:bg-muted data-[selected=true]:text-on-muted',
-        'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
-        "[&_svg:not([class*='text-'])]:text-on-muted [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-40',
+        "[&_svg:not([class*='text-'])]:text-on-muted [&_svg]:pointer-events-none [&_svg]:mt-0.75 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}

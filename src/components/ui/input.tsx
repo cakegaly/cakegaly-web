@@ -6,19 +6,17 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-interface InputBaseProps extends React.ComponentProps<'input'> {}
-
-function InputBase({ className, ...props }: InputBaseProps) {
+function InputBase({ className, ...props }: React.ComponentProps<'input'>) {
   return (
     <input
       data-slot="input"
       className={cn(
-        'bg-background flex h-12 w-full min-w-0 rounded-sm text-base',
+        'bg-background h-12 w-full min-w-0 rounded-sm text-base',
         'px-3 py-1 shadow-xs transition-[color,box-shadow,background-color]',
         'outline-border outline-1 -outline-offset-1',
         'placeholder:text-on-muted',
         'hover:bg-background-hovered active:bg-background-active',
-        'focus-visible:outline-focused focus-visible:bg-background focus-visible:outline-2',
+        'focus-visible:outline-selected focus-visible:bg-background focus-visible:outline-2',
         'aria-invalid:outline-destructive aria-invalid:bg-background',
         'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40',
         'file:text-on-background file:inline-flex file:h-12 file:border-0 file:bg-transparent file:text-sm file:font-medium',
@@ -29,20 +27,45 @@ function InputBase({ className, ...props }: InputBaseProps) {
   );
 }
 
-interface InputPasswordProps
-  extends Omit<React.ComponentProps<'input'>, 'type'> {
-  /**
-   * Whether to show the password visibility toggle button.
-   * @default true
-   */
-  showPasswordToggle?: boolean;
+function InputNumber({
+  className,
+  preventWheel = true,
+  ...props
+}: Omit<React.ComponentProps<'input'>, 'type'> & {
+  preventWheel?: boolean;
+}) {
+  const handleWheel = React.useCallback(
+    (e: React.WheelEvent<HTMLInputElement>) => {
+      if (preventWheel) {
+        e.currentTarget.blur();
+      }
+    },
+    [preventWheel]
+  );
+
+  return (
+    <InputBase
+      type="number"
+      className={cn(
+        // Hide default spin buttons on Firefox
+        '[appearance:textfield]',
+        // Hide default spin buttons on Chrome/Safari/Edge
+        '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+        className
+      )}
+      onWheel={handleWheel}
+      {...props}
+    />
+  );
 }
 
 function InputPassword({
   className,
   showPasswordToggle = true,
   ...props
-}: InputPasswordProps) {
+}: Omit<React.ComponentProps<'input'>, 'type'> & {
+  showPasswordToggle?: boolean;
+}) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const togglePasswordVisibility = React.useCallback(() => {
@@ -74,21 +97,22 @@ function InputPassword({
   );
 }
 
-export interface InputProps extends React.ComponentProps<'input'> {
-  /**
-   * Whether to show the password visibility toggle button for password inputs.
-   * Only applies when type="password".
-   * @default true
-   */
+function Input({
+  type,
+  showPasswordToggle,
+  preventWheel,
+  ...props
+}: React.ComponentProps<'input'> & {
   showPasswordToggle?: boolean;
-}
-
-function Input({ type, showPasswordToggle, ...props }: InputProps) {
+  preventWheel?: boolean;
+}) {
   switch (type) {
     case 'password':
       return (
         <InputPassword showPasswordToggle={showPasswordToggle} {...props} />
       );
+    case 'number':
+      return <InputNumber preventWheel={preventWheel} {...props} />;
     default:
       return <InputBase type={type} {...props} />;
   }

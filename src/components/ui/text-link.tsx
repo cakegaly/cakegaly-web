@@ -5,7 +5,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const textLinkVariants = cva(
-  'underline decoration-border underline-offset-2 hover:decoration-accent focus-visible:outline-focused leading-normal font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 inline [&_svg]:inline [&_svg]:size-[1em] [&_svg]:align-baseline [&_svg]:ml-1',
+  'underline decoration-border underline-offset-2 hover:decoration-accent focus-visible:outline-selected leading-normal font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 inline [&_svg]:inline [&_svg]:size-[1em] [&_svg]:align-baseline [&_svg]:ml-1',
   {
     variants: {
       size: {

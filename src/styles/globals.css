@@ -27,7 +27,6 @@
   --color-selected: var(--selected);
   --color-on-selected: var(--on-selected);
   --color-highlighted: var(--highlighted);
-  --color-focused: var(--focused);
   --color-accent: var(--accent);
   --color-border: var(--border);
   --color-overlay: var(--overlay);
@@ -54,7 +53,6 @@
   --selected: oklch(0.544 0.186 262.9);
   --on-selected: oklch(0.987 0.008 225.1);
   --highlighted: oklch(0.957 0.027 226.8);
-  --focused: oklch(0.429 0.146 264.7);
   --accent: oklch(0.57 0.0591 72.61);
   --border: oklch(0.904 0.013 251.6);
   --overlay: oklch(0 0 0 / 0.6);
@@ -81,7 +79,6 @@
   --selected: oklch(0.696 0.153 251.2);
   --on-selected: oklch(0.299 0.086 262.7);
   --highlighted: oklch(0.429 0.146 264.7);
-  --focused: oklch(0.696 0.153 251.2);
   --accent: oklch(0.76 0.0493 71.11);
   --border: oklch(0.429 0.022 258.4);
   --overlay: oklch(0 0 0 / 0.6);
@@ -90,7 +87,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-border/50;
+    @apply border-border outline-border;
   }
   ::selection {
     @apply bg-selected text-on-selected;
@@ -105,7 +102,7 @@
 }
 
 @utility container-wrapper {
-  @apply mx-auto w-full px-4 lg:px-6;
+  @apply mx-auto w-full px-4;
 }
 
 @utility container {
