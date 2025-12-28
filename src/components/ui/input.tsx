@@ -6,14 +6,12 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-interface InputBaseProps extends React.ComponentProps<'input'> {}
-
-function InputBase({ className, ...props }: InputBaseProps) {
+function InputBase({ className, ...props }: React.ComponentProps<'input'>) {
   return (
     <input
       data-slot="input"
       className={cn(
-        'bg-background flex h-12 w-full min-w-0 rounded-sm text-base',
+        'bg-background h-12 w-full min-w-0 rounded-sm text-base',
         'px-3 py-1 shadow-xs transition-[color,box-shadow,background-color]',
         'outline-border outline-1 -outline-offset-1',
         'placeholder:text-on-muted',
