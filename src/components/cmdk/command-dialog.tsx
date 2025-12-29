@@ -6,6 +6,14 @@ import { PenLineIcon, SearchIcon } from 'lucide-react';
 
 import { buttonVariants } from '@/components/base-ui/button';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/base-ui/dialog';
+import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -13,14 +21,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { siteConfig } from '@/lib/config';
 import type { BlogPost } from '@/lib/mdx';
 
