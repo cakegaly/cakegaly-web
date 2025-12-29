@@ -54,14 +54,14 @@ function TooltipContent({
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
-            'bg-background text-on-background animate-in fade-in-0 zoom-in-95 z-[9999] rounded-md border shadow-lg',
-            'p-3 text-sm font-normal',
-            'w-fit max-w-[280px] sm:max-w-xs md:max-w-sm',
-            'mx-2 sm:mx-0',
-            'text-left leading-relaxed break-words whitespace-pre-wrap',
-            'origin-(--radix-tooltip-content-transform-origin)',
-            'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+            'bg-background text-on-background animate-in fade-in-0 zoom-in-95 z-9999 rounded-md border shadow-lg',
+            'mx-2 w-fit max-w-[280px] p-3 sm:mx-0 sm:max-w-xs md:max-w-sm',
+            'text-left text-xs leading-relaxed font-normal wrap-break-word whitespace-pre-wrap',
+            'origin-(--transform-origin)',
+            'data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95',
+            'data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
             'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+            'data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95',
             className
           )}
           {...props}
