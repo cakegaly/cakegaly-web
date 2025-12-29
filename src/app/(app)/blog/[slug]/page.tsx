@@ -6,7 +6,7 @@ import { CustomMDX } from '@/components/content/custom-mdx';
 import { Callout } from '@/components/shared/callout';
 import { INTERNAL_BLOG_TAGS } from '@/lib/config';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
-import { absoluteUrl, cn, formatDate } from '@/lib/utils';
+import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -92,7 +92,7 @@ export default async function BlogPostPage({
                     <Link
                       key={tag}
                       href={`/tag/${tag}`}
-                      className={cn(badgeVariants({ variant: 'outline' }))}
+                      className={badgeVariants({ variant: 'outline' })}
                     >
                       {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
                     </Link>

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { HomeIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 
 export default function Error({
   error,
@@ -35,12 +35,10 @@ export default function Error({
           <Button variant="ghost" onClick={reset}>
             再読み込み
           </Button>
-          <Button variant="outline" asChild>
-            <Link href="/">
-              <HomeIcon className="size-4" />
-              ホームに戻る
-            </Link>
-          </Button>
+          <Link href="/" className={buttonVariants({ variant: 'outline' })}>
+            <HomeIcon className="size-4" />
+            ホームに戻る
+          </Link>
         </div>
       </div>
     </div>
