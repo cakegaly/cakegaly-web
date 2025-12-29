@@ -12,7 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -56,15 +56,12 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-md"
-          onClick={() => setOpen(true)}
-          aria-label="Search"
-        >
-          <SearchIcon />
-        </Button>
+      <DialogTrigger
+        className={buttonVariants({ variant: 'ghost', size: 'icon-md' })}
+        onClick={() => setOpen(true)}
+        aria-label="Search"
+      >
+        <SearchIcon />
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
