@@ -10,17 +10,11 @@ export function formatDate(input: string | number): string {
   return date.toLocaleDateString('ja-JP', {
     timeZone: 'Asia/Tokyo',
     year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
 }
 
 export function absoluteUrl(path: string): string {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
-}
-
-export function truncateText(inputText: string, maxLength: number): string {
-  return inputText.length > maxLength
-    ? inputText.slice(0, maxLength) + '...'
-    : inputText;
 }

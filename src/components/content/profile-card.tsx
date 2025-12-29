@@ -1,0 +1,67 @@
+import { MailIcon, RssIcon } from 'lucide-react';
+
+import profilePic from '~/images/avatars/cakegaly.webp';
+
+import { BrandIcons } from '@/components/shared/brand-icons';
+import { Avatar } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/config';
+
+const links = [
+  {
+    title: 'X (Twitter) (@cakegaly)',
+    label: 'Twitter',
+    href: siteConfig.links.x,
+    icon: BrandIcons.x,
+  },
+  {
+    title: 'GitHub (/cakegaly)',
+    label: 'GitHub',
+    href: siteConfig.links.github,
+    icon: BrandIcons.gitHub,
+  },
+  {
+    title: 'Email (cakegaly -at- gmail -dot- com)',
+    label: 'Email',
+    href: `mailto:${siteConfig.email}`,
+    icon: MailIcon,
+  },
+  {
+    title: 'RSS Feed (cakegaly -dot- com)',
+    label: 'RSS',
+    href: '/rss.xml',
+    icon: RssIcon,
+  },
+];
+
+export function ProfileCard() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <Avatar src={profilePic.src} alt={siteConfig.author.name} size="lg" />
+        <div className="flex min-w-0 flex-col gap-1">
+          <p className="text-base font-bold">{siteConfig.author.name}</p>
+          <p className="text-on-muted text-xs">{siteConfig.author.bio}</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-1">
+        {links.map((link) => {
+          const Icon = link.icon;
+          return (
+            <Button key={link.label} asChild size="icon-sm" variant="ghost">
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                title={link.title}
+              >
+                <Icon />
+              </a>
+            </Button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

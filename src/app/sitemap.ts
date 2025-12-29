@@ -1,7 +1,7 @@
-import { tags } from '@/config/blog';
-import { siteConfig } from '@/config/site';
+import type { MetadataRoute } from 'next';
+
+import { INTERNAL_BLOG_TAGS, siteConfig } from '@/lib/config';
 import { getAllBlogPosts } from '@/lib/mdx';
-import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
@@ -15,8 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const tagEntries = Object.keys(tags).map((tag) => ({
-    url: `${baseUrl}/tag/${tag}`,
+  const tagEntries = INTERNAL_BLOG_TAGS.map((tag) => ({
+    url: `${baseUrl}/tag/${tag.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.6,

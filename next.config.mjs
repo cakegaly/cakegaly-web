@@ -1,19 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    tsconfigPath: 'tsconfig.build.json',
-  },
-  images: {
-    loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
-    remotePatterns: [
+  devIndicators: false,
+  redirects() {
+    return [
       {
-        protocol: 'https',
-        hostname: 'images.microcms-assets.io',
+        source: '/tools/char-counter',
+        destination: '/char-counter',
+        permanent: true,
       },
-    ],
+      {
+        source: '/tools/color-converter',
+        destination: '/color-converter',
+        permanent: true,
+      },
+    ];
   },
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 };
 
 export default nextConfig;

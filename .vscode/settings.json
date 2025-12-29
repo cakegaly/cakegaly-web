@@ -7,17 +7,15 @@
   },
   "files.insertFinalNewline": true,
 
+  "biome.enabled": false,
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
+
+  "tailwindCSS.classFunctions": ["cva", "cn"],
 
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "javascript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifierEnding": "minimal",
-
-  "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
-  "typescript.inlayHints.parameterTypes.enabled": false,
-  "typescript.inlayHints.propertyDeclarationTypes.enabled": false,
-  "typescript.inlayHints.variableTypes.enabled": false
+  "javascript.preferences.importModuleSpecifierEnding": "minimal"
 }
