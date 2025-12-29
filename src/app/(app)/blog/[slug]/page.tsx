@@ -89,7 +89,7 @@ export default async function BlogPostPage({
               <div className="flex flex-wrap gap-2">
                 {post.metadata.tags &&
                   post.metadata.tags.map((tag) => (
-                    <Badge key={tag} asChild>
+                    <Badge key={tag} variant="outline" asChild>
                       <Link href={`/tag/${tag}`}>
                         {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
                       </Link>
