@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/base-ui/button';
 
 export default function NotFound() {
   const router = useRouter();
@@ -22,12 +22,10 @@ export default function NotFound() {
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <Button variant="outline" asChild>
-            <Link href="/">
-              <HomeIcon />
-              ホームに戻る
-            </Link>
-          </Button>
+          <Link href="/" className={buttonVariants({ variant: 'outline' })}>
+            <HomeIcon />
+            ホームに戻る
+          </Link>
           <Button variant="ghost" onClick={() => router.back()}>
             <ArrowLeftIcon />
             前のページに戻る

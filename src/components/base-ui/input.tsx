@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/base-ui/button';
 import { cn } from '@/lib/utils';
 
 function InputBase({ className, ...props }: React.ComponentProps<'input'>) {

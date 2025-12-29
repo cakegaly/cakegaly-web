@@ -2,9 +2,9 @@ import { MailIcon, RssIcon } from 'lucide-react';
 
 import profilePic from '~/images/avatars/cakegaly.webp';
 
+import { Avatar } from '@/components/base-ui/avatar';
+import { buttonVariants } from '@/components/base-ui/button';
 import { BrandIcons } from '@/components/shared/brand-icons';
-import { Avatar } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
 
 const links = [
@@ -48,17 +48,17 @@ export function ProfileCard() {
         {links.map((link) => {
           const Icon = link.icon;
           return (
-            <Button key={link.label} asChild size="icon-sm" variant="ghost">
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                title={link.title}
-              >
-                <Icon />
-              </a>
-            </Button>
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              title={link.title}
+              className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
+            >
+              <Icon />
+            </a>
           );
         })}
       </div>

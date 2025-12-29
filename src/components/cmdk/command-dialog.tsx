@@ -4,6 +4,15 @@ import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { PenLineIcon, SearchIcon } from 'lucide-react';
 
+import { buttonVariants } from '@/components/base-ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/base-ui/dialog';
 import {
   Command,
   CommandEmpty,
@@ -12,15 +21,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { siteConfig } from '@/lib/config';
 import type { BlogPost } from '@/lib/mdx';
 
@@ -56,15 +56,12 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-md"
-          onClick={() => setOpen(true)}
-          aria-label="Search"
-        >
-          <SearchIcon />
-        </Button>
+      <DialogTrigger
+        className={buttonVariants({ variant: 'ghost', size: 'icon-md' })}
+        onClick={() => setOpen(true)}
+        aria-label="Search"
+      >
+        <SearchIcon />
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
