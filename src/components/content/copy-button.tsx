@@ -8,7 +8,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/components/base-ui/tooltip';
 import { cn } from '@/lib/utils';
 
 export function copyToClipboardWithMeta(value: string) {
