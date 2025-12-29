@@ -4,8 +4,8 @@ import { useState } from 'react';
 import type { Color, Hsl, Oklch, Rgb } from 'culori';
 import { converter, formatHex, formatHsl, formatRgb } from 'culori';
 
+import { Input } from '@/components/base-ui/input';
 import { CopyButton } from '@/components/content/copy-button';
-import { Input } from '@/components/ui/input';
 import {
   formatOklch,
   getContrastRatios,
