@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { PenLineIcon, SearchIcon } from 'lucide-react';
 
+import { buttonVariants } from '@/components/base-ui/button';
 import {
   Command,
   CommandEmpty,
@@ -12,7 +13,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import { buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,

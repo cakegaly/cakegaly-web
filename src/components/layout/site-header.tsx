@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
+import { buttonVariants } from '@/components/base-ui/button';
 import { CommandMenu } from '@/components/cmdk/command-menu';
 import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { SiteLogo } from '@/components/shared/site-logo';
-import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/lib/config';
 import { cn } from '@/lib/utils';
 

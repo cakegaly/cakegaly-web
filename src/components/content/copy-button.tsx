@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/base-ui/button';
 import {
   Tooltip,
   TooltipContent,
@@ -36,25 +36,22 @@ export function CopyButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          data-slot="copy-button"
-          variant="ghost"
-          size="icon-sm"
-          className={cn(
-            'bg-muted text-on-muted hover:bg-muted-hovered focus-visible:bg-muted-active',
-            'absolute top-3 right-2 z-10',
-            className
-          )}
-          onClick={() => {
-            copyToClipboardWithMeta(value);
-            setHasCopied(true);
-          }}
-          aria-label="Copy"
-          {...props}
-        >
-          {hasCopied ? <CheckIcon /> : <CopyIcon />}
-        </Button>
+      <TooltipTrigger
+        data-slot="copy-button"
+        className={cn(
+          buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
+          'bg-muted text-on-muted hover:bg-muted-hovered focus-visible:bg-muted-active',
+          'absolute top-3 right-2 z-10',
+          className
+        )}
+        onClick={() => {
+          copyToClipboardWithMeta(value);
+          setHasCopied(true);
+        }}
+        aria-label="Copy"
+        {...props}
+      >
+        {hasCopied ? <CheckIcon /> : <CopyIcon />}
       </TooltipTrigger>
       <TooltipContent>
         {hasCopied ? 'コピーしました！' : 'クリップボードにコピー'}

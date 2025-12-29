@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
+import { buttonVariants } from '@/components/base-ui/button';
 import { ProfileCard } from '@/components/content/profile-card';
-import { buttonVariants } from '@/components/ui/button';
 import { TextLink } from '@/components/ui/text-link';
 import { getAllPosts } from '@/lib/articles';
 import { siteConfig } from '@/lib/config';
