@@ -2,9 +2,9 @@ import { MailIcon, RssIcon } from 'lucide-react';
 
 import profilePic from '~/images/avatars/cakegaly.webp';
 
+import { Avatar } from '@/components/base-ui/avatar';
 import { buttonVariants } from '@/components/base-ui/button';
 import { BrandIcons } from '@/components/shared/brand-icons';
-import { Avatar } from '@/components/ui/avatar';
 import { siteConfig } from '@/lib/config';
 
 const links = [
