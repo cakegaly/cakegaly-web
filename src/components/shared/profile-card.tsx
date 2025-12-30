@@ -21,6 +21,12 @@ const links = [
     icon: BrandIcons.gitHub,
   },
   {
+    title: 'Zenn (/cakegaly)',
+    label: 'Zenn',
+    href: siteConfig.links.zenn,
+    icon: BrandIcons.zenn,
+  },
+  {
     title: 'Email (cakegaly -at- gmail -dot- com)',
     label: 'Email',
     href: `mailto:${siteConfig.email}`,

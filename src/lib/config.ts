@@ -7,6 +7,7 @@ export const siteConfig = {
     twitter: 'https://twitter.com/cakegaly',
     x: 'https://twitter.com/cakegaly',
     github: 'https://github.com/cakegaly',
+    zenn: 'https://zenn.dev/cakegaly',
   },
   copyRight: 'cakegaly',
   email: 'cakegaly@gmail.com',
