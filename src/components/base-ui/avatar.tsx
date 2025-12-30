@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { UserRoundIcon } from 'lucide-react';
 

@@ -2,7 +2,7 @@
 
 import { FC, memo, useDeferredValue, useState } from 'react';
 
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/base-ui/textarea';
 
 const TextLength: FC<{ text: string }> = memo(({ text }) => {
   const length = countGraphemeLength(text);
