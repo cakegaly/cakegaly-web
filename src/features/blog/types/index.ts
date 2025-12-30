@@ -5,7 +5,7 @@ export type BlogPost = MDXData<{
   tags?: string[];
 }>;
 
-export interface Article {
+export interface Blog {
   title: string;
   link: string;
   pubDate: string;

@@ -1,6 +1,5 @@
 import { TextLink } from '@/components/base-ui/text-link';
 import { getAllPosts } from '@/features/blog/lib/blog';
-import { formatDate } from '@/lib/utils';
 
 export async function BlogList() {
   const allPosts = await getAllPosts();
@@ -12,9 +11,7 @@ export async function BlogList() {
           <TextLink href={blog.link} size="sm" className="min-w-0">
             {blog.title}
           </TextLink>
-          <span className="text-on-muted shrink-0 text-xs">
-            {formatDate(blog.pubDate)}
-          </span>
+          <span className="text-on-muted shrink-0 text-xs">{blog.pubDate}</span>
         </div>
       ))}
     </div>

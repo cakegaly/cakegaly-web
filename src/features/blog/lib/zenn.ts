@@ -1,6 +1,6 @@
 import 'server-only';
 
-import type { Article } from '@/features/blog/types';
+import type { Blog } from '@/features/blog/types';
 
 const ZENN_FEED_URL = 'https://zenn.dev/cakegaly/feed?all=1';
 
@@ -30,12 +30,12 @@ async function fetchZennRssFeed(url: string): Promise<string | null> {
   }
 }
 
-function parseZennRss(xml: string): Article[] {
+function parseZennRss(xml: string): Blog[] {
   const items = Array.from(xml.matchAll(/<item>([\s\S]*?)<\/item>/g)).map(
     (m) => m[1] ?? ''
   );
 
-  const articles: Article[] = [];
+  const articles: Blog[] = [];
 
   for (const item of items) {
     const title = getTagText(item, 'title');

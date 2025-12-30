@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import { badgeVariants } from '@/components/base-ui/badge';
 import { CustomMDX } from '@/components/content/custom-mdx';
-import { Callout } from '@/components/shared/callout';
 import { getBlogPostBySlug, getBlogPosts } from '@/features/blog/lib/blog';
 import { INTERNAL_BLOG_TAGS } from '@/features/blog/lib/config';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -79,30 +78,27 @@ export default async function BlogPostPage({
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-4">
-              <h1 className="text-2xl font-bold">{post.metadata.title}</h1>
-              {post.metadata.description && (
-                <Callout>{post.metadata.description}</Callout>
-              )}
-            </div>
-            <div className="flex flex-wrap items-center justify-between">
-              <div className="flex flex-wrap gap-2">
-                {post.metadata.tags &&
-                  post.metadata.tags.map((tag) => (
-                    <Link
-                      key={tag}
-                      href={`/tag/${tag}`}
-                      className={badgeVariants({ variant: 'outline' })}
-                    >
-                      {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
-                    </Link>
-                  ))}
+            <div className="flex flex-col gap-8">
+              <h1 className="text-xl font-medium">{post.metadata.title}</h1>
+              <div className="flex flex-wrap items-center justify-between">
+                <div className="flex flex-wrap gap-2">
+                  {post.metadata.tags &&
+                    post.metadata.tags.map((tag) => (
+                      <Link
+                        key={tag}
+                        href={`/tag/${tag}`}
+                        className={badgeVariants({ variant: 'outline' })}
+                      >
+                        {INTERNAL_BLOG_TAGS.find((t) => t.slug === tag)?.name}
+                      </Link>
+                    ))}
+                </div>
+                <p className="text-on-muted text-xs tracking-wide">
+                  <time dateTime={post.metadata.date}>
+                    {formatDate(post.metadata.date)}
+                  </time>
+                </p>
               </div>
-              <p className="text-on-muted text-sm tracking-wide">
-                <time dateTime={post.metadata.date}>
-                  {formatDate(post.metadata.date)}
-                </time>
-              </p>
             </div>
             <article>
               <CustomMDX source={post.rawContent} />

@@ -20,7 +20,7 @@ export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-28 text-2xl font-bold tracking-tight',
+        'mt-2 scroll-m-28 text-xl font-medium tracking-tight',
         className
       )}
       {...props}
@@ -65,6 +65,7 @@ export const mdxComponents = {
     return (
       <TextLink
         href={href}
+        size="md"
         className={className}
         {...(props as Omit<React.ComponentProps<'a'>, 'href' | 'children'>)}
       >

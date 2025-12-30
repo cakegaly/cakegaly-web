@@ -1,24 +1,24 @@
 import path from 'path';
 
 import { getZennArticles } from '@/features/blog/lib/zenn';
-import type { BlogPost } from '@/features/blog/types';
-import { Article } from '@/features/blog/types';
+import type { Blog, BlogPost } from '@/features/blog/types';
 import { getMDXData } from '@/lib/mdx';
+import { formatDate } from '@/lib/utils';
 
 const CONTENT_BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
 export async function getAllPosts() {
   const blogPosts = await getBlogPosts();
-  const internalPosts: Article[] = blogPosts.map((post) => ({
+  const internalPosts: Blog[] = blogPosts.map((post) => ({
     title: post.metadata.title,
-    pubDate: post.metadata.date,
+    pubDate: formatDate(post.metadata.date),
     link: `/blog/${post.slug}`,
   }));
 
   const zennPosts = await getZennArticles();
-  const externalPosts: Article[] = zennPosts.map((post) => ({
+  const externalPosts: Blog[] = zennPosts.map((post) => ({
     title: post.title,
-    pubDate: parseRFC2822Date(post.pubDate),
+    pubDate: formatDate(post.pubDate),
     link: post.link,
   }));
 
@@ -27,15 +27,6 @@ export async function getAllPosts() {
   return allPosts.sort((a, b) => {
     return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
   });
-}
-
-function parseRFC2822Date(dateString: string): string {
-  try {
-    const date = new Date(dateString);
-    return date.toISOString().split('T')[0];
-  } catch {
-    return dateString;
-  }
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
