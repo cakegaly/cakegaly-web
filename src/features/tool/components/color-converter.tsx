@@ -11,7 +11,7 @@ import {
   getContrastRatios,
   getFormattedColors,
   parseColor,
-} from '@/lib/culori';
+} from '@/features/tool/lib/culori';
 
 export function ColorConverter() {
   const [input, setInput] = useState('#ffffff');
