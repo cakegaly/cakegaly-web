@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { TagIcon } from 'lucide-react';
 
 import { TextLink } from '@/components/base-ui/text-link';
-import { INTERNAL_BLOG_TAGS } from '@/lib/config';
-import { getBlogPostsByTagSlug } from '@/lib/mdx';
+import { getBlogPostsByTagSlug } from '@/features/blog/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/features/blog/lib/config';
 import { formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-static';

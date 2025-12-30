@@ -4,15 +4,15 @@ import { notFound } from 'next/navigation';
 import { badgeVariants } from '@/components/base-ui/badge';
 import { CustomMDX } from '@/components/content/custom-mdx';
 import { Callout } from '@/components/shared/callout';
-import { INTERNAL_BLOG_TAGS } from '@/lib/config';
-import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
+import { getBlogPostBySlug, getBlogPosts } from '@/features/blog/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/features/blog/lib/config';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
 
 export async function generateStaticParams() {
-  const allPosts = await getAllBlogPosts();
+  const allPosts = await getBlogPosts();
   return allPosts.map((post) => ({
     slug: post.slug,
   }));

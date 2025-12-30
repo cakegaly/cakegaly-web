@@ -21,8 +21,8 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/cmdk/command-base';
-import { siteConfig } from '@/lib/config';
-import type { BlogPost } from '@/lib/mdx';
+import type { BlogPost } from '@/features/blog/types';
+import { tools } from '@/features/tool/lib/config';
 
 export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
   const router = useRouter();
@@ -90,7 +90,7 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
               ))}
             </CommandGroup>
             <CommandGroup heading="Tools">
-              {siteConfig.navItems.map((item) => {
+              {tools.map((item) => {
                 const Icon = item.icon;
                 return (
                   <CommandItem
