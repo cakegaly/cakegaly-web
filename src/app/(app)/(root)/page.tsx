@@ -1,4 +1,4 @@
-import { ProfileCard } from '@/components/content/profile-card';
+import { ProfileCard } from '@/components/shared/profile-card';
 import { BlogList } from '@/features/blog/components/blog-list';
 import { ToolList } from '@/features/tool/components/tool-list';
 

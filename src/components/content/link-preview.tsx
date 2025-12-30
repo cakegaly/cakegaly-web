@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { ExternalLinkIcon, LinkIcon } from 'lucide-react';
 
-import { getOGData } from '@/actions/fetch-og-metadata';
+import { getOGData } from '@/features/blog/actions/fetch-og-metadata';
 import { getBlogPostBySlug } from '@/features/blog/lib/blog';
 import { siteConfig } from '@/lib/config';
 import { cn } from '@/lib/utils';
