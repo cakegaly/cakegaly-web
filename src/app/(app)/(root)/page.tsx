@@ -18,7 +18,7 @@ export default async function IndexPage() {
             </div>
             <div className="flex flex-col gap-4">
               <h2 className="text-lg font-bold">Blogs</h2>
-              <BlogList withZenn limit={5} />
+              <BlogList withZenn limit={5} showMore />
             </div>
             <div className="flex flex-col gap-4">
               <h2 className="text-lg font-bold">Tools</h2>
