@@ -10,10 +10,10 @@ import {
   TableRow,
 } from '@/components/base-ui/table';
 import { TextLink } from '@/components/base-ui/text-link';
-import { CopyButton } from '@/components/content/copy-button';
 import { LinkPreview } from '@/components/content/link-preview';
 import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
 import { Callout } from '@/components/shared/callout';
+import { CopyButton } from '@/components/shared/copy-button';
 import { cn } from '@/lib/utils';
 
 export const mdxComponents = {
