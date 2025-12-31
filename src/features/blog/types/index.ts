@@ -14,4 +14,5 @@ export interface Blog {
 export interface BlogQuery {
   limit?: number;
   withZenn?: boolean;
+  tagSlug?: string;
 }

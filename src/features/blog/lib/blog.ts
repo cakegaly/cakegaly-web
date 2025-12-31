@@ -7,26 +7,29 @@ import { formatDate } from '@/lib/utils';
 
 const CONTENT_BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
-export async function getBlogs({ limit, withZenn }: BlogQuery) {
-  const blogPosts = await getBlogPosts();
+export async function getBlogs({
+  limit,
+  withZenn,
+  tagSlug,
+}: BlogQuery): Promise<Blog[]> {
+  const blogPosts: BlogPost[] = tagSlug
+    ? await getBlogPostsByTagSlug(tagSlug)
+    : await getBlogPosts();
   const internalPosts: Blog[] = blogPosts.map((post) => ({
     title: post.metadata.title,
     pubDate: formatDate(post.metadata.date),
     link: `/blog/${post.slug}`,
   }));
 
-  const zennPosts = await getZennArticles();
-  const externalPosts: Blog[] = zennPosts.map((post) => ({
-    title: post.title,
-    pubDate: formatDate(post.pubDate),
-    link: post.link,
-  }));
+  const externalPosts: Blog[] = withZenn
+    ? (await getZennArticles()).map((post) => ({
+        title: post.title,
+        pubDate: formatDate(post.pubDate),
+        link: post.link,
+      }))
+    : [];
 
-  const allPosts = withZenn
-    ? [...internalPosts, ...externalPosts]
-    : internalPosts;
-
-  return allPosts
+  return [...internalPosts, ...externalPosts]
     .sort((a, b) => {
       return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
     })
