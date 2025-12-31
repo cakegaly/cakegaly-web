@@ -10,3 +10,8 @@ export interface Blog {
   link: string;
   pubDate: string;
 }
+
+export interface BlogQuery {
+  limit?: number;
+  withZenn?: boolean;
+}

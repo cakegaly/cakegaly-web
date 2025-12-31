@@ -1,8 +1,9 @@
 import { TextLink } from '@/components/base-ui/text-link';
-import { getAllPosts } from '@/features/blog/lib/blog';
+import { getBlogs } from '@/features/blog/lib/blog';
+import { BlogQuery } from '@/features/blog/types';
 
-export async function BlogList() {
-  const allPosts = await getAllPosts();
+export async function BlogList({ limit, withZenn }: BlogQuery) {
+  const allPosts = await getBlogs({ limit, withZenn });
 
   return (
     <div className="flex flex-col gap-4">
