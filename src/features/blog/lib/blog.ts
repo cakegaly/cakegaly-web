@@ -12,14 +12,14 @@ export async function getBlogs({
   withZenn,
   tagSlug,
 }: BlogQuery): Promise<Blog[]> {
-  const blogPosts: BlogPost[] = tagSlug
-    ? await getBlogPostsByTagSlug(tagSlug)
-    : await getBlogPosts();
-  const internalPosts: Blog[] = blogPosts.map((post) => ({
-    title: post.metadata.title,
-    pubDate: formatDate(post.metadata.date),
-    link: `/blog/${post.slug}`,
-  }));
+  const blogPosts = await getBlogPosts();
+  const internalPosts: Blog[] = blogPosts
+    .filter((post) => (tagSlug ? post.metadata.tags?.includes(tagSlug) : true))
+    .map((post) => ({
+      title: post.metadata.title,
+      pubDate: formatDate(post.metadata.date),
+      link: `/blog/${post.slug}`,
+    }));
 
   const externalPosts: Blog[] = withZenn
     ? (await getZennArticles()).map((post) => ({
@@ -42,13 +42,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
   );
-}
-
-export async function getBlogPostsByTagSlug(
-  tagSlug: string
-): Promise<BlogPost[]> {
-  const posts = await getBlogPosts();
-  return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
 }
 
 export async function getBlogPostBySlug(slug: string) {
