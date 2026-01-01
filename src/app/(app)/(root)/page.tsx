@@ -31,7 +31,7 @@ export default async function IndexPage() {
                   <ChevronRightIcon className="size-3.5" />
                 </Link>
               </div>
-              <BlogList withZenn limit={4} />
+              <BlogList withZenn limit={5} />
             </div>
             <div className="flex flex-col gap-4">
               <h2 className="font-medium">Tools</h2>
