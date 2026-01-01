@@ -6,9 +6,12 @@ export async function BlogList({ limit, withZenn, tagSlug }: BlogQuery) {
   const allPosts = await getBlogs({ limit, withZenn, tagSlug });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="@container flex flex-col gap-4">
       {allPosts.map((blog, i) => (
-        <div key={i} className="flex justify-between gap-2">
+        <div
+          key={i}
+          className="flex flex-col gap-2 @md:flex-row @md:justify-between"
+        >
           <TextLink href={blog.link} size="sm" className="min-w-0">
             {blog.title}
           </TextLink>
