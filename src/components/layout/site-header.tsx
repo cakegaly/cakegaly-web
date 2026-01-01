@@ -1,5 +1,4 @@
 import { CommandMenu } from '@/components/cmdk/command-menu';
-import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { cn } from '@/lib/utils';
 
 export function SiteHeader({
@@ -20,7 +19,6 @@ export function SiteHeader({
             </Link> */}
             <div className="ml-auto flex items-center gap-1">
               <CommandMenu />
-              <ModeSwitcher />
             </div>
           </div>
         </div>
