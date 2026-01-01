@@ -20,7 +20,7 @@ export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-28 text-xl font-medium tracking-tight',
+        'mt-2 scroll-m-28 text-lg font-medium tracking-tight',
         className
       )}
       {...props}
@@ -29,8 +29,8 @@ export const mdxComponents = {
   h2: ({ className, ...props }: React.ComponentProps<'h2'>) => (
     <h2
       className={cn(
-        'border-accent/50 mt-12 scroll-m-20 border-b pb-2 text-xl font-medium tracking-tight first:mt-0',
-        "before:text-on-muted before:mr-1.5 before:text-xl before:content-['##']",
+        'border-accent/50 mt-12 scroll-m-20 border-b pb-2 text-lg font-medium tracking-tight first:mt-0',
+        "before:text-on-muted before:mr-1.5 before:text-lg before:content-['##']",
         className
       )}
       {...props}

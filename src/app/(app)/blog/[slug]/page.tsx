@@ -79,7 +79,15 @@ export default async function BlogPostPage({
         <div className="container py-32">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-8">
-              <h1 className="text-xl font-medium">{post.metadata.title}</h1>
+              <div className="flex flex-col gap-2">
+                <h1 className="text-lg font-medium">{post.metadata.title}</h1>
+                <time
+                  dateTime={post.metadata.date}
+                  className="text-on-muted text-xs"
+                >
+                  {formatDate(post.metadata.date)}
+                </time>
+              </div>
               <div className="flex flex-wrap items-center justify-between">
                 <div className="flex flex-wrap gap-2">
                   {post.metadata.tags &&
@@ -93,11 +101,6 @@ export default async function BlogPostPage({
                       </Link>
                     ))}
                 </div>
-                <p className="text-on-muted text-xs tracking-wide">
-                  <time dateTime={post.metadata.date}>
-                    {formatDate(post.metadata.date)}
-                  </time>
-                </p>
               </div>
             </div>
             <article>
