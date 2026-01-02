@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
+import { buttonVariants } from '@/components/base-ui/button';
+import { TextLink } from '@/components/base-ui/text-link';
 import { ProfileCard } from '@/components/content/profile-card';
-import { Button } from '@/components/ui/button';
-import { TextLink } from '@/components/ui/text-link';
 import { getAllPosts } from '@/lib/articles';
 import { siteConfig } from '@/lib/config';
 import { formatDate } from '@/lib/utils';
@@ -44,12 +44,17 @@ export default async function IndexPage() {
                 {siteConfig.navItems.map((tool, i) => {
                   const Icon = tool.icon;
                   return (
-                    <Button key={i} variant="ghost" size="sm" asChild>
-                      <Link href={tool.href}>
-                        <Icon />
-                        {tool.title}
-                      </Link>
-                    </Button>
+                    <Link
+                      key={i}
+                      href={tool.href}
+                      className={buttonVariants({
+                        variant: 'ghost',
+                        size: 'sm',
+                      })}
+                    >
+                      <Icon />
+                      {tool.title}
+                    </Link>
                   );
                 })}
               </div>

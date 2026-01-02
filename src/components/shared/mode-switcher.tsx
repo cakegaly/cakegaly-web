@@ -4,7 +4,7 @@ import * as React from 'react';
 import { SunMoonIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/base-ui/button';
 import { useMetaColor } from '@/hooks/use-meta-color';
 
 export function ModeSwitcher() {
