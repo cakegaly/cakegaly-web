@@ -14,8 +14,8 @@ export default async function IndexPage() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="container-wrapper">
-        <div className="container py-32">
-          <div className="flex flex-col gap-8">
+        <div className="container py-12">
+          <div className="flex flex-col gap-16">
             <div className="flex flex-col">
               <h1 className="sr-only">{siteConfig.name}</h1>
               <ProfileCard />

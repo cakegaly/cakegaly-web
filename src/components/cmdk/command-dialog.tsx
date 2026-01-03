@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { PenLineIcon, SearchIcon } from 'lucide-react';
+import { CommandIcon, PenLineIcon } from 'lucide-react';
 
 import { buttonVariants } from '@/components/base-ui/button';
 import {
@@ -61,7 +61,7 @@ export function CommandDialog({ blogPosts }: { blogPosts: BlogPost[] }) {
         onClick={() => setOpen(true)}
         aria-label="Search"
       >
-        <SearchIcon />
+        <CommandIcon />
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
