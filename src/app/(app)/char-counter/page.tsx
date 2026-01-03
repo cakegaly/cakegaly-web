@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { CharCounter } from '@/components/tools/char-counter';
+import { CharCounter } from '@/features/tool/components/char-counter';
 
 const title = '文字数カウント';
 const description = '入力されたテキストの文字数を数えます。';

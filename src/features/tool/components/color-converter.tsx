@@ -5,13 +5,13 @@ import type { Color, Hsl, Oklch, Rgb } from 'culori';
 import { converter, formatHex, formatHsl, formatRgb } from 'culori';
 
 import { Input } from '@/components/base-ui/input';
-import { CopyButton } from '@/components/content/copy-button';
+import { CopyButton } from '@/components/shared/copy-button';
 import {
   formatOklch,
   getContrastRatios,
   getFormattedColors,
   parseColor,
-} from '@/lib/culori';
+} from '@/features/tool/lib/culori';
 
 export function ColorConverter() {
   const [input, setInput] = useState('#ffffff');

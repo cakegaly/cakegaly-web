@@ -22,8 +22,8 @@ export function ModeSwitcher() {
   return (
     <Button
       variant="ghost"
-      size="icon-md"
-      className="group/toggle extend-touch-target"
+      size="icon-sm"
+      className="group/toggle extend-touch-target fixed right-1 bottom-1 z-50"
       onClick={toggleTheme}
       title="Toggle theme"
     >

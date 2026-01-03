@@ -1,17 +1,11 @@
 import { NextResponse } from 'next/server';
 
+import { getBlogPosts } from '@/features/blog/lib/blog';
 import { siteConfig } from '@/lib/config';
-import { getAllBlogPosts } from '@/lib/mdx';
 
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
-  const posts = await getAllBlogPosts();
-
-  const sortedPosts = posts.sort((a, b) => {
-    return (
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
-    );
-  });
+  const posts = await getBlogPosts();
 
   const rssXml = `
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -22,7 +16,7 @@ export async function GET() {
         <language>ja</language>
         <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
         <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml"/>
-        ${sortedPosts
+        ${posts
           .map((post) => {
             return `
               <item>

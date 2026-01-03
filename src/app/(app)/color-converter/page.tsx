@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { ColorConverter } from '@/components/tools/color-converter';
+import { ColorConverter } from '@/features/tool/components/color-converter';
 
 const title = 'カラーコード変換';
 const description = 'hex, hsl, rgb, oklch でカラーコードを変換します。';
