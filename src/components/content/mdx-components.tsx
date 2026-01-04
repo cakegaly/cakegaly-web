@@ -10,17 +10,17 @@ import {
   TableRow,
 } from '@/components/base-ui/table';
 import { TextLink } from '@/components/base-ui/text-link';
-import { CopyButton } from '@/components/content/copy-button';
 import { LinkPreview } from '@/components/content/link-preview';
 import { getIconForLanguageExtension } from '@/components/shared/brand-icons';
 import { Callout } from '@/components/shared/callout';
+import { CopyButton } from '@/components/shared/copy-button';
 import { cn } from '@/lib/utils';
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
     <h1
       className={cn(
-        'mt-2 scroll-m-28 text-2xl font-bold tracking-tight',
+        'mt-2 scroll-m-28 text-lg font-medium tracking-tight',
         className
       )}
       {...props}
@@ -29,7 +29,8 @@ export const mdxComponents = {
   h2: ({ className, ...props }: React.ComponentProps<'h2'>) => (
     <h2
       className={cn(
-        'border-accent/50 mt-12 scroll-m-20 border-b pb-2 text-xl font-medium tracking-tight first:mt-0',
+        'border-border mt-12 scroll-m-20 border-b pb-2 text-lg font-medium tracking-tight first:mt-0',
+        "before:text-on-canvas before:mr-1.5 before:text-lg before:content-['##']",
         className
       )}
       {...props}
@@ -39,6 +40,7 @@ export const mdxComponents = {
     <h3
       className={cn(
         'mt-8 scroll-m-20 text-lg font-medium tracking-tight',
+        "before:text-on-canvas before:mr-1.5 before:text-lg before:content-['###']",
         className
       )}
       {...props}
@@ -48,6 +50,7 @@ export const mdxComponents = {
     <h4
       className={cn(
         'mt-8 scroll-m-20 text-base font-medium tracking-tight',
+        "before:text-on-canvas before:mr-1.5 before:text-base before:content-['####']",
         className
       )}
       {...props}
@@ -65,6 +68,7 @@ export const mdxComponents = {
     return (
       <TextLink
         href={href}
+        size="md"
         className={className}
         {...(props as Omit<React.ComponentProps<'a'>, 'href' | 'children'>)}
       >

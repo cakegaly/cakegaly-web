@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { CharCounter } from '@/components/tools/char-counter';
+import { CharCounter } from '@/features/tool/components/char-counter';
 
 const title = '文字数カウント';
 const description = '入力されたテキストの文字数を数えます。';
@@ -16,7 +16,7 @@ export default function CharCounterPage() {
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-col gap-1">
-            <h1 className="text-on-background text-2xl font-bold">{title}</h1>
+            <h1 className="text-on-background text-lg font-medium">{title}</h1>
             <p className="text-on-muted text-sm">{description}</p>
           </div>
         </div>

@@ -21,6 +21,12 @@ const links = [
     icon: BrandIcons.gitHub,
   },
   {
+    title: 'Zenn (/cakegaly)',
+    label: 'Zenn',
+    href: siteConfig.links.zenn,
+    icon: BrandIcons.zenn,
+  },
+  {
     title: 'Email (cakegaly -at- gmail -dot- com)',
     label: 'Email',
     href: `mailto:${siteConfig.email}`,
@@ -40,7 +46,7 @@ export function ProfileCard() {
       <div className="flex items-center gap-2">
         <Avatar src={profilePic.src} alt={siteConfig.author.name} size="lg" />
         <div className="flex min-w-0 flex-col gap-1">
-          <p className="text-base font-bold">{siteConfig.author.name}</p>
+          <p className="text-base font-medium">{siteConfig.author.name}</p>
           <p className="text-on-muted text-xs">{siteConfig.author.bio}</p>
         </div>
       </div>

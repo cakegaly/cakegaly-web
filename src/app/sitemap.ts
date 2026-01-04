@@ -1,35 +1,35 @@
 import type { MetadataRoute } from 'next';
 
-import { INTERNAL_BLOG_TAGS, siteConfig } from '@/lib/config';
-import { getAllBlogPosts } from '@/lib/mdx';
+import { getBlogPosts } from '@/features/blog/lib/blog';
+import { INTERNAL_BLOG_TAGS } from '@/features/blog/lib/config';
+import { tools } from '@/features/tool/lib/config';
+import { siteConfig } from '@/lib/config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
 
-  const posts = await getAllBlogPosts();
-
-  const blogEntries = posts.map((post) => ({
+  const posts = await getBlogPosts();
+  const blogPages = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.metadata.date),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
   }));
 
-  const tagEntries = INTERNAL_BLOG_TAGS.map((tag) => ({
+  const tagPages = INTERNAL_BLOG_TAGS.map((tag) => ({
     url: `${baseUrl}/tag/${tag.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
+  }));
+
+  const toolPages = tools.map((tool) => ({
+    url: `${baseUrl}${tool.href}`,
   }));
 
   const staticPages = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/blog`,
     },
   ];
 
-  return [...staticPages, ...blogEntries, ...tagEntries];
+  return [...staticPages, ...blogPages, ...tagPages, ...toolPages];
 }
