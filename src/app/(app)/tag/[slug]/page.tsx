@@ -46,7 +46,7 @@ export default async function TagPage({
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-col gap-8">
-            <h1 className="text-lg font-bold">{tag.name}</h1>
+            <h1 className="text-lg font-medium">{tag.name}</h1>
             <TagList activeSlug={tag.slug} />
             <BlogList tagSlug={tag.slug} />
           </div>

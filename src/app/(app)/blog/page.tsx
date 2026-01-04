@@ -18,7 +18,7 @@ export default async function BlogListPage() {
       <div className="container-wrapper">
         <div className="container py-6">
           <div className="flex flex-col gap-8">
-            <h1 className="text-lg font-bold">{title}</h1>
+            <h1 className="text-lg font-medium">{title}</h1>
             <TagList activeSlug="all" />
             <BlogList withZenn />
           </div>
