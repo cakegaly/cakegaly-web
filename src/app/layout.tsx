@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { TailwindIndicator } from '@/components/shared/tailwind-indicator';
 import { ThemeProvider } from '@/components/shared/theme-provider';
 import { META_THEME_COLORS, siteConfig } from '@/lib/config';
@@ -87,7 +86,6 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <TailwindIndicator />
-          <ModeSwitcher />
         </ThemeProvider>
       </body>
     </html>
