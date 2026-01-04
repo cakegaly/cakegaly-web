@@ -1,4 +1,4 @@
-import { CommandMenu } from '@/components/cmdk/command-menu';
+import { NavDrawer } from '@/components/layout/nav-drawer';
 import { cn } from '@/lib/utils';
 
 export function SiteHeader({
@@ -10,15 +10,8 @@ export function SiteHeader({
       <div className="container-wrapper">
         <div className="container max-w-none">
           <div className="flex h-14 items-center">
-            {/* <Link
-              href="/"
-              className={buttonVariants({ variant: 'ghost', size: 'icon-md' })}
-            >
-              <SiteLogoSmile className="size-8" />
-              <span className="sr-only">{siteConfig.name}</span>
-            </Link> */}
             <div className="ml-auto flex items-center gap-1">
-              <CommandMenu />
+              <NavDrawer />
             </div>
           </div>
         </div>
