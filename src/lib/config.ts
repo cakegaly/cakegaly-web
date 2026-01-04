@@ -19,22 +19,22 @@ export const siteConfig = {
   },
   navItems: [
     {
-      title: 'Home',
+      title: 'ホーム',
       href: '/',
       icon: HomeIcon,
     },
     {
-      title: 'Writing',
+      title: 'ブログ',
       href: '/blog',
       icon: PenLineIcon,
     },
     {
-      title: 'Char Counter',
+      title: '文字数カウント',
       href: '/char-counter',
       icon: TypeIcon,
     },
     {
-      title: 'Color Converter',
+      title: 'カラーコード変換',
       href: '/color-converter',
       icon: PaletteIcon,
     },

@@ -6,6 +6,7 @@ import { PanelBottomCloseIcon, PanelBottomIcon } from 'lucide-react';
 import { Drawer } from 'vaul';
 
 import { buttonVariants } from '@/components/base-ui/button';
+import { ModeSwitcher } from '@/components/shared/mode-switcher';
 import { siteConfig } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -45,7 +46,7 @@ export function NavDrawer() {
                 {siteConfig.navItems.map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <Drawer.Close key={i} onClick={() => setOpen(false)}>
+                    <Drawer.Close key={i} asChild>
                       <Link
                         href={item.href}
                         className={buttonVariants({
@@ -59,6 +60,9 @@ export function NavDrawer() {
                     </Drawer.Close>
                   );
                 })}
+              </div>
+              <div className="mt-auto flex flex-col gap-2 p-4">
+                <ModeSwitcher />
               </div>
             </div>
           </div>
