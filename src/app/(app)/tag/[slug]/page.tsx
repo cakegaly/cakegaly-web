@@ -1,16 +1,32 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { TagIcon } from 'lucide-react';
 
-import { TextLink } from '@/components/base-ui/text-link';
-import { INTERNAL_BLOG_TAGS } from '@/lib/config';
-import { getBlogPostsByTagSlug } from '@/lib/mdx';
-import { formatDate } from '@/lib/utils';
+import { BlogList } from '@/features/blog/components/blog-list';
+import { TagList } from '@/features/blog/components/tag-list';
+import { INTERNAL_BLOG_TAGS } from '@/features/blog/lib/config';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
 
 export function generateStaticParams() {
   return INTERNAL_BLOG_TAGS.map((tag) => ({ slug: tag.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = INTERNAL_BLOG_TAGS.find((tag) => tag.slug === slug);
+
+  if (!tag) {
+    return {};
+  }
+
+  return {
+    title: `${tag.name}`,
+  };
 }
 
 export default async function TagPage({
@@ -25,42 +41,14 @@ export default async function TagPage({
     return notFound();
   }
 
-  const posts = await getBlogPostsByTagSlug(tag.slug);
-
   return (
     <div className="flex flex-1 flex-col">
       <div className="container-wrapper">
         <div className="container py-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-muted flex size-12 items-center justify-center rounded-lg">
-              <TagIcon className="text-on-muted size-6" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h1 className="text-on-background text-2xl font-bold">
-                {tag.name}
-              </h1>
-              <p className="text-on-muted text-sm">{posts.length}件の記事</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-wrapper">
-        <div className="container py-6">
-          <div className="flex flex-col gap-4">
-            {posts.map((blog, i) => (
-              <div key={i} className="flex justify-between gap-2">
-                <TextLink
-                  href={`/blog/${blog.slug}`}
-                  size="sm"
-                  className="min-w-0"
-                >
-                  {blog.metadata.title}
-                </TextLink>
-                <span className="text-on-muted shrink-0 text-xs">
-                  {formatDate(blog.metadata.date)}
-                </span>
-              </div>
-            ))}
+          <div className="flex flex-col gap-8">
+            <h1 className="text-lg font-medium">{tag.name}</h1>
+            <TagList activeSlug={tag.slug} />
+            <BlogList tagSlug={tag.slug} />
           </div>
         </div>
       </div>
