@@ -14,7 +14,7 @@ export function NavDrawer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Drawer.Root open={open} onOpenChange={setOpen}>
+    <Drawer.Root open={open} onOpenChange={setOpen} autoFocus={true}>
       <Drawer.Trigger
         className={cn(
           'relative',
