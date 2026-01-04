@@ -1,23 +1,26 @@
 'use client';
 
-import { PanelBottomIcon } from 'lucide-react';
+import { useState } from 'react';
+import Link from 'next/link';
+import { PanelBottomCloseIcon, PanelBottomIcon } from 'lucide-react';
 import { Drawer } from 'vaul';
 
 import { buttonVariants } from '@/components/base-ui/button';
-import { NavItems } from '@/components/shared/nav-items';
 import { siteConfig } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 export function NavDrawer() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Drawer.Root>
+    <Drawer.Root open={open} onOpenChange={setOpen}>
       <Drawer.Trigger
         className={cn(
           'relative',
           buttonVariants({ variant: 'ghost', size: 'sm' })
         )}
       >
-        <PanelBottomIcon />
+        {open ? <PanelBottomCloseIcon /> : <PanelBottomIcon />}
         Menu
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -38,7 +41,25 @@ export function NavDrawer() {
               <Drawer.Description className="sr-only">
                 {siteConfig.author.bio}
               </Drawer.Description>
-              <NavItems />
+              <div className="flex flex-wrap gap-2">
+                {siteConfig.navItems.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <Drawer.Close key={i} onClick={() => setOpen(false)}>
+                      <Link
+                        href={item.href}
+                        className={buttonVariants({
+                          variant: 'ghost',
+                          size: 'sm',
+                        })}
+                      >
+                        <Icon />
+                        {item.title}
+                      </Link>
+                    </Drawer.Close>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </Drawer.Content>

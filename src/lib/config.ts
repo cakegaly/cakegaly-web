@@ -1,3 +1,5 @@
+import { HomeIcon, PaletteIcon, PenLineIcon, TypeIcon } from 'lucide-react';
+
 export const siteConfig = {
   name: 'cakegaly.com',
   description: '技術のことや日々のことを、のんびりと書き残すブログです。',
@@ -15,6 +17,28 @@ export const siteConfig = {
     name: 'cakegaly',
     bio: 'Software Engineer',
   },
+  navItems: [
+    {
+      title: 'Home',
+      href: '/',
+      icon: HomeIcon,
+    },
+    {
+      title: 'Writing',
+      href: '/blog',
+      icon: PenLineIcon,
+    },
+    {
+      title: 'Char Counter',
+      href: '/char-counter',
+      icon: TypeIcon,
+    },
+    {
+      title: 'Color Converter',
+      href: '/color-converter',
+      icon: PaletteIcon,
+    },
+  ],
 };
 
 export const META_THEME_COLORS = {
