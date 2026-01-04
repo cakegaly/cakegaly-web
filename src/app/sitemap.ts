@@ -19,12 +19,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const toolPages = tools.map((tool) => ({
-    url: `${baseUrl}/${tool.href}`,
+    url: `${baseUrl}${tool.href}`,
   }));
 
   const staticPages = [
     {
       url: baseUrl,
+    },
+    {
+      url: `${baseUrl}/blog`,
     },
   ];
 
