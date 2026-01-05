@@ -1,7 +1,3 @@
-import Link from 'next/link';
-import { ChevronRightIcon } from 'lucide-react';
-
-import { buttonVariants } from '@/components/base-ui/button';
 import { ProfileCard } from '@/components/shared/profile-card';
 import { BlogList } from '@/features/blog/components/blog-list';
 import { ToolList } from '@/features/tool/components/tool-list';
@@ -21,21 +17,14 @@ export default async function IndexPage() {
               <ProfileCard />
             </div>
             <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-4">
                 <h2 className="font-medium">Writing</h2>
-                <Link
-                  href="/blog"
-                  className={buttonVariants({ variant: 'ghost', size: 'sm' })}
-                >
-                  All Writing
-                  <ChevronRightIcon className="size-3.5" />
-                </Link>
+                <BlogList withZenn limit={5} showMore />
               </div>
-              <BlogList withZenn limit={5} />
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="font-medium">Tools</h2>
-              <ToolList />
+              <div className="flex flex-col gap-4">
+                <h2 className="font-medium">Tools</h2>
+                <ToolList />
+              </div>
             </div>
           </div>
         </div>
