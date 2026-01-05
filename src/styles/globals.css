@@ -93,7 +93,7 @@
     @apply bg-selected text-on-selected;
   }
   html {
-    @apply overscroll-y-none scroll-smooth;
+    @apply scroll-smooth;
   }
   body {
     font-synthesis-weight: none;
