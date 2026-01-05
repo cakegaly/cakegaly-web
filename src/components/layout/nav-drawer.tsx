@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { PanelBottomCloseIcon, PanelBottomIcon } from 'lucide-react';
+import { PanelBottomCloseIcon, PanelBottomOpenIcon } from 'lucide-react';
 import { Drawer } from 'vaul';
 
 import { buttonVariants } from '@/components/base-ui/button';
@@ -21,7 +21,7 @@ export function NavDrawer() {
           buttonVariants({ variant: 'ghost', size: 'sm' })
         )}
       >
-        {open ? <PanelBottomCloseIcon /> : <PanelBottomIcon />}
+        {open ? <PanelBottomCloseIcon /> : <PanelBottomOpenIcon />}
         Menu
       </Drawer.Trigger>
       <Drawer.Portal>
