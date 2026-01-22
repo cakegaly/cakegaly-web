@@ -33,7 +33,8 @@
     "react-dom": "19.2.3",
     "rehype-pretty-code": "^0.14.1",
     "shiki": "^3.4.2",
-    "tailwind-merge": "^3.3.0"
+    "tailwind-merge": "^3.3.0",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
