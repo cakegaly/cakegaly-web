@@ -11,7 +11,9 @@ tags:
 
 ## はじめに
 
-以前、[Next.js 15 における ESLint の Flat Config 移行手順](/blog/eslint-prettier-flat-config)についてまとめました。
+以前、Next.js 15 における ESLint の Flat Config 移行手順についてまとめました。
+
+<LinkPreview url="/blog/eslint-prettier-flat-config" />
 
 2025/03 時点では、`eslint-config-next` が Flat Config に未対応でした。Flat Config で設定するためには、`FlatCompat` を駆使するか、React や Next.js のプラグインを個別にインストールして設定する必要がありました。
 当時はあまり気にしていませんでしたが、設定ファイルは約 80 行、依存パッケージも 6 個と、(Linter のためだけに) やや複雑な構成になっていました。
