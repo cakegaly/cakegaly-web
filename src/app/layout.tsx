@@ -77,12 +77,7 @@ export default function RootLayout({
         />
         <meta name="theme-color" content={META_THEME_COLORS.light} />
       </head>
-      <body
-        className={cn(
-          'group/body overscroll-none font-sans antialiased',
-          fontVariables
-        )}
-      >
+      <body className={cn('bg-canvas font-sans antialiased', fontVariables)}>
         <ThemeProvider>
           {children}
           <TailwindIndicator />
